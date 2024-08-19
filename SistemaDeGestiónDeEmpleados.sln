@@ -5,6 +5,11 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaDeGestiónDeEmpleados", "SistemaDeGestiónDeEmpleados\SistemaDeGestiónDeEmpleados.csproj", "{7301E901-E2E7-41A5-AFE1-9258D813AF47}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notas", "notas", "{A214A10A-1810-4E47-A160-B32289F95578}"
+	ProjectSection(SolutionItems) = preProject
+		..\Guia del proyecto.txt = ..\Guia del proyecto.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
