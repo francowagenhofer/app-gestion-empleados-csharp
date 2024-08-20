@@ -8,11 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notas", "notas", "{A214A10A-1810-4E47-A160-B32289F95578}"
 	ProjectSection(SolutionItems) = preProject
 		..\Guia del proyecto.txt = ..\Guia del proyecto.txt
+		..\Notas del proyecto.txt = ..\Notas del proyecto.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{3C123448-3380-4D22-93D9-713886E826DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.csproj", "{3C123448-3380-4D22-93D9-713886E826DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{BCD680E8-4F05-4029-8227-5D19F193F6AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Negocio", "Negocio\Negocio.csproj", "{BCD680E8-4F05-4029-8227-5D19F193F6AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
