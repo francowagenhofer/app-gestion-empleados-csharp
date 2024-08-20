@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaDeGestiónDeEmpleado
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notas", "notas", "{A214A10A-1810-4E47-A160-B32289F95578}"
 	ProjectSection(SolutionItems) = preProject
+		..\Descripcion del proyecto.txt = ..\Descripcion del proyecto.txt
 		..\Guia del proyecto.txt = ..\Guia del proyecto.txt
 		..\Notas del proyecto.txt = ..\Notas del proyecto.txt
 	EndProjectSection
