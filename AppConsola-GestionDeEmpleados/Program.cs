@@ -121,7 +121,9 @@ namespace AppDeConsola
                     Console.WriteLine("1. Añadir Empleado general");
                     Console.WriteLine("2. Añadir Gerente");
                     Console.WriteLine("3. Añadir Director");
-                    Console.WriteLine("4. Volver al Menú Principal");
+                    Console.WriteLine();
+                    Console.WriteLine("4. Volver a Amdinistrar Empleados");
+                    Console.WriteLine("5. Volver al Menú Principal");
                     Console.WriteLine();
                     Console.Write("Selecciona una opción: ");
 
@@ -137,6 +139,8 @@ namespace AppDeConsola
                             EmpleadoNegocio.AgregarEmpleado(new Director());
                             break;
                         case "4":
+                            return;  // Vuelve al menú principal
+                        case "5":
                             return;  // Vuelve al menú principal
                         default:
                             Console.WriteLine();
@@ -158,6 +162,15 @@ namespace AppDeConsola
 
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 

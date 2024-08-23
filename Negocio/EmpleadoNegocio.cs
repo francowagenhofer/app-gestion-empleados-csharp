@@ -13,6 +13,12 @@ namespace Negocio
     {
         static List<Empleado> empleados = new List<Empleado>();
 
+        MetodosAuxiliares metodosAuxiliares = new MetodosAuxiliares();
+        Bonos bonos = new Bonos();
+        Salarios salarios = new Salarios();
+        Reportes reportes = new Reportes();
+
+
         public static void ListaEmpleados()
         {
             try
@@ -20,29 +26,225 @@ namespace Negocio
                 if (empleados.Count == 0)
                 {
                     Console.WriteLine();
-                    MostrarMensaje("No hay empleados registrados.");
+                    MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
                     return;
                 }
 
-                // falta agregar el tipo de empleado que es
                 Console.WriteLine("\nLista de Empleados:");
+                
+                // opcion 1
+                //for (int i = 0; i < empleados.Count; i++)
+                //{
+                //    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}.");
+                //}
+
+                // opcion 2
                 for (int i = 0; i < empleados.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}, puesto: (agregar logica) ");
-                    
-                    //, Salario: { empleados[i].CalcularSalario():C}
-
+                    string tipoEmpleado = empleados[i] is Gerente ? "Gerente" : empleados[i] is Director ? "Director" : "Operativo";
+                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}, puesto: {tipoEmpleado}, Salario: {empleados[i].CalcularSalario():C}");
                 }
 
+                Console.WriteLine();
                 ContadorEmpleados();
 
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error: {ex.Message}");
+                MetodosAuxiliares.MostrarMensaje($"Error: {ex.Message}");
             }
         }
 
+        public static void BuscarEmpleado()
+        {
+            try
+            {
+                if (empleados.Count == 0)
+                {
+                    Console.WriteLine();
+                    MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
+                    return;
+                }
+
+                Console.Write("\nIngrese el nombre o apellido del empleado a buscar: ");
+                string criterio = Console.ReadLine().ToLower();
+                var resultados = empleados.Where(e => e.Nombre.ToLower().Contains(criterio) || e.Apellido.ToLower().Contains(criterio)).ToList();
+
+                if (resultados.Count > 0)
+                {
+                    foreach (var empleado in resultados)
+                    {
+                        Console.WriteLine($"\nEmpleado encontrado: {empleado.Nombre} {empleado.Apellido}, Salario Final: {empleado.CalcularSalario()}");
+                        // agregar el tipo de empleado
+                    }
+                }
+                else
+                {
+                    MetodosAuxiliares.MostrarMensaje("No se encontraron empleados con ese criterio.");
+                }
+                Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"Error al buscar empleado: {ex.Message}");
+            }
+        }
+
+        public static void AgregarEmpleado(Empleado empleado)
+        {
+            Salarios salarios = new Salarios();
+            try
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Ingrese los datos del {empleado.GetType().Name.ToLower()}:");
+                empleado.Nombre = MetodosAuxiliares.LeerDato("Nombre");
+                empleado.Apellido = MetodosAuxiliares.LeerDato("Apellido");
+                empleado.Edad = Convert.ToInt32(MetodosAuxiliares.LeerDato("Edad"));
+
+                // Asignación automática del salario base por categoría
+                Salarios.AsignarSalarioPorCategoria(empleado);
+
+                empleados.Add(empleado);
+
+                Console.WriteLine();
+                Console.WriteLine($"{empleado.GetType().Name}, {empleado.Nombre} {empleado.Apellido}, {empleado.Edad} años, Salario Base: {empleado.SalarioBase:C}");
+                MetodosAuxiliares.MostrarMensaje("Empleado agregado exitosamente.");
+                Console.WriteLine();
+
+                // Preguntar si se desean asignar bonos
+                Console.WriteLine("¿Desea asignar bonos al empleado? (S/N): ");
+                string opcionBonos = Console.ReadLine();
+                if (opcionBonos.ToUpper() == "S")
+                {
+                    Bonos.AsignarBonos(empleado);  // Método para asignar bonos
+                }
+            }
+            catch (FormatException)
+            {
+                MetodosAuxiliares.MostrarMensaje("Formato de entrada incorrecto. Inténtalo de nuevo.");
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"Error inesperado: {ex.Message}");
+            }
+        }
+
+        public static void ModificarEmpleado()
+        {
+            try
+            {
+                if (empleados.Count == 0)
+                {
+                    Console.WriteLine();
+                    MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
+                    return;
+                }
+
+                ListaEmpleados();
+                Console.WriteLine("Enter para continuar\n");
+
+                int indice = MetodosAuxiliares.ObtenerIndiceEmpleado();
+                if (indice != -1)
+                {
+                    var empleado = empleados[indice];
+                    empleado.Nombre = MetodosAuxiliares.LeerDato("Nombre", empleado.Nombre);
+                    empleado.Apellido = MetodosAuxiliares.LeerDato("Apellido", empleado.Apellido);
+                    empleado.Edad = Convert.ToInt32(MetodosAuxiliares.LeerDato("Edad", empleado.Edad.ToString()));
+                    empleado.SalarioBase = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Salario Base", empleado.SalarioBase.ToString()));
+                    MetodosAuxiliares.MostrarMensaje("Datos actualizados correctamente.");
+                }
+            }
+            catch (FormatException fe)
+            {
+                Console.WriteLine();
+                MetodosAuxiliares.MostrarMensaje("Formato de entrada incorrecto. Inténtalo de nuevo.");
+                Console.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                MetodosAuxiliares.MostrarMensaje($"Error al modificar empleado: {ex.Message}");
+                Console.WriteLine();
+
+            }
+        }
+
+
+        // Opcion 1
+        //public static void EliminarEmpleado()
+        //{
+        //    // me gustaria tener un alerta al eliminar.. que no se elimine sin confirmar la eliminacion
+        //    try
+        //    {
+        //        if (empleados.Count == 0)
+        //        {
+        //            Console.WriteLine();
+        //            MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
+        //            return;
+        //        }
+
+        //        ListaEmpleados();
+        //        int indice = MetodosAuxiliares.ObtenerIndiceEmpleado();
+        //        if (indice != -1)
+        //        {
+        //            empleados.RemoveAt(indice);
+        //            Console.WriteLine();
+        //            MetodosAuxiliares.MostrarMensaje("Eliminado correctamente.");
+        //            Console.WriteLine();
+        //        }
+        //    }
+        //    catch (ArgumentOutOfRangeException)
+        //    {
+
+        //        MetodosAuxiliares.MostrarMensaje("Índice fuera de rango. Inténtalo de nuevo.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MetodosAuxiliares.MostrarMensaje($"Error al eliminar empleado: {ex.Message}");
+        //    }
+        //}
+
+
+        // Opcion 2
+        public static void EliminarEmpleado()
+        {
+            try
+            {
+                if (empleados.Count == 0)
+                {
+                    Console.WriteLine();
+                    MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
+                    return;
+                }
+
+                ListaEmpleados();
+                int indice = MetodosAuxiliares.ObtenerIndiceEmpleado();
+                if (indice != -1)
+                {
+                    Console.WriteLine($"¿Estás seguro que deseas eliminar a {empleados[indice].Nombre} {empleados[indice].Apellido}? (S/N): ");
+                    string confirmacion = Console.ReadLine();
+                    if (confirmacion.ToUpper() == "S")
+                    {
+                        empleados.RemoveAt(indice);
+                        Console.WriteLine();
+                        MetodosAuxiliares.MostrarMensaje("Eliminado correctamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Eliminación cancelada.");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MetodosAuxiliares.MostrarMensaje("Índice fuera de rango. Inténtalo de nuevo.");
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"Error al eliminar empleado: {ex.Message}");
+            }
+        }
 
         public static void ContadorEmpleados()
         {
@@ -67,291 +269,9 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error al contar empleados: {ex.Message}");
+                MetodosAuxiliares.MostrarMensaje($"Error al contar empleados: {ex.Message}");
             }
         }
-
-        public static void BuscarEmpleado()
-        {
-            try
-            {
-                if (empleados.Count == 0)
-                {
-                    Console.WriteLine();
-                    MostrarMensaje("No hay empleados registrados.");
-                    return;
-                }
-
-                Console.Write("\nIngrese el nombre o apellido del empleado a buscar: ");
-                string criterio = Console.ReadLine().ToLower();
-                var resultados = empleados.Where(e => e.Nombre.ToLower().Contains(criterio) || e.Apellido.ToLower().Contains(criterio)).ToList();
-
-                if (resultados.Count > 0)
-                {
-                    foreach (var empleado in resultados)
-                    {
-                        Console.WriteLine($"\nEmpleado encontrado: {empleado.Nombre} {empleado.Apellido}, Salario Final: {empleado.CalcularSalario()}");
-                        // agregar el tipo de empleado
-                    }
-                }
-                else
-                {
-                    MostrarMensaje("No se encontraron empleados con ese criterio.");
-                }
-                Console.ReadLine();
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al buscar empleado: {ex.Message}");
-            }
-        }
-
-
-
-
-        public static void MostrarReportes()
-        {
-            // # tendria que poner el monto de los bonos 
-            // mostrar el tipo de empleado
-
-            try
-            {
-                if (empleados.Count == 0)
-                {
-                    Console.WriteLine();
-                    MostrarMensaje("No hay empleados registrados.");
-                    return;
-                }
-
-                var reportes = empleados.Select(e => new
-                {
-                    NombreCompleto = $"{e.Nombre} {e.Apellido}",
-                    SalarioBase = e.SalarioBase,
-                    SalarioBonos = e.CalcularBonos(), // probando...
-                    SalarioFinal = e.CalcularSalario()
-                });
-
-                foreach (var reporte in reportes)
-                {
-                    Console.WriteLine($"Nombre: {reporte.NombreCompleto}, Salario Base: {reporte.SalarioBase}, Bonos: {reporte.SalarioBonos}, Salario Final: {reporte.SalarioFinal}");
-                }
-                Console.ReadLine();
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al mostrar reportes: {ex.Message}");
-            }
-        }
-
-
-        public static void AgregarEmpleado(Empleado empleado)
-        {
-            try
-            {
-                Console.WriteLine();
-                Console.WriteLine($"Ingrese los datos del {empleado.GetType().Name.ToLower()}:");
-                empleado.Nombre = LeerDato("Nombre");
-                empleado.Apellido = LeerDato("Apellido");
-                empleado.Edad = Convert.ToInt32(LeerDato("Edad"));
-                empleado.SalarioBase = Convert.ToDecimal(LeerDato("Salario Base"));
-
-                // Asignación de bonos según el tipo de empleado
-                if (empleado is Empleado)
-                {
-                    empleado.BonoAsistencia = Convert.ToDecimal(LeerDato("Bono Asistencia"));
-                    empleado.BonoHorasExtra = Convert.ToDecimal(LeerDato("Bono Horas Extra"));
-                    empleado.BonoDesempeño = Convert.ToDecimal(LeerDato("Bono Desempeño"));
-                }
-                else if (empleado is Gerente gerente)
-                {
-                    gerente.BonoMetaEquipo = Convert.ToDecimal(LeerDato("Bono Meta Equipo"));
-                    gerente.BonoReduccionCostos = Convert.ToDecimal(LeerDato("Bono Reducción Costos"));
-                    gerente.BonoSatisfaccionCliente = Convert.ToDecimal(LeerDato("Bono Satisfacción Cliente"));
-                }
-                else if (empleado is Director director)
-                {
-                    director.BonoDesempeñoEmpresa = Convert.ToDecimal(LeerDato("Bono Desempeño Empresa"));
-                    director.BonoCrecimientoMercado = Convert.ToDecimal(LeerDato("Bono Crecimiento Mercado"));
-                    director.StockOptions = Convert.ToDecimal(LeerDato("Stock Options"));
-                }
-
-                empleados.Add(empleado);
-
-                Console.WriteLine();
-                Console.WriteLine($"{empleado.GetType().Name}, {empleado.Nombre} {empleado.Apellido}, {empleado.Edad} años, Salario Final: {empleado.CalcularSalario()}");
-                Console.WriteLine();
-                MostrarMensaje("Agregado exitosamente.");
-                Console.WriteLine();
-
-
-                // creo que los bonos los agregaria en otra parte. no en donde va la ficha del empleado
-                // agregaria una fecha de ingreso automatica. 
-
-            }
-            catch (FormatException fe)
-            {
-                Console.WriteLine();
-                MostrarMensaje("Formato de entrada incorrecto. Inténtalo de nuevo.");
-                Console.WriteLine();
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error inesperado: {ex.Message}");
-            }
-        }
-
-
-        public static void ModificarEmpleado()
-        {
-            try
-            {
-                if (empleados.Count == 0)
-                {
-                    Console.WriteLine();
-                    MostrarMensaje("No hay empleados registrados.");
-                    return;
-                }
-
-                ListaEmpleados();
-                Console.WriteLine("Enter para continuar\n");
-
-                int indice = ObtenerIndiceEmpleado();
-                if (indice != -1)
-                {
-                    var empleado = empleados[indice];
-                    empleado.Nombre = LeerDato("Nombre", empleado.Nombre);
-                    empleado.Apellido = LeerDato("Apellido", empleado.Apellido);
-                    empleado.Edad = Convert.ToInt32(LeerDato("Edad", empleado.Edad.ToString()));
-                    empleado.SalarioBase = Convert.ToDecimal(LeerDato("Salario Base", empleado.SalarioBase.ToString()));
-                    MostrarMensaje("Datos actualizados correctamente.");
-                }
-            }
-            catch (FormatException fe)
-            {
-                Console.WriteLine();
-                MostrarMensaje("Formato de entrada incorrecto. Inténtalo de nuevo.");
-                Console.WriteLine();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                MostrarMensaje($"Error al modificar empleado: {ex.Message}");
-                Console.WriteLine();
-
-            }
-        }
-
-        public static void EliminarEmpleado()
-        {
-            // me gustaria tener un alerta al eliminar.. que no se elimine sin confirmar la eliminacion
-            try
-            {
-                if (empleados.Count == 0)
-                {
-                    Console.WriteLine();
-                    MostrarMensaje("No hay empleados registrados.");
-                    return;
-                }
-
-                ListaEmpleados();
-                int indice = ObtenerIndiceEmpleado();
-                if (indice != -1)
-                {
-                    empleados.RemoveAt(indice);
-                    Console.WriteLine();
-                    MostrarMensaje("Eliminado correctamente.");
-                    Console.WriteLine();
-                }
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-
-                MostrarMensaje("Índice fuera de rango. Inténtalo de nuevo.");
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al eliminar empleado: {ex.Message}");
-            }
-        }
-
-
-        public static void CalcularSalariosConIncremento()
-        {
-            try
-            {
-                if (empleados.Count == 0)
-                {
-                    Console.WriteLine();
-                    MostrarMensaje("No hay empleados registrados.");
-                    return;
-                }
-
-                Console.Write("Ingrese el porcentaje de incremento o bono adicional: ");
-                decimal incremento = Convert.ToDecimal(Console.ReadLine());
-
-                foreach (var empleado in empleados)
-                {
-                    decimal salarioConIncremento = empleado.CalcularSalario() + (empleado.CalcularSalario() * incremento / 100);
-                    Console.WriteLine($"Empleado: {empleado.Nombre} {empleado.Apellido}, Salario Final con Incremento: {salarioConIncremento}");
-                }
-                Console.ReadLine();
-            }
-            catch (FormatException)
-            {
-                MostrarMensaje("Formato incorrecto. Inténtelo de nuevo.");
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al calcular salarios con incremento: {ex.Message}");
-            }
-        }
-
-
-
-        // Métodos auxiliares para leer datos, mostrar mensajes y obtener índice
-        public static string LeerDato(string campo, string valorPorDefecto = "")
-        {
-            Console.Write($"{campo}{(valorPorDefecto != "" ? $" (actual: {valorPorDefecto})" : "")}: ");
-            return Console.ReadLine();
-        }
-
-        public static void MostrarMensaje(string mensaje)
-        {
-            Console.WriteLine(mensaje);
-            Console.WriteLine();
-            Console.Write("Presiona Enter para continuar ");
-            Console.ReadLine();
-        }
-
-
-
-        public static int ObtenerIndiceEmpleado()
-        {
-            try
-            {
-                Console.Write("Ingresa el número del empleado: ");
-                if (int.TryParse(Console.ReadLine(), out int indice) && indice > 0 && indice <= empleados.Count)
-                    return indice - 1; // Se resta uno para ajustar la lista -> lista programa (empieza contando desde 0 ) ≠ lista humana (comienza contando desde 1) 
-
-                // Lanza la excepción si el índice no cumple las condiciones
-                throw new ArgumentOutOfRangeException("Índice no válido.");
-            }
-            catch (FormatException)
-            {
-                MostrarMensaje("Formato de entrada incorrecto. Inténtalo de nuevo.");
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                MostrarMensaje(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error inesperado: {ex.Message}");
-            }
-
-            return -1;
-        }
-
 
 
     }
