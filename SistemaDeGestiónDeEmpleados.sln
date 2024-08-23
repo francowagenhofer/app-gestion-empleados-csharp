@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaDeGestiónDeEmpleados", "SistemaDeGestiónDeEmpleados\SistemaDeGestiónDeEmpleados.csproj", "{7301E901-E2E7-41A5-AFE1-9258D813AF47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppConsola-GestiónDeEmpleados", "SistemaDeGestiónDeEmpleados\AppConsola-GestiónDeEmpleados.csproj", "{7301E901-E2E7-41A5-AFE1-9258D813AF47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notas", "notas", "{A214A10A-1810-4E47-A160-B32289F95578}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +15,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.csproj", "{3C123448-3380-4D22-93D9-713886E826DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Negocio", "Negocio\Negocio.csproj", "{BCD680E8-4F05-4029-8227-5D19F193F6AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppWeb-GestiónDeEmpleados", "AppWeb-GestiónDeEmpleados\AppWeb-GestiónDeEmpleados.csproj", "{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEscritorio-GestiónDeEmpleados", "AppEscritorio-GestiónDeEmpleados\AppEscritorio-GestiónDeEmpleados.csproj", "{C98E3A7F-3BA7-4194-8FFA-82A2C7EE8B66}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base de Datos", "Base de Datos", "{FE3F273B-2EEB-46C9-A2F5-79E6D581DD0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +40,14 @@ Global
 		{BCD680E8-4F05-4029-8227-5D19F193F6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD680E8-4F05-4029-8227-5D19F193F6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD680E8-4F05-4029-8227-5D19F193F6AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C98E3A7F-3BA7-4194-8FFA-82A2C7EE8B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98E3A7F-3BA7-4194-8FFA-82A2C7EE8B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98E3A7F-3BA7-4194-8FFA-82A2C7EE8B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98E3A7F-3BA7-4194-8FFA-82A2C7EE8B66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

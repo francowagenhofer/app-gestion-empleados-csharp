@@ -10,6 +10,8 @@ namespace Dominio.Entidades
     public class Empleado : IEmpleado 
     {
 
+        // se podra poner una propiedade de que sea de la fecha de ingreso del empleado? 
+
         public string Nombre { get; set; }
 
         public string Apellido { get; set; }
