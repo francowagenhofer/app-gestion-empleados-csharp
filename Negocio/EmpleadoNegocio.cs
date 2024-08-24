@@ -11,15 +11,7 @@ namespace Negocio
 {
     public class EmpleadoNegocio
     {
-        static List<Empleado> empleados = new List<Empleado>();
-
-        MetodosAuxiliares metodosAuxiliares = new MetodosAuxiliares();
-        Bonos bonos = new Bonos();
-        Salarios salarios = new Salarios();
-        Reportes reportes = new Reportes();
-
-
-        public static void ListaEmpleados()
+        public static void ListaEmpleados(List<Empleado> empleados)
         {
             try
             {
@@ -32,21 +24,14 @@ namespace Negocio
 
                 Console.WriteLine("\nLista de Empleados:");
                 
-                // opcion 1
-                //for (int i = 0; i < empleados.Count; i++)
-                //{
-                //    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}.");
-                //}
-
-                // opcion 2
                 for (int i = 0; i < empleados.Count; i++)
                 {
                     string tipoEmpleado = empleados[i] is Gerente ? "Gerente" : empleados[i] is Director ? "Director" : "Operativo";
-                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}, puesto: {tipoEmpleado}, Salario: {empleados[i].CalcularSalario():C}");
+                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}; Puesto: {tipoEmpleado}; Salario: {empleados[i].CalcularSalario()} pesos");
                 }
 
                 Console.WriteLine();
-                ContadorEmpleados();
+                ContadorEmpleados(empleados);
 
             }
             catch (Exception ex)
@@ -55,7 +40,8 @@ namespace Negocio
             }
         }
 
-        public static void BuscarEmpleado()
+
+        public static void BuscarEmpleado(List<Empleado> empleados)
         {
             try
             {
@@ -67,20 +53,30 @@ namespace Negocio
                 }
 
                 Console.Write("\nIngrese el nombre o apellido del empleado a buscar: ");
-                string criterio = Console.ReadLine().ToLower();
-                var resultados = empleados.Where(e => e.Nombre.ToLower().Contains(criterio) || e.Apellido.ToLower().Contains(criterio)).ToList();
+                string criterio = Console.ReadLine()?.Trim().ToLower();
+
+                // Validar que el criterio no sea vacío
+                if (string.IsNullOrWhiteSpace(criterio))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nDebe ingresar un nombre o apellido valido para buscar.");
+                    return;
+                }
+
+                var resultados = empleados
+                    .Where(e => e.Nombre.ToLower().Contains(criterio) || e.Apellido.ToLower().Contains(criterio))
+                    .ToList();
 
                 if (resultados.Count > 0)
                 {
                     foreach (var empleado in resultados)
                     {
-                        Console.WriteLine($"\nEmpleado encontrado: {empleado.Nombre} {empleado.Apellido}, Salario Final: {empleado.CalcularSalario()}");
-                        // agregar el tipo de empleado
+                        Console.WriteLine($"\nEmpleado encontrado: {empleado.Nombre} {empleado.Apellido}; Salario Final: {empleado.CalcularSalario()} pesos.\n");
+                        // Agregar el tipo de empleado si es necesario
                     }
                 }
                 else
                 {
-                    MetodosAuxiliares.MostrarMensaje("No se encontraron empleados con ese criterio.");
+                    MetodosAuxiliares.MostrarMensaje("\nNo se encontraron empleados con ese criterio.\n");
                 }
                 Console.ReadLine();
             }
@@ -90,9 +86,12 @@ namespace Negocio
             }
         }
 
-        public static void AgregarEmpleado(Empleado empleado)
+
+
+        public static void AgregarEmpleado(List<Empleado> empleados, Empleado empleado)
         {
-            Salarios salarios = new Salarios();
+
+            
             try
             {
                 Console.WriteLine();
@@ -106,13 +105,13 @@ namespace Negocio
 
                 empleados.Add(empleado);
 
-                Console.WriteLine();
-                Console.WriteLine($"{empleado.GetType().Name}, {empleado.Nombre} {empleado.Apellido}, {empleado.Edad} años, Salario Base: {empleado.SalarioBase:C}");
-                MetodosAuxiliares.MostrarMensaje("Empleado agregado exitosamente.");
+                Console.WriteLine($"\n{empleado.Nombre} {empleado.Apellido}, {empleado.Edad} años; {empleado.GetType().Name}; Salario Base: {empleado.SalarioBase} pesos.\n");
+
+                MetodosAuxiliares.MostrarMensaje("Agregado exitosamente.");
                 Console.WriteLine();
 
                 // Preguntar si se desean asignar bonos
-                Console.WriteLine("¿Desea asignar bonos al empleado? (S/N): ");
+                Console.WriteLine("¿Desea asignar bonos al empleado? (Si/No): ");
                 string opcionBonos = Console.ReadLine();
                 if (opcionBonos.ToUpper() == "S")
                 {
@@ -129,8 +128,10 @@ namespace Negocio
             }
         }
 
-        public static void ModificarEmpleado()
+        public static void ModificarEmpleado(List<Empleado> empleados)
         {
+            // en vez de modificar el sueldo dar la opcin de cambiar de puesto de empleado.
+
             try
             {
                 if (empleados.Count == 0)
@@ -140,10 +141,9 @@ namespace Negocio
                     return;
                 }
 
-                ListaEmpleados();
-                Console.WriteLine("Enter para continuar\n");
+                ListaEmpleados(empleados);
 
-                int indice = MetodosAuxiliares.ObtenerIndiceEmpleado();
+                int indice = MetodosAuxiliares.ObtenerIndiceEmpleado(empleados);
                 if (indice != -1)
                 {
                     var empleado = empleados[indice];
@@ -169,44 +169,7 @@ namespace Negocio
             }
         }
 
-
-        // Opcion 1
-        //public static void EliminarEmpleado()
-        //{
-        //    // me gustaria tener un alerta al eliminar.. que no se elimine sin confirmar la eliminacion
-        //    try
-        //    {
-        //        if (empleados.Count == 0)
-        //        {
-        //            Console.WriteLine();
-        //            MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
-        //            return;
-        //        }
-
-        //        ListaEmpleados();
-        //        int indice = MetodosAuxiliares.ObtenerIndiceEmpleado();
-        //        if (indice != -1)
-        //        {
-        //            empleados.RemoveAt(indice);
-        //            Console.WriteLine();
-        //            MetodosAuxiliares.MostrarMensaje("Eliminado correctamente.");
-        //            Console.WriteLine();
-        //        }
-        //    }
-        //    catch (ArgumentOutOfRangeException)
-        //    {
-
-        //        MetodosAuxiliares.MostrarMensaje("Índice fuera de rango. Inténtalo de nuevo.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MetodosAuxiliares.MostrarMensaje($"Error al eliminar empleado: {ex.Message}");
-        //    }
-        //}
-
-
-        // Opcion 2
-        public static void EliminarEmpleado()
+        public static void EliminarEmpleado(List<Empleado> empleados)
         {
             try
             {
@@ -217,8 +180,8 @@ namespace Negocio
                     return;
                 }
 
-                ListaEmpleados();
-                int indice = MetodosAuxiliares.ObtenerIndiceEmpleado();
+                ListaEmpleados(empleados);
+                int indice = MetodosAuxiliares.ObtenerIndiceEmpleado(empleados);
                 if (indice != -1)
                 {
                     Console.WriteLine($"¿Estás seguro que deseas eliminar a {empleados[indice].Nombre} {empleados[indice].Apellido}? (S/N): ");
@@ -246,7 +209,7 @@ namespace Negocio
             }
         }
 
-        public static void ContadorEmpleados()
+        public static void ContadorEmpleados(List<Empleado> empleados)
         {
             try
             {

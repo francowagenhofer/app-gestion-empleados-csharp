@@ -11,8 +11,7 @@ namespace Negocio
 {
     public class Salarios
     {
-        static List<Empleado> empleados = new List<Empleado>();
-
+    
         public static void AsignarSalarioPorCategoria(Empleado empleado)
         {
             if (empleado is Gerente)
@@ -28,14 +27,14 @@ namespace Negocio
                 empleado.SalarioBase = 30000m;  // Salario base para empleado operativo
             }
 
-            Console.WriteLine($"{empleado.Nombre} ha sido asignado a la categoría {empleado.GetType().Name} con un salario base de {empleado.SalarioBase:C}");
+            //Console.WriteLine($"{empleado.Nombre} {empleado.Apellido} ha sido asignado a la categoría {empleado.GetType().Name} con un salario base de {empleado.SalarioBase:C}");
         }
 
-        public static void CalcularSalariosConIncremento()
+        public static void CalcularSalariosConIncremento(List<Empleado> empleados) // paso la lista por parametro (clave)
         {
             try
             {
-                if (empleados.Count == 0)
+                if (empleados == null || empleados.Count == 0)
                 {
                     Console.WriteLine();
                     MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");

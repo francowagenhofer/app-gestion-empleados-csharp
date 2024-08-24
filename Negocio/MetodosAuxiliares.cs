@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Negocio
 {
     public class MetodosAuxiliares
     {
-
+ 
         public static string LeerDato(string campo, string valorPorDefecto = "")
         {
             Console.Write($"{campo}{(valorPorDefecto != "" ? $" (actual: {valorPorDefecto})" : "")}: ");
@@ -23,7 +24,7 @@ namespace Negocio
             Console.ReadLine();
         }
 
-        public static int ObtenerIndiceEmpleado()
+        public static int ObtenerIndiceEmpleado(List<Empleado> empleados)
         {
             try
             {

@@ -12,45 +12,46 @@ namespace AppDeConsola
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static List<Empleado> empleados = new List<Empleado>();
+
+        public static void Main(string[] args)
         {
+
             while (true)
             {
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("Menú de Gestión de Empleados");
-                    Console.WriteLine();
+                    Console.WriteLine("Menú de Gestión de Empleados\n");
                     Console.WriteLine("1. Mostrar Lista de Empleados");
-                    Console.WriteLine("2. Buscar Empleado (por Nombre o Apellido)");
+                    Console.WriteLine("2. Buscar Empleado");
                     Console.WriteLine("3. Administrar Empleados");
                     Console.WriteLine("4. Calcular Salarios con Incremento");
                     Console.WriteLine("5. Mostrar Reportes");
-                    Console.WriteLine("6. Salir");
-                    Console.WriteLine();
-                    Console.Write("Selecciona una opción: ");
+                    Console.WriteLine("\n6. Salir");
+                    Console.Write("\nSelecciona una opción: ");
 
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            EmpleadoNegocio.ListaEmpleados();
+                            EmpleadoNegocio.ListaEmpleados(empleados);
                             break;
                         case "2":
-                            EmpleadoNegocio.BuscarEmpleado();
+                            EmpleadoNegocio.BuscarEmpleado(empleados);
                             break;
                         case "3":
-                            GestionEmpleados();
+                            AdministrarEmpleados();
                             break;
                         case "4":
-                            EmpleadoNegocio.CalcularSalariosConIncremento();
+                            Salarios.CalcularSalariosConIncremento(empleados); // no esta funcionando
                             break;
                         case "5":
-                            EmpleadoNegocio.MostrarReportes(); // # ver metodo
+                            Reportes.MostrarReportes(empleados); // no esta funcionando - # ver metodo
                             break;
                         case "6": return;
                         default:
                             Console.WriteLine();
-                            EmpleadoNegocio.MostrarMensaje("Opción no válida.");
+                            MetodosAuxiliares.MostrarMensaje("Opción no válida.");
                             Console.WriteLine();
                             break;
                     }
@@ -58,13 +59,13 @@ namespace AppDeConsola
                 catch (Exception ex)
                 {
                     Console.WriteLine();
-                    EmpleadoNegocio.MostrarMensaje($"Error: {ex.Message}");
+                    MetodosAuxiliares.MostrarMensaje($"Error: {ex.Message}");
                     Console.WriteLine();
                 }
             }
         }
 
-        static void GestionEmpleados()
+        public static void AdministrarEmpleados()
         {
             while (true)
             {
@@ -76,7 +77,7 @@ namespace AppDeConsola
                     Console.WriteLine("1. Añadir Empleado");
                     Console.WriteLine("2. Modificar Empleado");
                     Console.WriteLine("3. Eliminar Empleado");
-                    Console.WriteLine("4. Volver al Menú Principal");
+                    Console.WriteLine("\n4. Volver al Menú Principal");
                     Console.WriteLine();
                     Console.Write("Selecciona una opción: ");
 
@@ -86,16 +87,16 @@ namespace AppDeConsola
                             SubmenuAgregarEmpleado();
                             break;
                         case "2":
-                            EmpleadoNegocio.ModificarEmpleado();
+                            EmpleadoNegocio.ModificarEmpleado(empleados); // no esta funcionando
                             break;
                         case "3":
-                            EmpleadoNegocio.EliminarEmpleado();
+                            EmpleadoNegocio.EliminarEmpleado(empleados); // no esta funcionando
                             break;
                         case "4":
                             return;  // Vuelve al menú principal
                         default:
                             Console.WriteLine();
-                            EmpleadoNegocio.MostrarMensaje("Opción no válida.");
+                            MetodosAuxiliares.MostrarMensaje("Opción no válida.");
                             Console.WriteLine();
                             break;
                     }
@@ -103,7 +104,7 @@ namespace AppDeConsola
                 catch (Exception ex)
                 {
                     Console.WriteLine();
-                    EmpleadoNegocio.MostrarMensaje($"Error inesperado en el submenú: {ex.Message}");
+                    MetodosAuxiliares.MostrarMensaje($"Error inesperado en el submenú: {ex.Message}");
                     Console.WriteLine();
                 }
             }
@@ -121,30 +122,26 @@ namespace AppDeConsola
                     Console.WriteLine("1. Añadir Empleado general");
                     Console.WriteLine("2. Añadir Gerente");
                     Console.WriteLine("3. Añadir Director");
-                    Console.WriteLine();
-                    Console.WriteLine("4. Volver a Amdinistrar Empleados");
-                    Console.WriteLine("5. Volver al Menú Principal");
+                    Console.WriteLine("\n4. Volver");
                     Console.WriteLine();
                     Console.Write("Selecciona una opción: ");
 
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            EmpleadoNegocio.AgregarEmpleado(new Empleado());
+                            EmpleadoNegocio.AgregarEmpleado(empleados, new Empleado());
                             break;
                         case "2":
-                            EmpleadoNegocio.AgregarEmpleado(new Gerente());
+                            EmpleadoNegocio.AgregarEmpleado(empleados, new Gerente());
                             break;
                         case "3":
-                            EmpleadoNegocio.AgregarEmpleado(new Director());
+                            EmpleadoNegocio.AgregarEmpleado(empleados, new Director());
                             break;
                         case "4":
-                            return;  // Vuelve al menú principal
-                        case "5":
-                            return;  // Vuelve al menú principal
+                            return;
                         default:
                             Console.WriteLine();
-                            EmpleadoNegocio.MostrarMensaje("Opción no válida.");
+                            MetodosAuxiliares.MostrarMensaje("Opción no válida.");
                             Console.WriteLine();
                             break;
                     }
@@ -152,7 +149,7 @@ namespace AppDeConsola
                 catch (Exception ex)
                 {
                     Console.WriteLine();
-                    EmpleadoNegocio.MostrarMensaje($"Error inesperado en el submenú: {ex.Message}");
+                    MetodosAuxiliares.MostrarMensaje($"Error inesperado en el submenú: {ex.Message}");
                     Console.WriteLine();
                 }
             }
@@ -162,34 +159,3 @@ namespace AppDeConsola
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// lo que le falta al menu:
-
-//- un menu de salarios - con distintas opciones: incremento de salario por inflacion, etc.
-
-// mostrar reportes general y particular
-
-//- menu gestion de empleados - se agregan, se modifican o se eliminan # Falta una opcion que s tocas M volves directo al menu principal
-
-
-
-
-//- Contar el número total de empleados y cuantos hay por categoria... esta informacion podria estar directamente en la lista de los emmpleadosvh. LISTO
-
-//- Buscar empleados por nombre o apellido. LISTO
-
-//- Mostrar reportes usando tipos de datos anónimos.
-
-//- Calcular salarios con un incremento porcentual o bono adicional.
-

@@ -11,16 +11,15 @@ namespace Negocio
 {
     public class Reportes
     {
-        static List<Empleado> empleados = new List<Empleado>();
 
-        public static void MostrarReportes()
+        public static void MostrarReportes(List<Empleado> empleados)
         {
             // # tendria que poner el monto de los bonos 
             // mostrar el tipo de empleado
 
             try
             {
-                if (empleados.Count == 0)
+                if (empleados == null || empleados.Count == 0)
                 {
                     Console.WriteLine();
                     MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
