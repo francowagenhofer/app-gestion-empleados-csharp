@@ -19,8 +19,7 @@ namespace Negocio
         public static void MostrarMensaje(string mensaje)
         {
             Console.WriteLine(mensaje);
-            Console.WriteLine();
-            Console.Write("Presiona Enter para continuar ");
+            Console.Write("\nPresiona Enter para continuar. ");
             Console.ReadLine();
         }
 
@@ -28,16 +27,15 @@ namespace Negocio
         {
             try
             {
-                Console.Write("Ingresa el número del empleado: ");
+                Console.Write("\nIngresa el número del empleado: ");
                 if (int.TryParse(Console.ReadLine(), out int indice) && indice > 0 && indice <= empleados.Count)
                     return indice - 1; // Se resta uno para ajustar la lista -> lista programa (empieza contando desde 0 ) ≠ lista humana (comienza contando desde 1) 
 
-                // Lanza la excepción si el índice no cumple las condiciones
-                throw new ArgumentOutOfRangeException("Índice no válido.");
+                throw new ArgumentOutOfRangeException("Índice no válido."); // Lanza la excepción si el índice no cumple las condiciones
             }
             catch (FormatException)
             {
-                MostrarMensaje("Formato de entrada incorrecto. Inténtalo de nuevo.");
+                MostrarMensaje("\nFormato de entrada incorrecto. Inténtalo de nuevo.\n");
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -45,7 +43,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error inesperado: {ex.Message}");
+                MostrarMensaje($"\nError inesperado: {ex.Message}\n");
             }
 
             return -1;

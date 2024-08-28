@@ -9,9 +9,8 @@ using Dominio.ReglasDelNegocio;
 
 namespace Negocio
 {
-    public class Reportes
+    public class ReportesNegocio
     {
-
         public static void MostrarReportes(List<Empleado> empleados)
         {
             // # tendria que poner el monto de los bonos 
@@ -21,10 +20,11 @@ namespace Negocio
             {
                 if (empleados == null || empleados.Count == 0)
                 {
-                    Console.WriteLine();
-                    MetodosAuxiliares.MostrarMensaje("No hay empleados registrados.");
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                     return;
                 }
+
+                Console.WriteLine("\n# Reportes");
 
                 var reportes = empleados.Select(e => new
                 {
@@ -36,13 +36,15 @@ namespace Negocio
 
                 foreach (var reporte in reportes)
                 {
-                    Console.WriteLine($"Nombre: {reporte.NombreCompleto}, Salario Base: {reporte.SalarioBase}, Bonos: {reporte.SalarioBonos}, Salario Final: {reporte.SalarioFinal}");
+                    Console.WriteLine($"\nNombre: {reporte.NombreCompleto}; Salario Base: {reporte.SalarioBase}; Bonos: {reporte.SalarioBonos}; Salario Final: {reporte.SalarioFinal}");
                 }
-                Console.ReadLine();
+                //Console.ReadLine();
+                MetodosAuxiliares.MostrarMensaje("");
+
             }
             catch (Exception ex)
             {
-                MetodosAuxiliares.MostrarMensaje($"Error al mostrar reportes: {ex.Message}");
+                MetodosAuxiliares.MostrarMensaje($"\nError al mostrar reportes: {ex.Message}");
             }
         }
     }

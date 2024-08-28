@@ -9,13 +9,14 @@ namespace Dominio.Entidades
 {
     public class Director: Empleado, IEmpleado
     {
-        // alguna propiedad mas para el empleado?
+        public Director() : base(false) { } // no es Empleado Operativo
 
         public decimal BonoDesempeñoEmpresa { get; set; }
+     
         public decimal BonoCrecimientoMercado { get; set; }
+        
         public decimal StockOptions { get; set; } // para que es? -> tipos de acciones de una empresa
-
-
+       
         public decimal CalcularBonosDirector(bool desempeñoAlto, bool crecimientoMercadoAlto)
         {
             if (desempeñoAlto)

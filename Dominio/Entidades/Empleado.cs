@@ -9,14 +9,21 @@ namespace Dominio.Entidades
 {
     public class Empleado : IEmpleado 
     {
-
         // se podra poner una propiedade de que sea de la fecha de ingreso del empleado? 
+        // se podria poner otra propiedad que sea de imagen 
 
         public string Nombre { get; set; }
 
         public string Apellido { get; set; }
 
         public int Edad { get; set; }
+
+        public bool EsOperativo { get; set; }
+     
+        public Empleado(bool esOperativo)
+        {
+            EsOperativo = esOperativo;
+        }
 
         public decimal SalarioBase { get; set; }
 

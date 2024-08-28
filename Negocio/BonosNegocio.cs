@@ -9,7 +9,7 @@ using Dominio.ReglasDelNegocio;
 
 namespace Negocio
 {
-    public class Bonos
+    public class BonosNegocio
     {
         public static void AsignarBonos(Empleado empleado)
         {

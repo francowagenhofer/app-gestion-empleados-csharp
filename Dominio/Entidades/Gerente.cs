@@ -9,22 +9,25 @@ namespace Dominio.Entidades
 {
     public class Gerente : Empleado, IEmpleado
     {
-        // alguna propiedad mas del gerente? 
+        // Llama al constructor base con el valor predeterminado 
+        public Gerente() : base(false) { } // no es Empleado Operativo
 
         public decimal BonoMetaEquipo { get; set; }
+
         public decimal BonoReduccionCostos { get; set; }
+
         public decimal BonoSatisfaccionCliente { get; set; }
 
         public decimal CalcularBonosGerente(bool metaAlcanzada, bool costosReducidos, bool satisfaccionClienteAlta)
         {
             if (metaAlcanzada) 
-                BonoMetaEquipo = 5000; // Ejemplo de bono
+                BonoMetaEquipo = 5000; 
             
             if (costosReducidos)
-                BonoReduccionCostos = 3000; // Ejemplo de bono
+                BonoReduccionCostos = 3000; 
             
             if (satisfaccionClienteAlta)
-                BonoSatisfaccionCliente = 2000; // Ejemplo de bono
+                BonoSatisfaccionCliente = 2000; 
 
             return CalcularSalario();
         }
