@@ -11,28 +11,78 @@ namespace Negocio
 {
     public class BonosNegocio
     {
-        public static void AsignarBonos(Empleado empleado)
+        public static void AsignarBonos(List<Empleado> empleados)
         {
-            if (empleado is Empleado)
+            // Pedimos el ID del empleado
+            Console.Write("Ingrese el ID del empleado al que desea asignar un bono:");
+            int empleadoId = int.Parse(Console.ReadLine());
+
+            // Buscamos el empleado por ID
+            var empleado = empleados.FirstOrDefault(e => e.Id == empleadoId);
+            if (empleado == null)
             {
-                empleado.BonoAsistencia = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Asistencia"));
-                empleado.BonoHorasExtra = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Horas Extra"));
-                empleado.BonoDesempeño = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Desempeño"));
+                Console.WriteLine("Empleado no encontrado.");
+                return;
+            }
+
+            // Según el tipo de empleado, mostramos el menú de bonos correspondientes
+            if (empleado is Empleado) // General para todos los empleados
+            {
+                Console.WriteLine("Empleado encontrado: Asignando bonos generales...");
+                empleado.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Asistencia");
+                empleado.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Horas Extra");
+                empleado.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Desempeño");
             }
             else if (empleado is Gerente gerente)
             {
-                gerente.BonoMetaEquipo = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Meta Equipo"));
-                gerente.BonoReduccionCostos = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Reducción Costos"));
-                gerente.BonoSatisfaccionCliente = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Satisfacción Cliente"));
+                Console.WriteLine("Gerente encontrado: Asignando bonos de gerente...");
+                gerente.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Meta Equipo");
+                gerente.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Reducción Costos");
+                gerente.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Satisfacción Cliente");
             }
             else if (empleado is Director director)
             {
-                director.BonoDesempeñoEmpresa = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Desempeño Empresa"));
-                director.BonoCrecimientoMercado = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Bono Crecimiento Mercado"));
-                director.StockOptions = Convert.ToDecimal(MetodosAuxiliares.LeerDato("Stock Options"));
+                Console.WriteLine("Director encontrado: Asignando bonos de director...");
+                director.Bonos.BonoDesempeñoEmpresa = LeerYAsignarBono("Bono Desempeño Empresa");
+                director.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Crecimiento Mercado");
+                director.Bonos.BonoAsistencia = LeerYAsignarBono("Stock Options");
             }
 
             Console.WriteLine("Bonos asignados correctamente.");
+        }
+
+        // Método para desasignar bonos
+        public static void DesasignarBonos(Empleado empleado)
+        {
+            // Según el tipo de empleado, desasignamos los bonos correspondientes
+            if (empleado is Empleado)
+            {
+                empleado.Bonos.BonoAsistencia = 0;
+                empleado.Bonos.BonoAsistencia = 0;
+                empleado.Bonos.BonoAsistencia = 0;
+            }
+            else if (empleado is Gerente gerente)
+            {
+                gerente.Bonos.BonoAsistencia = 0;
+                gerente.Bonos.BonoAsistencia = 0;
+                gerente.Bonos.BonoAsistencia = 0;
+            }
+            else if (empleado is Director director)
+            {
+                director.Bonos.BonoAsistencia = 0;
+                director.Bonos.BonoAsistencia = 0;
+                director.Bonos.BonoAsistencia = 0;
+            }
+
+            Console.WriteLine("Bonos desasignados correctamente.");
+        }
+
+
+        // Método auxiliar para leer y asignar un bono
+        private static decimal LeerYAsignarBono(string tipoBono)
+        {
+            Console.Write($"Ingrese el monto del {tipoBono}:");
+            return Convert.ToDecimal(Console.ReadLine());
         }
 
     }

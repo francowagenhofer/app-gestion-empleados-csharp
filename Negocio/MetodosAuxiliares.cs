@@ -10,6 +10,10 @@ namespace Negocio
     public class MetodosAuxiliares
     {
  
+        // creo que esta clase la tendria que llevar a la logica de la app de la consola 
+        // ya que son metodos auxiliares que sirven para ese contexto.
+
+
         public static string LeerDato(string campo, string valorPorDefecto = "")
         {
             Console.Write($"{campo}{(valorPorDefecto != "" ? $" (actual: {valorPorDefecto})" : "")}: ");
@@ -23,7 +27,14 @@ namespace Negocio
             Console.ReadLine();
         }
 
-        public static int ObtenerIndiceEmpleado(List<Empleado> empleados)
+
+        // podria poner los contadores aca ...
+
+        // podria crear aca los metodos de seleccionar un empleado y seleccionar un proyecto
+
+
+
+        public static int ObtenerIndiceEmpleado(List<Empleado> empleados) // tendria que hacer uno para Proyectos
         {
             try
             {

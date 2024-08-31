@@ -8,8 +8,9 @@ namespace Dominio.Entidades
 {
     namespace Dominio.Entidades
     {
-        public class Proyecto
+        public class Proyectos
         {
+            public int Id { get; set; }
             public string Nombre { get; set; }
             public DateTime FechaInicio { get; set; }
             public DateTime FechaFin { get; set; }
@@ -17,7 +18,7 @@ namespace Dominio.Entidades
             public decimal Presupuesto { get; set; }
             public List<Empleado> EmpleadosAsignados { get; set; } = new List<Empleado>();
 
-            public Proyecto(string nombre, DateTime fechaInicio, DateTime fechaFin, string descripcion, decimal presupuesto)
+            public Proyectos(string nombre, DateTime fechaInicio, DateTime fechaFin, string descripcion, decimal presupuesto)
             {
                 Nombre = nombre;
                 FechaInicio = fechaInicio;

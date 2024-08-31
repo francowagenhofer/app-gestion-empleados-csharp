@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio.ReglasDelNegocio
+namespace AppConsola.LogicaAppConsola
 {
-    public class Salarios
+    public class LogicaSalarios
     {
     }
 }

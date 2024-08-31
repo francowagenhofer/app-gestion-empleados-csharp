@@ -1,4 +1,5 @@
 ﻿using Dominio.Interfaces;
+using Dominio.ReglasDelNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 namespace Dominio.Entidades
 {
     public class Empleado : IEmpleado 
-    {
-        // se podra poner una propiedade de que sea de la fecha de ingreso del empleado? 
-        // se podria poner otra propiedad que sea de imagen 
+    {  
+        public int Id { get; set; }
 
         public string Nombre { get; set; }
 
@@ -18,25 +18,27 @@ namespace Dominio.Entidades
 
         public int Edad { get; set; }
 
+        public string Imagen { get; set; }
+
+        public string Categoria { get; set; }
+
         public bool EsOperativo { get; set; }
      
-        public Empleado(bool esOperativo)
-        {
-            EsOperativo = esOperativo;
-        }
+        public DateTime FechaIngreso { get; set; }
 
         public decimal SalarioBase { get; set; }
 
-        public decimal BonoAsistencia { get; set; }
+        public Bonos Bonos { get; set; }
 
-        public decimal BonoHorasExtra { get; set; }
-
-        public decimal BonoDesempeño { get; set; }
-
+        public Empleado(bool esOperativo)
+        {
+            EsOperativo = esOperativo;
+            Bonos = new Bonos();  // Instancia de la clase Bonos 
+        }
 
         public virtual decimal CalcularBonos()
         {
-            return BonoAsistencia + BonoHorasExtra + BonoDesempeño;
+            return Bonos.CalcularBonos();
         }
 
         public virtual decimal CalcularSalario()
@@ -44,9 +46,17 @@ namespace Dominio.Entidades
             return SalarioBase + CalcularBonos();
         }
 
-        public static int ContarEmpleador(List<Empleado> lista)
+        //public static int ContarEmpleador(List<Empleado> lista)
+        //{
+        //    return lista.Count;
+        //}
+        
+        public static int ContarEmpleados(List<Empleado> lista) => lista.Count;
+
+
+        public int CalcularAntiguedad()
         {
-            return lista.Count;
+            return (DateTime.Now - FechaIngreso).Days / 365;
         }
 
         public virtual void MostrarInformacion()

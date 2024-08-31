@@ -7,38 +7,21 @@ using System.Threading.Tasks;
 
 namespace Dominio.Entidades
 {
-    public class Director: Empleado, IEmpleado
+    public class Director : Empleado, IEmpleado
     {
-        public Director() : base(false) { } // no es Empleado Operativo
-
-        public decimal BonoDesempeñoEmpresa { get; set; }
-     
-        public decimal BonoCrecimientoMercado { get; set; }
-        
-        public decimal StockOptions { get; set; } // para que es? -> tipos de acciones de una empresa
-       
-        public decimal CalcularBonosDirector(bool desempeñoAlto, bool crecimientoMercadoAlto)
-        {
-            if (desempeñoAlto)
-                BonoDesempeñoEmpresa = 10000; 
-            
-            if (crecimientoMercadoAlto) BonoCrecimientoMercado = 7000;
-            
-            StockOptions = 15000; // Ejemplo de asignación fija para StockOptions
-
-            return CalcularSalario();
-        }
+        public Director() : base(false) { } // No es Empleado Operativo
 
         public override decimal CalcularSalario()
         {
-            return base.CalcularSalario() + BonoDesempeñoEmpresa + BonoCrecimientoMercado + StockOptions;
+            // Llama al método específico de la clase Bonos para calcular bonos de director
+            return base.CalcularSalario() + Bonos.CalcularBonosDirector(true, true); 
         }
 
-
-        public override void MostrarInformacion() 
+        public override void MostrarInformacion()
         {
             base.MostrarInformacion();
-            Console.WriteLine($"Stock Options: {StockOptions}");
+            Console.WriteLine($"Stock Options: {Bonos.StockOptions}");
         }
+
     }
 }

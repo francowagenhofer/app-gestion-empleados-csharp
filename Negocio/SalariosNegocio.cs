@@ -11,7 +11,6 @@ namespace Negocio
 {
     public class SalariosNegocio
     {
-
         public static void AsignarSalarioPorCategoria(Empleado empleado)
         {
             try

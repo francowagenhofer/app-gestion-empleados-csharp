@@ -12,37 +12,21 @@ namespace Dominio.Entidades
         // Llama al constructor base con el valor predeterminado 
         public Gerente() : base(false) { } // no es Empleado Operativo
 
-        public decimal BonoMetaEquipo { get; set; }
-
-        public decimal BonoReduccionCostos { get; set; }
-
-        public decimal BonoSatisfaccionCliente { get; set; }
-
-        public decimal CalcularBonosGerente(bool metaAlcanzada, bool costosReducidos, bool satisfaccionClienteAlta)
-        {
-            if (metaAlcanzada) 
-                BonoMetaEquipo = 5000; 
-            
-            if (costosReducidos)
-                BonoReduccionCostos = 3000; 
-            
-            if (satisfaccionClienteAlta)
-                BonoSatisfaccionCliente = 2000; 
-
-            return CalcularSalario();
-        }
-
         public override decimal CalcularSalario()
         {
-            return base.CalcularSalario() + BonoMetaEquipo + BonoReduccionCostos + BonoSatisfaccionCliente;
+            // Llama al método específico de la clase Bonos para calcular bonos de gerente
+            return base.CalcularSalario() + Bonos.CalcularBonosGerente(true, true, true);
         }
 
         public override void MostrarInformacion()
         {
             base.MostrarInformacion();
-            Console.WriteLine($"Bono: {CalcularBonosGerente}");
-            Console.WriteLine($"Salario final: {CalcularSalario}");
+            Console.WriteLine($"Bono Meta Equipo: {Bonos.BonoMetaEquipo}");
+            Console.WriteLine($"Bono Reducción Costos: {Bonos.BonoReduccionCostos}");
+            Console.WriteLine($"Bono Satisfacción Cliente: {Bonos.BonoSatisfaccionCliente}");
+            Console.WriteLine($"Salario final Gerente: {CalcularSalario}");
         }
+
 
     }
 }
