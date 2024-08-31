@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 namespace Dominio.ReglasDelNegocio
 {
-
-    // preguntar si no es demasiado agregar estas propiedades en estas clases cuando ya estan en sus clases 
-
     public class ReporteEmpleado
     {
         public string Nombre { get; set; }

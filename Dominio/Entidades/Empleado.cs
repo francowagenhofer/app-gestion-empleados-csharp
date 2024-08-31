@@ -46,11 +46,7 @@ namespace Dominio.Entidades
             return SalarioBase + CalcularBonos();
         }
 
-        //public static int ContarEmpleador(List<Empleado> lista)
-        //{
-        //    return lista.Count;
-        //}
-        
+
         public static int ContarEmpleados(List<Empleado> lista) => lista.Count;
 
 

@@ -11,7 +11,7 @@ namespace Negocio
 {
     public class SalariosNegocio
     {
-        public static void AsignarSalarioPorCategoria(Empleado empleado)
+        public static void AsignarSalarioPorCategoria(Empleado empleado) // este metodo esta bien aca...
         {
             try
             {
@@ -31,36 +31,36 @@ namespace Negocio
             }
         }
 
-        public static void CalcularSalariosConIncremento(List<Empleado> empleados) // paso la lista por parametro (clave)
-        {
-            try
-            {
-                if (empleados == null || empleados.Count == 0)
-                {
-                    MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
-                    return;
-                }
+        //public static void CalcularSalariosConIncremento(List<Empleado> empleados) // tendria que adaptar este metodo.
+        //{
+        //    try
+        //    {
+        //        if (empleados == null || empleados.Count == 0)
+        //        {
+        //            MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
+        //            return;
+        //        }
 
-                Console.Write("\nIngrese el porcentaje de incremento o bono adicional: ");
-                decimal incremento = Convert.ToDecimal(Console.ReadLine());
+        //        Console.Write("\nIngrese el porcentaje de incremento o bono adicional: ");
+        //        decimal incremento = Convert.ToDecimal(Console.ReadLine());
 
-                foreach (var empleado in empleados)
-                {
-                    decimal salarioConIncremento = empleado.CalcularSalario() + (empleado.CalcularSalario() * incremento / 100);
-                    Console.WriteLine($"\nEmpleado: {empleado.Nombre} {empleado.Apellido}, Salario Final con Incremento: {salarioConIncremento}");
-                }
-                //Console.ReadLine();
-                MetodosAuxiliares.MostrarMensaje("");
-            }
-            catch (FormatException)
-            {
-                MetodosAuxiliares.MostrarMensaje("\nFormato incorrecto. Inténtelo de nuevo.");
-            }
-            catch (Exception ex)
-            {
-                MetodosAuxiliares.MostrarMensaje($"\nError al calcular salarios con incremento: {ex.Message}");
-            }
-        }
+        //        foreach (var empleado in empleados)
+        //        {
+        //            decimal salarioConIncremento = empleado.CalcularSalario() + (empleado.CalcularSalario() * incremento / 100);
+        //            Console.WriteLine($"\nEmpleado: {empleado.Nombre} {empleado.Apellido}, Salario Final con Incremento: {salarioConIncremento}");
+        //        }
+        //        //Console.ReadLine();
+        //        MetodosAuxiliares.MostrarMensaje("");
+        //    }
+        //    catch (FormatException)
+        //    {
+        //        MetodosAuxiliares.MostrarMensaje("\nFormato incorrecto. Inténtelo de nuevo.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MetodosAuxiliares.MostrarMensaje($"\nError al calcular salarios con incremento: {ex.Message}");
+        //    }
+        //}
 
 
     }

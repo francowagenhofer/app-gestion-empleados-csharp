@@ -12,12 +12,8 @@ namespace AppConsola.LogicaAppConsola
     public class LogicaEmpleados
     {
         //-------------------------------------------------------------------------------------------------------------------------------//
-
-        //                  Adaptcion de los metodos de EmpleadoNegocio a la App de Consola
-        
-
+        //                  Adaptcion de los metodos de EmpleadoNegocio a la App de Consola                                              //
         //-------------------------------------------------------------------------------------------------------------------------------//
-
 
         public static void ListaEmpleadosConsola(List<Empleado> empleados)
         {
@@ -29,22 +25,24 @@ namespace AppConsola.LogicaAppConsola
                     return;
                 }
 
-                Console.WriteLine("\n# Lista de Empleados:");
+                Console.WriteLine("\nLista de Empleados");
                 for (int i = 0; i < empleados.Count; i++)
                 {
                     string tipoEmpleado = empleados[i] is Gerente ? "Gerente" : empleados[i] is Director ? "Director" : "Empleado Operativo";
-                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}; {tipoEmpleado}; Salario: {empleados[i].CalcularSalario()} pesos");
+                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}; Puesto: {tipoEmpleado}.");
                 }
-                Console.WriteLine();
 
-                ContadorEmpleados(empleados);
+                //; Salario: { empleados[i].CalcularSalario()}
+                //pesos ----> ver en reporte de empleados!
+
             }
             catch (Exception ex)
             {
                 Negocio.MetodosAuxiliares.MostrarMensaje($"\nError: {ex.Message}\n");
             }
         }
-        public static void ContadorEmpleados(List<Empleado> empleados)
+
+        public static void ContadorEmpleadosConsola(List<Empleado> empleados) // Esta el metodo contarEmpleados en la clase Empleado - como se relacionan?
         {
             try
             {
@@ -55,7 +53,7 @@ namespace AppConsola.LogicaAppConsola
                 int totalEmpleadosOperativos = totalEmpleados - totalGerentes - totalDirectores;
 
                 // Mostrar conteo de empleados por categoría
-                Console.WriteLine("# Resumen de Empleados:");
+                Console.WriteLine("\nResumen de Empleados:");
                 Console.WriteLine($"Empleados Operativos: {totalEmpleadosOperativos}");
                 Console.WriteLine($"Gerentes: {totalGerentes}");
                 Console.WriteLine($"Directores: {totalDirectores}");
@@ -66,7 +64,6 @@ namespace AppConsola.LogicaAppConsola
                 Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al contar empleados: {ex.Message}");
             }
         }
-
 
         public static void BuscarEmpleadoConsola(List<Empleado> empleados) // el buscador de empleados varia segun el tipo de aplicacion (consola, escritorio, web). 
         {
@@ -111,44 +108,6 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-
-
-
-        // Agregar un nuevo empleado mediante la interacción con la consola
-
-        // opcion 1
-        //public static void AgregarEmpleado(List<Empleado> empleados, Empleado empleado)
-        //{
-        //    try
-        //    {
-        //        //Console.WriteLine($"\nIngrese los datos del {empleado.GetType().Name.ToLower()}:");
-        //        string tipoEmpleado = empleado.EsOperativo ? "Empleado Operativo" : empleado.GetType().Name;
-
-        //        Console.WriteLine($"\nIngrese los datos del {tipoEmpleado}:");
-
-        //        // tendria que agregarle un Id. 
-        //        // luego el Id se da en la base de datos
-
-        //        empleado.Nombre = MetodosAuxiliares.LeerDato("Nombre");
-        //        empleado.Apellido = MetodosAuxiliares.LeerDato("Apellido");
-        //        empleado.Edad = Convert.ToInt32(MetodosAuxiliares.LeerDato("Edad"));
-
-        //        SalariosNegocio.AsignarSalarioPorCategoria(empleado); // Asignación automática del salario base por categoría
-
-        //        empleados.Add(empleado);
-        //        Console.WriteLine($"\nInformación personal: {empleado.Nombre} {empleado.Apellido}, {empleado.Edad} años; Posición: {tipoEmpleado}; Salario Base: {empleado.SalarioBase} pesos.");
-        //        MetodosAuxiliares.MostrarMensaje("\nAgregado exitosamente.");
-        //    }
-        //    catch (FormatException)
-        //    {
-        //        MetodosAuxiliares.MostrarMensaje("\nFormato de entrada incorrecto. Inténtalo de nuevo.\n");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MetodosAuxiliares.MostrarMensaje($"\nError inesperado: {ex.Message}\n");
-        //    }
-        //}
-
         public static void AgregarEmpleadoConsola(List<Empleado> empleados)
         {
             while (true)
@@ -185,6 +144,9 @@ namespace AppConsola.LogicaAppConsola
                             continue;
                     }
 
+                    string tipoEmpleado = nuevoEmpleado.EsOperativo ? "Empleado Operativo" : nuevoEmpleado.GetType().Name;
+
+
                     // Solicitar los datos del nuevo empleado
                     nuevoEmpleado.Nombre = Negocio.MetodosAuxiliares.LeerDato("Nombre");
                     nuevoEmpleado.Apellido = Negocio.MetodosAuxiliares.LeerDato("Apellido");
@@ -200,8 +162,11 @@ namespace AppConsola.LogicaAppConsola
                     EmpleadoNegocio.AgregarEmpleado(empleados, nuevoEmpleado);
 
                     // Mostrar la información del empleado agregado
-                    Console.WriteLine($"\nEmpleado agregado: {nuevoEmpleado.Nombre} {nuevoEmpleado.Apellido}; Salario Base: {nuevoEmpleado.SalarioBase} pesos.");
-                    Negocio.MetodosAuxiliares.MostrarMensaje("Empleado agregado exitosamente.");
+                    Console.WriteLine($"\nEmpleado agregado: {nuevoEmpleado.Nombre} {nuevoEmpleado.Apellido}; Puesto: {tipoEmpleado}; Salario Base: {nuevoEmpleado.SalarioBase} pesos.");
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nAgregado exitosamente.");
+
+
+
                 }
                 catch (Exception ex)
                 {
@@ -210,8 +175,7 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-
-        public static void ModificarEmpleadoConsola(List<Empleado> empleados) // esta raro -> revisar ...
+        public static void ModificarEmpleadoConsola(List<Empleado> empleados) // cambiar el modificar salario por modificar posicion. 
         {
             //var empleados = EmpleadoNegocio.ObtenerListaEmpleados();
 
@@ -222,6 +186,9 @@ namespace AppConsola.LogicaAppConsola
                     Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                     return;
                 }
+
+                //Console.Clear();
+                Console.WriteLine("\nModificar Empleado");
 
                 ListaEmpleadosConsola(empleados);
 
@@ -252,7 +219,6 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-
         public static void EliminarEmpleadoConsola(List<Empleado> empleados)
         {
             //var empleados = EmpleadoNegocio.ObtenerListaEmpleados();
@@ -262,6 +228,9 @@ namespace AppConsola.LogicaAppConsola
                 Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                 return;
             }
+
+            //Console.Clear();
+            Console.WriteLine("\nEliminar Empleado");
 
             ListaEmpleadosConsola(empleados);
 

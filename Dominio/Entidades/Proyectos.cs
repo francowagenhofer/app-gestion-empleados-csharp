@@ -37,12 +37,14 @@ namespace Dominio.Entidades
                 EmpleadosAsignados.Remove(empleado);
             }
 
+            // que onda estos ultimos dos metodos. pueden ser llamados en la logica de Proyectos? me ayudaria eso
+
             public void MostrarInformacion()
             {
                 Console.WriteLine($"Nombre: {Nombre}, Fecha de Inicio: {FechaInicio}, Fecha de Fin: {FechaFin}, Descripción: {Descripcion}, Presupuesto: {Presupuesto}");
             }
 
-            public void MostrarEmpleadosAsignados()
+            public void MostrarEmpleadosAsignados() // que onda esto. 
             {
                 if (EmpleadosAsignados.Count == 0)
                 {

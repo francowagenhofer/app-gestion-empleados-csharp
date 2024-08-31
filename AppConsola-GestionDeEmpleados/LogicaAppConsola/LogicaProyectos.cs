@@ -12,31 +12,32 @@ namespace AppConsola
     public class LogicaProyectos
     {
         //-------------------------------------------------------------------------------------------------------------------------------//
-
-        //                  Adaptcion de los metodos de ProyectosNegocio a la App de Consola
-
-
+        //                  Adaptcion de los metodos de ProyectosNegocio a la App de Consola                                             //
         //-------------------------------------------------------------------------------------------------------------------------------//
 
-
-        public static void MostrarProyectosActivosConsola(List<Proyectos> proyectos)
+        public static void ListaProyectosConsola(List<Proyectos> proyectos)
         {
-            if (proyectos.Count == 0)
+            try
             {
-                MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
-                return;
-            }
-
-
-
-            Console.WriteLine("\n--- Proyectos Activos ---");
-            foreach (var proyecto in proyectos)
-            {
-                if (DateTime.Now >= proyecto.FechaInicio && DateTime.Now <= proyecto.FechaFin)
+                if (proyectos.Count == 0)
                 {
-                    proyecto.MostrarInformacion();
-                    proyecto.MostrarEmpleadosAsignados();
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+                    return;
                 }
+
+                Console.WriteLine("\nLista de Proyectos "); // Mostrar lista de proyectos con un número de referencia
+                for (int i = 0; i < proyectos.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {proyectos[i].Nombre}");
+                }
+            }
+            catch (FormatException ex)
+            {
+                MetodosAuxiliares.MostrarMensaje("Error de formato: Ingrese un número válido.");
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"Ocurrió un error inesperado: {ex.Message}");
             }
         }
 
@@ -44,19 +45,8 @@ namespace AppConsola
         {
             try
             {
-                // Contar empleados por categoría
                 int totalProyectos = proyectos.Count;
-
-                //int totalGerentes = empleados.OfType<Proyectos>().Count();
-                //int totalDirectores = empleados.OfType<Director>().Count();
-                //int totalEmpleadosOperativos = totalEmpleados - totalGerentes - totalDirectores;
-
-                // Mostrar conteo de empleados por categoría
-                //Console.WriteLine("# Resumen de Empleados:");
-                //Console.WriteLine($"Empleados Operativos: {totalEmpleadosOperativos}");
-                //Console.WriteLine($"Gerentes: {totalGerentes}");
-                //Console.WriteLine($"Directores: {totalDirectores}");
-                MetodosAuxiliares.MostrarMensaje($"Total de Proyectos: {totalProyectos}");
+                MetodosAuxiliares.MostrarMensaje($"\nTotal de Proyectos: {totalProyectos}");
             }
             catch (Exception ex)
             {
@@ -64,28 +54,130 @@ namespace AppConsola
             }
         }
 
-        public static void MostrarProyectosNoActivosConsola(List<Proyectos> proyectos)
+        public static void InformacionProyectoConsola(List<Proyectos> proyectos)
         {
-            if (proyectos.Count == 0)
+            try
             {
-                MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
-                return;
-            }
-
-            Console.WriteLine("\n--- Proyectos No Activos ---");
-            foreach (var proyecto in proyectos)
-            {
-                if (DateTime.Now > proyecto.FechaFin)
+                if (proyectos == null || proyectos.Count == 0)
                 {
-                    proyecto.MostrarInformacion();
-                    proyecto.MostrarEmpleadosAsignados();
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+                    return;
                 }
+
+                Console.WriteLine("\nInformación de Proyecto");
+
+                ListaProyectosConsola(proyectos);
+
+                Console.Write("\nIngrese el número del proyecto que desea ver: ");
+                if (int.TryParse(Console.ReadLine(), out int indiceProyecto) && indiceProyecto > 0 && indiceProyecto <= proyectos.Count)
+                {
+                    var proyectoSeleccionado = proyectos[indiceProyecto - 1];
+
+                    // Mostrar información detallada del proyecto seleccionado
+                    Console.WriteLine($"\nProyecto: {proyectoSeleccionado.Nombre}");
+                    Console.WriteLine($"Descripción: {proyectoSeleccionado.Descripcion}");
+                    Console.WriteLine($"Fecha de Inicio: {proyectoSeleccionado.FechaInicio.ToShortDateString()}");
+                    Console.WriteLine($"Fecha de Fin: {proyectoSeleccionado.FechaFin.ToShortDateString()}");
+                    Console.WriteLine($"Presupuesto: {proyectoSeleccionado.Presupuesto}");
+
+                    if (proyectoSeleccionado.EmpleadosAsignados != null && proyectoSeleccionado.EmpleadosAsignados.Count > 0) // Mostrar empleados asignados al proyecto
+                    {
+                        Console.WriteLine("\nEmpleados Asignados:");
+                        foreach (var empleado in proyectoSeleccionado.EmpleadosAsignados)
+                        {
+                            string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
+                            Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}; Posición: {tipoEmpleado}.");
+                        }
+                    }
+                    else
+                        Console.WriteLine("\nNo hay empleados asignados a este proyecto.");
+                }
+                else
+                    MetodosAuxiliares.MostrarMensaje("\nSelección inválida.");
+
+                MetodosAuxiliares.MostrarMensaje("");
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"\nOcurrió un error al mostrar la información del proyecto: {ex.Message}");
             }
         }
 
+
+        // metodo que muestra la informacion de un proyecto seleccionado ... Aunque tambien estan los reportes para eso ...
+        //public static void InformacionPoryectoConsola(List<Proyectos> proyectos, List<Empleado> empleados)
+        //{
+        //    try
+        //    {
+        //        //// Preguntar si se quiere ver más información de un proyecto
+        //        //Console.Write("\nIngrese el número del proyecto para ver más detalles (o '0' para volver): ");
+        //        //if (int.TryParse(Console.ReadLine(), out int numeroProyecto) && numeroProyecto > 0 && numeroProyecto <= proyectos.Count)
+        //        //{
+        //        //    var proyectoSeleccionado = proyectos[numeroProyecto - 1];
+
+        //        //    // Mostrar la información del proyecto seleccionado
+        //        //    Console.Clear();
+        //        //    Console.WriteLine("\n--- Información del Proyecto ---");
+        //        //    proyectoSeleccionado.MostrarInformacion();
+        //        //    proyectoSeleccionado.MostrarEmpleadosAsignados();
+        //        //}
+        //        //else
+        //        //{
+        //        //    Console.WriteLine("\nNúmero de proyecto no válido o cancelado.");
+        //        //}
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+
+        //public static void MostrarProyectosActivosConsola(List<Proyectos> proyectos)
+        //{
+        //    if (proyectos.Count == 0)
+        //    {
+        //        MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+        //        return;
+        //    }
+
+
+
+        //    Console.WriteLine("\n--- Proyectos Activos ---");
+        //    foreach (var proyecto in proyectos)
+        //    {
+        //        if (DateTime.Now >= proyecto.FechaInicio && DateTime.Now <= proyecto.FechaFin)
+        //        {
+        //            proyecto.MostrarInformacion();
+        //            proyecto.MostrarEmpleadosAsignados();
+        //        }
+        //    }
+        //}
+        //public static void MostrarProyectosNoActivosConsola(List<Proyectos> proyectos)
+        //{
+        //    if (proyectos.Count == 0)
+        //    {
+        //        MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+        //        return;
+        //    }
+
+        //    Console.WriteLine("\n--- Proyectos No Activos ---");
+        //    foreach (var proyecto in proyectos)
+        //    {
+        //        if (DateTime.Now > proyecto.FechaFin)
+        //        {
+        //            proyecto.MostrarInformacion();
+        //            proyecto.MostrarEmpleadosAsignados();
+        //        }
+        //    }
+        //}
+
+
         public static void AgregarProyectoConsola(List<Proyectos> proyectos)
         {
-            Console.WriteLine("\n--- Agregar Nuevo Proyecto ---");
+            Console.WriteLine("\nAgregar Nuevo Proyecto\n");
 
             Console.Write("Ingrese el nombre del proyecto: ");
             string nombre = Console.ReadLine();
@@ -104,12 +196,13 @@ namespace AppConsola
 
             Proyectos nuevoProyecto = new Proyectos(nombre, fechaInicio, fechaFin, descripcion, presupuesto);
 
-            proyectos.Add(nuevoProyecto);
+            proyectos.Add(nuevoProyecto); // -> aca va el metodo ProyectosNegocio que esta conectado a la base de datos...
 
-            Console.WriteLine($"El proyecto '{nombre}' ha sido agregado exitosamente.");
+            MetodosAuxiliares.MostrarMensaje($"\nEl proyecto '{nombre}' ha sido agregado exitosamente.");
+
         }
 
-        public static void ModificarDatosDelProyectoConsola(List<Proyectos> proyectos)
+        public static void ModificarDatosDelProyectoConsola(List<Proyectos> proyectos)// Corregir
         {
             if (proyectos.Count == 0)
             {
@@ -117,22 +210,22 @@ namespace AppConsola
                 return;
             }
 
-            Console.WriteLine("\nSeleccione un proyecto para modificar:");
-            for (int i = 0; i < proyectos.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {proyectos[i].Nombre}");
-            }
+            Console.WriteLine("\nModificar Proyecto");
 
+
+            ListaProyectosConsola(proyectos);
+            Console.Write("\nSeleccione un proyecto para modificar: ");
             int seleccionProyecto = Convert.ToInt32(Console.ReadLine()) - 1;
+
             var proyecto = proyectos[seleccionProyecto];
 
-            Console.WriteLine("\nSeleccione el campo a modificar:");
+            Console.Write("\nSeleccione el campo a modificar: ");
+            int opcion = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("1. Nombre");
             Console.WriteLine("2. Fecha de Inicio");
             Console.WriteLine("3. Fecha de Fin");
             Console.WriteLine("4. Descripción");
-            Console.WriteLine("5. Presupuesto");
-            int opcion = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("5. Presupuesto\n");
 
             switch (opcion)
             {
@@ -161,7 +254,7 @@ namespace AppConsola
                     break;
             }
 
-            Console.WriteLine("Los datos del proyecto han sido actualizados exitosamente.");
+            MetodosAuxiliares.MostrarMensaje("\nLos datos del proyecto han sido actualizados exitosamente.");
         }
 
         public static void EliminarProyectoConsola(List<Proyectos> proyectos)
@@ -172,19 +265,18 @@ namespace AppConsola
                 return;
             }
 
-            Console.WriteLine("\nSeleccione un proyecto para eliminar:");
-            for (int i = 0; i < proyectos.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {proyectos[i].Nombre}");
-            }
+            Console.WriteLine("\nEliminar Proyecto");
 
+            ListaProyectosConsola(proyectos);
+            Console.Write("\nSeleccione un proyecto para eliminar:");
             int seleccionProyecto = Convert.ToInt32(Console.ReadLine()) - 1;
 
             proyectos.RemoveAt(seleccionProyecto);
-            Console.WriteLine("Proyecto eliminado exitosamente.");
-        }
 
-        public static void MarcarProyectoComoCompletadoConsola(List<Proyectos> proyectos)
+            MetodosAuxiliares.MostrarMensaje("\nProyecto eliminado exitosamente.");
+        }
+        
+        public static void MarcarProyectoComoCompletadoConsola(List<Proyectos> proyectos) // este metodo no se que onda ...
         {
             if (proyectos.Count == 0)
             {
@@ -205,8 +297,6 @@ namespace AppConsola
             Console.WriteLine($"El proyecto '{proyectos[seleccionProyecto].Nombre}' ha sido marcado como completado.");
         }
 
-
-        // Métodos de asignación y desasignación de empleados - esto quizas lo pueda poner en una clase operaciones ... 
         public static void AsignarEmpleadoAProyectoConsola(List<Proyectos> proyectos, List<Empleado> empleados)
         {
             if (proyectos.Count == 0)
@@ -214,29 +304,27 @@ namespace AppConsola
                 MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
                 return;
 
-            } else if (empleados.Count == 0)
+            }
+            else if (empleados.Count == 0)
             {
                 MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                 return;
             }
 
-            Console.WriteLine("\nSeleccione un proyecto al cual asignar un empleado:");
-            for (int i = 0; i < proyectos.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {proyectos[i].Nombre}");
-            }
+            Console.WriteLine("\nAsignar Empleado");
 
+            ListaProyectosConsola(proyectos);
+            Console.Write("\nSeleccione un proyecto al cual asignar un empleado: ");
             int seleccionProyecto = Convert.ToInt32(Console.ReadLine()) - 1;
 
-            Console.WriteLine("\nSeleccione un empleado para asignar al proyecto:");
-            for (int i = 0; i < empleados.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}");
-            }
-
+            LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola(empleados);
+            Console.Write("\nSeleccione un empleado para asignar al proyecto: ");
             int seleccionEmpleado = Convert.ToInt32(Console.ReadLine()) - 1;
 
             proyectos[seleccionProyecto].AsignarEmpleado(empleados[seleccionEmpleado]);
+
+            MetodosAuxiliares.MostrarMensaje("\nAsignado correctamente.");
+
         }
 
         public static void DesasignarEmpleadoDeProyectoConsola(List<Proyectos> proyectos, List<Empleado> empleados)
@@ -245,16 +333,19 @@ namespace AppConsola
             {
                 MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
                 return;
-            }
 
-            Console.WriteLine("\nSeleccione un proyecto del cual desasignar un empleado:");
-            for (int i = 0; i < proyectos.Count; i++)
+            }
+            else if (empleados.Count == 0)
             {
-                Console.WriteLine($"{i + 1}. {proyectos[i].Nombre}");
+                MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
+                return;
             }
 
-            int seleccionProyecto = Convert.ToInt32(Console.ReadLine()) - 1;
+            Console.WriteLine("\nDesasignar Empleado");
 
+            ListaProyectosConsola(proyectos);
+            Console.Write("\nSeleccione un proyecto del cual desasignar un empleado:");
+            int seleccionProyecto = Convert.ToInt32(Console.ReadLine()) - 1;
             var empleadosAsignados = proyectos[seleccionProyecto].EmpleadosAsignados;
             if (empleadosAsignados.Count == 0)
             {
@@ -262,17 +353,29 @@ namespace AppConsola
                 return;
             }
 
-            Console.WriteLine("\nSeleccione un empleado para desasignar:");
-            for (int i = 0; i < empleadosAsignados.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {empleadosAsignados[i].Nombre} {empleadosAsignados[i].Apellido}");
-            }
-
+            LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola(empleados); // tendria que ser una lista de empleados asignados
+            Console.Write("\nSeleccione un empleado para desasignar:");
             int seleccionEmpleado = Convert.ToInt32(Console.ReadLine()) - 1;
 
-            proyectos[seleccionProyecto].DesasignarEmpleado(empleadosAsignados[seleccionEmpleado]);
-        }
 
+
+            //if (proyectoSeleccionado.EmpleadosAsignados != null && proyectoSeleccionado.EmpleadosAsignados.Count > 0) // Mostrar empleados asignados al proyecto
+            //{
+            //    Console.WriteLine("\nEmpleados Asignados:");
+            //    foreach (var empleado in proyectoSeleccionado.EmpleadosAsignados)
+            //    {
+            //        string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
+            //        Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}; Posición: {tipoEmpleado}.");
+            //    }
+            //}
+            //else
+            //    Console.WriteLine("\nNo hay empleados asignados a este proyecto.");
+
+
+            proyectos[seleccionProyecto].DesasignarEmpleado(empleadosAsignados[seleccionEmpleado]);
+
+            MetodosAuxiliares.MostrarMensaje("\nDesasignado correctamente.");
+        }
 
     }
 }

@@ -14,63 +14,20 @@ namespace AppConsola.LogicaAppConsola
     {
 
         //-------------------------------------------------------------------------------------------------------------------------------//
-
-        //                  Adaptcion de los metodos de ProyectosNegocio a la App de Consola
-
-
+        //                  Adaptcion de los metodos de ProyectosNegocio a la App de Consola                                             //
         //-------------------------------------------------------------------------------------------------------------------------------//
 
-
-        // Reportes de Empleados
-
-        // Opcion CON Id -> para conectar con la base de datos 
-        //public static void ReporteEmpleadoConsola(int empleadoId, List<Empleado> empleados, List<Proyectos> proyectos)
-        //{
-        //    // Buscar al empleado por ID
-        //    var empleado = empleados.FirstOrDefault(e => e.Id == empleadoId);
-        //    if (empleado == null)
-        //    {
-        //        Console.WriteLine($"Empleado con ID {empleadoId} no encontrado.");
-        //        return;
-        //    }
-
-        //    // Mostrar la información básica del empleado
-        //    Console.WriteLine($"\nReporte de Empleado:");
-        //    Console.WriteLine($"Nombre: {empleado.Nombre} {empleado.Apellido}");
-        //    Console.WriteLine($"Salario Base: {empleado.SalarioBase}");
-        //    Console.WriteLine($"Bonos: {empleado.CalcularBonos()}");
-        //    Console.WriteLine($"Salario Final: {empleado.CalcularSalario()}");
-
-        //    // Mostrar los proyectos asociados al empleado
-        //    var proyectosEmpleado = proyectos.Where(p => p.EmpleadosIds.Contains(empleado.Id)).ToList();
-        //    if (proyectosEmpleado.Count > 0)
-        //    {
-        //        Console.WriteLine("\nProyectos asignados:");
-        //        foreach (var proyecto in proyectosEmpleado)
-        //        {
-        //            Console.WriteLine($"Proyecto: {proyecto.Nombre}, Presupuesto: {proyecto.Presupuesto}");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("\nEl empleado no tiene proyectos asignados.");
-        //    }
-        //}
-
-
-
-        // Opcion SIN Id 
-        public static void ReporteEmpleadosConsola(List<Empleado> empleados, List<Proyectos> proyectos)
+        public static void ReporteEmpleadosConsola(List<Empleado> empleados, List<Proyectos> proyectos) 
         {
-            // Verificar si hay empleados en la lista
+        // FUNCIONA BIEN PERO tendria que poder elegir el empleado, que aparezca la lista de empleados y de ahi poder seleccionar que reporte quiero.
+            
             if (empleados.Count == 0)
             {
                 MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
-
                 return;
             }
 
-            // Generar reporte para cada empleado
+            // Generar reporte para cada empleado -> aca tendria que cambiarlo ...
             foreach (var empleado in empleados)
             {
                 // Mostrar la información básica del empleado
@@ -95,30 +52,39 @@ namespace AppConsola.LogicaAppConsola
                     {
                         Console.WriteLine($"Proyecto: {proyecto.Nombre}, Presupuesto: {proyecto.Presupuesto}");
                     }
+                    
+                    MetodosAuxiliares.MostrarMensaje("chau");
+
+
                 }
                 else
                 {
-                    Console.WriteLine("\nEl empleado no tiene proyectos asignados.");
+                    MetodosAuxiliares.MostrarMensaje("\nEl empleado no tiene proyectos asignados.");
+
                 }
 
                 Console.WriteLine(new string('-', 50)); // Separador para cada empleado
             }
         }
 
-
-
-        // Reportes de Proyectos
         public static void ReporteProyectosConsola(List<Proyectos> proyectos)
         {
+
+
+            // podria agregar si el proyecto esta activo o no lo esta ...
+
             if (proyectos == null || proyectos.Count == 0)
             {
                 MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
                 return;
             }
 
+            Console.Clear();
+            Console.WriteLine("\nReporte Proyectos\n");
+
             foreach (var proyecto in proyectos)
             {
-                Console.WriteLine($"\nProyecto: {proyecto.Nombre}");
+                Console.WriteLine($"Proyecto: {proyecto.Nombre}");
                 Console.WriteLine($"Descripción: {proyecto.Descripcion}");
                 Console.WriteLine($"Fecha de Inicio: {proyecto.FechaInicio.ToShortDateString()}");
                 Console.WriteLine($"Fecha de Fin: {proyecto.FechaFin.ToShortDateString()}");
@@ -127,10 +93,10 @@ namespace AppConsola.LogicaAppConsola
                 // Lista de empleados asignados al proyecto
                 if (proyecto.EmpleadosAsignados != null && proyecto.EmpleadosAsignados.Count > 0)
                 {
-                    Console.WriteLine("Empleados Asignados:");
+                    Console.WriteLine("\nEmpleados Asignados:");
                     foreach (var empleado in proyecto.EmpleadosAsignados)
                     {
-                        Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}, Salario Base: {empleado.SalarioBase}, Bonos: {empleado.CalcularBonos()}");
+                        Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}; Posicion: {empleado.EsOperativo}.");
                     }
                 }
                 else
@@ -140,23 +106,23 @@ namespace AppConsola.LogicaAppConsola
 
                 Console.WriteLine("----------------------------------------------------");
             }
+        
+        MetodosAuxiliares.MostrarMensaje("\n Salir ...");
+
+
         }
 
-
-        // Reportes Financieros
         public static void ReporteFinancieroConsola(List<Empleado> empleados, List<Proyectos> proyectos)
         {
             try
             {
                 ReporteFinanzas reporteFinanzas = CalcularTotalesFinancieros(empleados, proyectos);
 
-                Console.WriteLine("\n# Reporte Financiero");
-                Console.WriteLine($"Total Gastos en Salarios: {reporteFinanzas.TotalSalarios:C}");
-                Console.WriteLine($"Total Gastos en Bonos: {reporteFinanzas.TotalBonos:C}");
-                Console.WriteLine($"Total Presupuestos de Proyectos: {reporteFinanzas.TotalPresupuestosProyectos:C}");
-                Console.WriteLine($"\nTotal Gastos (Salarios + Bonos + Presupuestos): {reporteFinanzas.TotalGastos:C}");
-
-                MetodosAuxiliares.MostrarMensaje("");
+                Console.WriteLine("\n# Reporte Financiero\n");
+                Console.WriteLine($"Total Gastos en Salarios: {reporteFinanzas.TotalSalarios}");
+                Console.WriteLine($"Total Gastos en Bonos: {reporteFinanzas.TotalBonos}");
+                Console.WriteLine($"Total Presupuestos de Proyectos: {reporteFinanzas.TotalPresupuestosProyectos}");
+                MetodosAuxiliares.MostrarMensaje($"Total Gastos (Salarios + Bonos + Presupuestos): {reporteFinanzas.TotalGastos}");
             }
             catch (Exception ex)
             {
@@ -173,7 +139,6 @@ namespace AppConsola.LogicaAppConsola
             reporteFinanzas.TotalGastos = reporteFinanzas.TotalSalarios + reporteFinanzas.TotalBonos + reporteFinanzas.TotalPresupuestosProyectos;
             return reporteFinanzas;
         }
-
 
     }
 }

@@ -82,6 +82,10 @@ namespace AppDeConsola
                     {
                         case "1":
                             LogicaEmpleados.ListaEmpleadosConsola(empleados);
+
+                            if (empleados.Count != 0)
+                                LogicaEmpleados.ContadorEmpleadosConsola(empleados);
+
                             break;
                         case "2":
                             LogicaEmpleados.BuscarEmpleadoConsola(empleados);
@@ -109,7 +113,6 @@ namespace AppDeConsola
             }
         }
 
-
         public static void MenuGestionDeProyectos()
         {
             while (true)
@@ -117,61 +120,45 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\nGestión/Administrar de Proyectos\n");
-                    Console.WriteLine("1. Lista de Proyectos Activos");
-                    Console.WriteLine("2. Lista de Proyectos No Activos"); // # // 
-                    Console.WriteLine("3. Asignar Empleado a Proyecto");
-                    Console.WriteLine("4. Desasignar Empleado de Proyecto"); // # // 
-                    Console.WriteLine("5. Agregar Proyecto");
-                    Console.WriteLine("6. Marcar Proyecto como Completado"); // # // 
-                    Console.WriteLine("7. Modificar Datos del Proyecto");
-                    Console.WriteLine("8. Eliminar Proyecto");
+                    Console.WriteLine("\n Aministrar Proyectos\n");
+                    Console.WriteLine("1. Lista de Proyectos");
+                    Console.WriteLine("2. Informacion de Proyecto"); // tambien esta en Reportes -> Rerporte Proyectos
+                    Console.WriteLine("3. Agregar Proyecto");
+                    Console.WriteLine("4. Marcar Proyecto como Completado");
+                    Console.WriteLine("5. Modificar Datos de Proyecto");
+                    Console.WriteLine("6. Eliminar Proyecto");
+                    Console.WriteLine("7. Asignar Empleado a Proyecto");
+                    Console.WriteLine("8. Desasignar Empleado de Proyecto");
                     Console.WriteLine("\n9. Volver al Menú Principal");
                     Console.Write("\nSeleccione una opción: ");
-
-                    // # // podrian mejorar
 
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            //ProyectosNegocio.MostrarProyectosActivos(proyectos);
-                            LogicaProyectos.MostrarProyectosActivosConsola(proyectos);
-
+                            LogicaProyectos.ListaProyectosConsola(proyectos);
+                            if (proyectos.Count != 0)
+                                LogicaProyectos.ContadorProyectosConsola(proyectos);
                             break;
                         case "2":
-                            //ProyectosNegocio.MostrarProyectosNoActivos(proyectos);
-                            LogicaProyectos.MostrarProyectosNoActivosConsola(proyectos);
-
+                            LogicaProyectos.InformacionProyectoConsola(proyectos);
                             break;
                         case "3":
-                            //ProyectosNegocio.AsignarEmpleadoAProyecto(proyectos, empleados);
-                            LogicaProyectos.AsignarEmpleadoAProyectoConsola(proyectos, empleados);
-
+                            LogicaProyectos.AgregarProyectoConsola(proyectos);
                             break;
                         case "4":
-                            //ProyectosNegocio.DesasignarEmpleadoDeProyecto(proyectos, empleados);
-                            LogicaProyectos.DesasignarEmpleadoDeProyectoConsola(proyectos, empleados);
-
+                            LogicaProyectos.MarcarProyectoComoCompletadoConsola(proyectos); // este no se para que me servira
                             break;
                         case "5":
-                            //ProyectosNegocio.AgregarProyecto(proyectos);
-                            LogicaProyectos.AgregarProyectoConsola(proyectos);
-
+                            LogicaProyectos.ModificarDatosDelProyectoConsola(proyectos);
                             break;
                         case "6":
-                            //ProyectosNegocio.MarcarProyectoComoCompletado(proyectos);
-                            LogicaProyectos.MarcarProyectoComoCompletadoConsola(proyectos);
-
+                            LogicaProyectos.EliminarProyectoConsola(proyectos);
                             break;
                         case "7":
-                            //ProyectosNegocio.ModificarDatosDelProyecto(proyectos);
-                            LogicaProyectos.ModificarDatosDelProyectoConsola(proyectos);
-
+                            LogicaProyectos.AsignarEmpleadoAProyectoConsola(proyectos, empleados);
                             break;
                         case "8":
-                            //ProyectosNegocio.EliminarProyecto(proyectos);
-                            LogicaProyectos.EliminarProyectoConsola(proyectos);
-
+                            LogicaProyectos.DesasignarEmpleadoDeProyectoConsola(proyectos, empleados);
                             break;
                         case "9":
                             return;
@@ -187,7 +174,6 @@ namespace AppDeConsola
             }
         }
 
-
         public static void MenuOperaciones(List<Empleado> empleados, List<Proyectos> proyectos)
         {
             while (true)
@@ -197,8 +183,8 @@ namespace AppDeConsola
                     Console.Clear();
                     Console.WriteLine("\nMenú de Operaciones\n");
                     Console.WriteLine("1. Asignar Bonos a los Empleados");
-                    Console.WriteLine("2. Calcular Incrementos de Salarios");
-                    Console.WriteLine("3. Realizar Otras Operaciones");
+                    Console.WriteLine("2. Calcular Incrementos de Salarios"); // aumento de salarios - calculo de salarios , etc... 
+                    Console.WriteLine("3. Realizar Otras Operaciones"); // decuentos de salario? 
                     Console.WriteLine("\n4. Volver al Menú Principal\n");
                     Console.Write("Seleccione una opción: ");
 
@@ -266,16 +252,15 @@ namespace AppDeConsola
                             //}
                             //break;
 
-                            LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos);
-
+                            LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos); // juntar toda la info sobre el o los empleados e insertarla aca
                             break;
 
                         case "2":
-                            LogicaReportes.ReporteProyectosConsola(proyectos);
+                            LogicaReportes.ReporteProyectosConsola(proyectos); // juntar toda la info sobre el o los proyectos e insertarla aca
                             break;
 
                         case "3":
-                            LogicaReportes.ReporteFinancieroConsola(empleados, proyectos);
+                            LogicaReportes.ReporteFinancieroConsola(empleados, proyectos); // juntar toda la info sobre finanzas e insertarla aca
                             break;
 
                         case "4":
