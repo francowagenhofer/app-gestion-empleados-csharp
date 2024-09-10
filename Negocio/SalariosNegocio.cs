@@ -6,30 +6,73 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio.Interfaces;
 using Dominio.ReglasDelNegocio;
+using negocio;
 
 namespace Negocio
 {
     public class SalariosNegocio
     {
-        public static void AsignarSalarioPorCategoria(Empleado empleado) // este metodo esta bien aca...
+
+        public static void AsignarSalarioPorCategoria(Empleado empleado)  
         {
+            // mejorar el metodo antes de usar ...
+            // el metodo funciona ... pero lo que se guarda en la tabla empleados es el valor de SalarioBase y no el IdAsignarSalario ...
+            // tengo que reconvertir el metodo
+
+            
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                if (empleado is Gerente)
-                    empleado.SalarioBase = 50000m;
+                // Selecciona la categoria del empleado para luego asignar el salario correspondiente
+                switch (empleado.Categoria)
+                {
+                    case 1: // Operativo
+                        empleado.SalarioBase = 30000m;
+                        break;
+                    case 2: // Gerente
+                        empleado.SalarioBase = 50000m;
+                        break;
+                    case 3: // Director
+                        empleado.SalarioBase = 70000m;
+                        break;
+                    default:
+                        throw new ArgumentException("Categoría no válida.");
+                }
 
-                else if (empleado is Director)
-                    empleado.SalarioBase = 70000m;
+                // Guardar el salario en la tabla AsignarSalarios
+                //datos.setearProcedimiento("AsignarSalario"); // Procedimiento almacenado
+                //datos.setearParametro("@IdEmpleado", empleado.Id);
+                //datos.setearParametro("@IdCategoria", empleado.Categoria);
+                //datos.setearParametro("@SalarioBase", empleado.SalarioBase);
+                //datos.setearParametro("@FechaAsignacion", DateTime.Now);
+                //datos.ejecutarAccion(); // Ejecutar el procedimiento
 
-                else
-                    empleado.SalarioBase = 30000m;
+                //// Salarios ...
+                //datos.setearProcedimiento("AgregarSalario"); 
+                //datos.setearParametro("@IdEmpleado", empleado.Id);
+                //datos.setearParametro("@IdAsignacionSalario", empleado.Id); 
+                //datos.setearParametro("@Monto", empleado.SalarioBase);
+                ////datos.setearParametro("@FechaPago", DateTime.Now); // este no se que onda podria ser ...
+                //datos.ejecutarAccion();
+
+                //// historial de salarios ...
+                //datos.setearProcedimiento("AgregarHistorialSalario"); // Procedimiento almacenado
+                //datos.setearParametro("@IdEmpleado", empleado.Id);
+                //datos.setearParametro("@IdSalarioAnterior", null); // Suponiendo que es el primer salario asignado
+                //datos.setearParametro("@IdSalarioNuevo", empleado.Id); // Asumimos que usamos el mismo Id
+                //datos.setearParametro("@FechaCambio", DateTime.Now); 
+                ////datos.setearParametro("@IdUsuario", null); // Puedes asignar el usuario que realizó el cambio si aplica
+                //datos.setearParametro("@Comentarios", "Asignación inicial de salario.");
+                //datos.ejecutarAccion();
+
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error al asignar salario: {ex.Message}");
             }
         }
+
 
         //public static void CalcularSalariosConIncremento(List<Empleado> empleados) // tendria que adaptar este metodo.
         //{

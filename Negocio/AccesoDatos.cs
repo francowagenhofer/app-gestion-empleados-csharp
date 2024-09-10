@@ -22,7 +22,7 @@ namespace negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=hola_DB; integrated security=true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=GestionEmpleadosDB; integrated security=true");
             comando = new SqlCommand();
         }
 

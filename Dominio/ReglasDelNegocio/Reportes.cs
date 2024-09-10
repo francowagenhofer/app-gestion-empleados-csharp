@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace Dominio.ReglasDelNegocio
 {
-    public class ReporteEmpleado
-    {
-        public string Nombre { get; set; }
-        public string Posicion { get; set; }
-        public decimal Salario { get; set; }
-        public decimal Bonos { get; set; }
-    }
+    //public class ReporteEmpleado 
+    //{
+    //    public string Nombre { get; set; }
+    //    public string Posicion { get; set; }
+    //    public decimal Salario { get; set; }
+    //    public decimal Bonos { get; set; }
+    //}
 
-    public class ReporteProyecto
-    {
-        public string Nombre { get; set; }
-        public string Estado { get; set; }
-        public DateTime FechaInicio { get; set; }
-        public DateTime FechaFin { get; set; }
-        public decimal Presupuesto { get; set; }
-    }
+    //public class ReporteProyecto
+    //{
+    //    public string Nombre { get; set; }
+    //    public string Estado { get; set; }
+    //    public DateTime FechaInicio { get; set; }
+    //    public DateTime FechaFin { get; set; }
+    //    public decimal Presupuesto { get; set; }
+    //}
 
     public class ReporteFinanzas
     {

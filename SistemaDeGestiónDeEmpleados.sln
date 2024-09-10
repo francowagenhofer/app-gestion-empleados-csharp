@@ -19,6 +19,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEscritorio-GestiónDeEmpleados", "AppEscritorio-GestiónDeEmpleados\AppEscritorio-GestiónDeEmpleados.csproj", "{C98E3A7F-3BA7-4194-8FFA-82A2C7EE8B66}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base de Datos", "Base de Datos", "{FE3F273B-2EEB-46C9-A2F5-79E6D581DD0F}"
+	ProjectSection(SolutionItems) = preProject
+		..\Base de datos\Creacion Base de datos - GestionEmpleadosDB.sql = ..\Base de datos\Creacion Base de datos - GestionEmpleadosDB.sql
+		..\Base de datos\StoredProdcedure.sql = ..\Base de datos\StoredProdcedure.sql
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppConsola-GestiónDeEmpleados", "AppConsola-GestionDeEmpleados\AppConsola-GestiónDeEmpleados.csproj", "{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}"
 EndProject

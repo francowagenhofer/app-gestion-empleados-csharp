@@ -9,9 +9,6 @@ namespace Dominio.Entidades
 {
     public class Gerente : Empleado, IEmpleado
     {
-        // Llama al constructor base con el valor predeterminado 
-        public Gerente() : base(false) { } // no es Empleado Operativo
-
         public override decimal CalcularSalario()
         {
             // Llama al método específico de la clase Bonos para calcular bonos de gerente

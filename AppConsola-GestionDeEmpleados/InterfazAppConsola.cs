@@ -5,6 +5,7 @@ using AppConsola.LogicaAppConsola;
 using Dominio;
 using Dominio.Entidades;
 using Dominio.Entidades.Dominio.Entidades;
+using negocio;
 using Negocio;
 
 namespace AppDeConsola
@@ -13,8 +14,6 @@ namespace AppDeConsola
     {
         public static List<Empleado> empleados = new List<Empleado>();
         public static List<Proyectos> proyectos = new List<Proyectos>();
-
-        //List<Empleado> empleados = EmpleadoNegocio.ObtenerListaEmpleados(); // Obtener la lista de empleados
 
 
         public static void Main(string[] args)
@@ -37,16 +36,13 @@ namespace AppDeConsola
                         case "1":
                             MenuGestionEmpleados();
                             break;
-
                         case "2":
                             MenuGestionDeProyectos();
                             break;
                         case "3":
                             MenuOperaciones(empleados, proyectos);
-
                             break;
                         case "4":
-
                             MenuReportes(empleados, proyectos);
                             break;
                         case "5": return;
@@ -88,7 +84,7 @@ namespace AppDeConsola
 
                             break;
                         case "2":
-                            LogicaEmpleados.BuscarEmpleadoConsola(empleados);
+                            LogicaEmpleados.InformacionEmpleadoConsola(empleados);
                             break;
                         case "3":
                             LogicaEmpleados.AgregarEmpleadoConsola(empleados);
@@ -251,7 +247,6 @@ namespace AppDeConsola
                             //    Console.WriteLine("\nID de empleado no válido.\n");
                             //}
                             //break;
-
                             LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos); // juntar toda la info sobre el o los empleados e insertarla aca
                             break;
 

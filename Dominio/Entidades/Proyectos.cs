@@ -27,6 +27,8 @@ namespace Dominio.Entidades
                 Presupuesto = presupuesto;
             }
 
+
+            // estos metodos de asignacion estan bien aca o podrian ir a ProyectosNegocio
             public void AsignarEmpleado(Empleado empleado)
             {
                 EmpleadosAsignados.Add(empleado);
@@ -37,27 +39,28 @@ namespace Dominio.Entidades
                 EmpleadosAsignados.Remove(empleado);
             }
 
+           
             // que onda estos ultimos dos metodos. pueden ser llamados en la logica de Proyectos? me ayudaria eso
 
-            public void MostrarInformacion()
-            {
-                Console.WriteLine($"Nombre: {Nombre}, Fecha de Inicio: {FechaInicio}, Fecha de Fin: {FechaFin}, Descripción: {Descripcion}, Presupuesto: {Presupuesto}");
-            }
+            //public void MostrarInformacion()
+            //{
+            //    Console.WriteLine($"Nombre: {Nombre}, Fecha de Inicio: {FechaInicio}, Fecha de Fin: {FechaFin}, Descripción: {Descripcion}, Presupuesto: {Presupuesto}");
+            //}
 
-            public void MostrarEmpleadosAsignados() // que onda esto. 
-            {
-                if (EmpleadosAsignados.Count == 0)
-                {
-                    Console.WriteLine("No hay empleados asignados a este proyecto.");
-                    return;
-                }
+            //public void MostrarEmpleadosAsignados() 
+            //{
+            //    if (EmpleadosAsignados.Count == 0)
+            //    {
+            //        Console.WriteLine("No hay empleados asignados a este proyecto.");
+            //        return;
+            //    }
 
-                Console.WriteLine("Empleados asignados:");
-                foreach (var empleado in EmpleadosAsignados)
-                {
-                    Console.WriteLine($"{empleado.Nombre} {empleado.Apellido}");
-                }
-            }
+            //    Console.WriteLine("Empleados asignados:");
+            //    foreach (var empleado in EmpleadosAsignados)
+            //    {
+            //        Console.WriteLine($"{empleado.Nombre} {empleado.Apellido}");
+            //    }
+            //}
         }
     }
 }

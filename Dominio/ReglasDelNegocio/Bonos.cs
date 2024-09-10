@@ -47,5 +47,7 @@ namespace Dominio.ReglasDelNegocio
 
             return CalcularBonos();
         }
+    
+    
     }
 }
