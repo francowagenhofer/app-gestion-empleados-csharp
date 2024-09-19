@@ -17,13 +17,10 @@ namespace Dominio.Entidades
 
         public string Apellido { get; set; }
 
-        public int Edad { get; set; } // tendria que eliminar este
-
         public DateTime FechaNacimiento { get; set; }
 
-        public int DNI { get; set; }
+        public string DNI { get; set; }
 
-        // [DisplayName("foto de perfil ...")] con esto se cambia el nombre
         public string Imagen { get; set; }
 
         public int Categoria { get; set; }
@@ -34,14 +31,16 @@ namespace Dominio.Entidades
 
         public Bonos Bonos { get; set; }
 
-        //public Empleado(bool esOperativo) // esto importa? es decir la base de datos lo registra en base a la propiedad categoria 
-        //{
-        //    EsOperativo = esOperativo;
-        //    Bonos = new Bonos();  // Instancia de la clase Bonos 
-        //}
-
         public bool IsActive { get; set; }
 
+
+        //// Método para validar DNI
+        //public static bool ValidarDNI(string dni)
+        //{
+        //    // Aquí debes llamar a la capa de negocio o de datos
+        //    EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+        //    return empleadoNegocio.ValidarDNI(dni);
+        //}
 
 
         public virtual decimal CalcularBonos()
@@ -55,9 +54,6 @@ namespace Dominio.Entidades
         }
 
 
-        public static int ContarEmpleados(List<Empleado> lista) => lista.Count; // esto se puede usar en reportes ...
-
-
         public int CalcularAntiguedad() // esto se puede usar en reportes ...
         {
             return (DateTime.Now - FechaIngreso).Days / 365;
@@ -65,7 +61,7 @@ namespace Dominio.Entidades
 
         public virtual void MostrarInformacion()  // esto se puede mostrar en reportes ...
         {
-            Console.WriteLine($"Nombre: {Nombre} {Apellido}, Edad: {Edad} {FechaNacimiento}, Salario Base: {SalarioBase}");
+            Console.WriteLine($"Nombre: {Nombre} {Apellido}, Edad: {FechaNacimiento}, Salario Base: {SalarioBase}");
 
         }
 

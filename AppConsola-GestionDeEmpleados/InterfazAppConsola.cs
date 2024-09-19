@@ -15,7 +15,6 @@ namespace AppDeConsola
         public static List<Empleado> empleados = new List<Empleado>();
         public static List<Proyectos> proyectos = new List<Proyectos>();
 
-
         public static void Main(string[] args)
         {
             while (true)
@@ -70,32 +69,33 @@ namespace AppDeConsola
                     Console.WriteLine("2. Buscar Empleado");
                     Console.WriteLine("3. Añadir Empleado");
                     Console.WriteLine("4. Modificar Empleado");
-                    Console.WriteLine("5. Eliminar Empleado");
-                    Console.WriteLine("\n6. Volver al Menú Principal");
+                    Console.WriteLine("5. Cambiar Estado");
+                    Console.WriteLine("6. Eliminar Empleado");
+                    Console.WriteLine("\n7. Volver al Menú Principal");
                     Console.Write("\nSelecciona una opción: ");
 
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            LogicaEmpleados.ListaEmpleadosConsola(empleados);
-
-                            if (empleados.Count != 0)
-                                LogicaEmpleados.ContadorEmpleadosConsola(empleados);
-
+                            LogicaEmpleados.ListaEmpleadosConsola();
+                            LogicaEmpleados.ResumenEmpleadosConsola();
                             break;
                         case "2":
-                            LogicaEmpleados.InformacionEmpleadoConsola(empleados);
+                            LogicaEmpleados.InformacionEmpleadoConsola();
                             break;
                         case "3":
-                            LogicaEmpleados.AgregarEmpleadoConsola(empleados);
+                            LogicaEmpleados.AgregarEmpleadoConsola();
                             break;
                         case "4":
-                            LogicaEmpleados.ModificarEmpleadoConsola(empleados);
+                            LogicaEmpleados.ModificarEmpleadoConsola();
                             break;
                         case "5":
-                            LogicaEmpleados.EliminarEmpleadoConsola(empleados);
+                            LogicaEmpleados.CambiarEstadoEmpleadoConsola();
                             break;
                         case "6":
+                            LogicaEmpleados.EliminarEmpleadoConsola();
+                            break;
+                        case "7":
                             return;
                         default:
                             Negocio.MetodosAuxiliares.MostrarMensaje("\nOpción no válida.");
@@ -120,8 +120,8 @@ namespace AppDeConsola
                     Console.WriteLine("1. Lista de Proyectos");
                     Console.WriteLine("2. Informacion de Proyecto"); // tambien esta en Reportes -> Rerporte Proyectos
                     Console.WriteLine("3. Agregar Proyecto");
-                    Console.WriteLine("4. Marcar Proyecto como Completado");
-                    Console.WriteLine("5. Modificar Datos de Proyecto");
+                    Console.WriteLine("4. Modificar Datos de Proyecto");
+                    Console.WriteLine("5. Cambiar Estado");
                     Console.WriteLine("6. Eliminar Proyecto");
                     Console.WriteLine("7. Asignar Empleado a Proyecto");
                     Console.WriteLine("8. Desasignar Empleado de Proyecto");
@@ -131,30 +131,29 @@ namespace AppDeConsola
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            LogicaProyectos.ListaProyectosConsola(proyectos);
-                            if (proyectos.Count != 0)
-                                LogicaProyectos.ContadorProyectosConsola(proyectos);
+                            LogicaProyectos.ListaProyectosConsola();
+                            LogicaProyectos.ResumenProyectosConsola();
                             break;
                         case "2":
-                            LogicaProyectos.InformacionProyectoConsola(proyectos);
+                            LogicaProyectos.InformacionProyectoConsola();
                             break;
                         case "3":
-                            LogicaProyectos.AgregarProyectoConsola(proyectos);
+                            LogicaProyectos.AgregarProyectoConsola();
                             break;
                         case "4":
-                            LogicaProyectos.MarcarProyectoComoCompletadoConsola(proyectos); // este no se para que me servira
+                            LogicaProyectos.ModificarDatosDelProyectoConsola();
                             break;
                         case "5":
-                            LogicaProyectos.ModificarDatosDelProyectoConsola(proyectos);
+                            LogicaProyectos.CambiarEstadoProyectoConsola();
                             break;
                         case "6":
-                            LogicaProyectos.EliminarProyectoConsola(proyectos);
+                            LogicaProyectos.EliminarProyectoConsola();
                             break;
                         case "7":
-                            LogicaProyectos.AsignarEmpleadoAProyectoConsola(proyectos, empleados);
+                            LogicaProyectos.AsignarEmpleadoAProyectoConsola();
                             break;
                         case "8":
-                            LogicaProyectos.DesasignarEmpleadoDeProyectoConsola(proyectos, empleados);
+                            LogicaProyectos.DesasignarEmpleadoDeProyectoConsola();
                             break;
                         case "9":
                             return;

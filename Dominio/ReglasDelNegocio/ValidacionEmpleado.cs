@@ -13,7 +13,6 @@ namespace Dominio.ReglasDelNegocio
         {
             if (string.IsNullOrWhiteSpace(empleado.Nombre) || // cambiar la edad
                 string.IsNullOrWhiteSpace(empleado.Apellido) ||
-                empleado.Edad <= 0 ||
                 empleado.SalarioBase <= 0)
             {
                 return false;

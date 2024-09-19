@@ -53,10 +53,7 @@ namespace AppConsola.LogicaAppConsola
                 // Mostrar la información del empleado
                 Console.WriteLine("# Informacion del empleado");
                 Console.WriteLine($"Nombre: {empleado.Nombre} {empleado.Apellido}");
-                
-                Console.WriteLine($"Edad: {empleado.Edad}"); // fecha de nacimineto 
-                Console.WriteLine($"Edad: {empleado.FechaNacimiento}"); // fecha de nacimineto 
-
+                Console.WriteLine($"Edad: {empleado.FechaNacimiento}"); // calcular la Edad ...
                 Console.WriteLine($"Puesto: {tipoEmpleado}");
                 Console.WriteLine($"Fecha de Ingreso");//Ingreso en la empresa
                 Console.WriteLine($"Salario Base: ${empleado.SalarioBase}");

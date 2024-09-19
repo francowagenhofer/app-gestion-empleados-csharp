@@ -1,4 +1,6 @@
 ﻿using Dominio.Entidades;
+using Dominio.Entidades.Dominio.Entidades;
+using Dominio.Interfaces;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -9,32 +11,31 @@ using System.Threading.Tasks;
 
 namespace AppConsola.LogicaAppConsola
 {
-    public class LogicaEmpleados
+    public class LogicaEmpleados  // Adaptcion de los metodos de EmpleadoNegocio a la logica de la App de Consola.
     {
-        //-------------------------------------------------------------------------------------------------------------------------------//
-        //                  Adaptcion de los metodos de EmpleadoNegocio a la App de Consola                                              //
-        //-------------------------------------------------------------------------------------------------------------------------------//
-
-        public static void ListaEmpleadosConsola(List<Empleado> empleados)
+        public static void ListaEmpleadosConsola() // Funciona joya
+        // creo que no hace falta pasar parametros... ya esta todo guardado en la lista.
         {
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
             try
             {
-                if (empleados.Count == 0)
+                List<Empleado> empleados = empleadoNegocio.ListarEmpleados();
+
+                if (empleados == null || empleados.Count == 0)
                 {
                     Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                     return;
                 }
 
-                Console.WriteLine("\nLista de Empleados");
+                Console.WriteLine("\n- Lista de Empleados -\n");
                 for (int i = 0; i < empleados.Count; i++)
                 {
-                    string tipoEmpleado = empleados[i] is Gerente ? "Gerente" : empleados[i] is Director ? "Director" : "Empleado Operativo";
-                    Console.WriteLine($"{i + 1}. {empleados[i].Nombre} {empleados[i].Apellido}; Puesto: {tipoEmpleado}.");
+                    string tipoEmpleado = empleados[i].Categoria == 1 ? "Empleado Operativo" : empleados[i].Categoria == 2 ? "Gerente" : "Director";
+                    string estadoEmpleado = empleados[i].IsActive ? "Activo" : "Inactivo";
+
+                    Console.WriteLine($"{i + 1}) Nro. Id: {empleados[i].Id}; Nombre: {empleados[i].Nombre} {empleados[i].Apellido}; Puesto: {tipoEmpleado}; Estado: {estadoEmpleado}.");
                 }
-
-                //; Salario: { empleados[i].CalcularSalario()}
-                //pesos ----> ver en reporte de empleados!
-
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\n - # -");
             }
             catch (Exception ex)
             {
@@ -42,164 +43,120 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-        public static void ContadorEmpleadosConsola(List<Empleado> empleados) // Esta el metodo contarEmpleados en la clase Empleado - como se relacionan?
+        public static void ResumenEmpleadosConsola() // Funciona joya
         {
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
             try
             {
-                // Contar empleados por categoría
-                int totalEmpleados = empleados.Count;
-                int totalGerentes = empleados.OfType<Gerente>().Count();
-                int totalDirectores = empleados.OfType<Director>().Count();
-                int totalEmpleadosOperativos = totalEmpleados - totalGerentes - totalDirectores;
+                List<Empleado> empleados = empleadoNegocio.ListarEmpleados();
 
-                // Mostrar conteo de empleados por categoría
-                Console.WriteLine("\nResumen de Empleados:");
-                Console.WriteLine($"Empleados Operativos: {totalEmpleadosOperativos}");
-                Console.WriteLine($"Gerentes: {totalGerentes}");
-                Console.WriteLine($"Directores: {totalDirectores}");
-                Negocio.MetodosAuxiliares.MostrarMensaje($"Total de Empleados: {totalEmpleados}");
+                if (empleados.Count > 0)
+                {
+                    List<Empleado> empleadosActivos = empleados.Where(emp => emp.IsActive).ToList();
+                    int totalEmpleadosActivos = empleadosActivos.Count;
+
+                    List<Empleado> empleadosDesactivados = empleados.Where(emp => !emp.IsActive).ToList();
+                    int totalEmpleadosDesactivados = empleadosDesactivados.Count;
+
+                    int totalEmpleados = empleados.Count;
+                    int totalOperativos = empleados.Count(e => e.Categoria == 1);
+                    int totalGerentes = empleados.Count(e => e.Categoria == 2);
+                    int totalDirectores = empleados.Count(e => e.Categoria == 3);
+
+                    Console.WriteLine("\n- Resumen de Empleados -\n");
+                    Console.WriteLine($"- Total de Empleados: {totalEmpleados}");
+                    Console.WriteLine($"- Empleados Operativos: {totalOperativos}");
+                    Console.WriteLine($"- Gerentes: {totalGerentes}");
+                    Console.WriteLine($"- Directores: {totalDirectores}");
+                    Console.WriteLine($"- Empleados Activos: {totalEmpleadosActivos}");
+                    Negocio.MetodosAuxiliares.MostrarMensaje($"- Empleados Desactivados: {totalEmpleadosDesactivados}");
+
+                }
             }
             catch (Exception ex)
             {
-                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al contar empleados: {ex.Message}");
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al mostrar el resumen de empleados: {ex.Message}");
             }
         }
 
-        public static void InformacionEmpleadoConsola(List<Empleado> empleados) 
+        public static string ObtenerNombreCategoria(int categoria) // Funciona joya 
         {
-        // el buscador de empleados varia segun el tipo de aplicacion (consola, escritorio, web). 
-        // tengo que hacer cambios en este metodo para mejorarlo
-        // primero agregar la lista de empleados
-        // segundo agregar la informacion del empleado seleccionado:
-        // nombre, edad, salario, puesto, fecha de contratacion, bonos, informacion de contacto, estado laboral (activo, no-avtivo)
-
+            switch (categoria)
+            {
+                case 1:
+                    return "Empleado Operativo";
+                case 2:
+                    return "Gerente";
+                case 3:
+                    return "Director";
+                default:
+                    return "Categoría Desconocida";
+            }
+        }
+    
+        public static void InformacionEmpleadoConsola() // Funcion bien 
+        // falta mejorar la informacion que se muestra del empleado ..
+        {
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+            ProyectosNegocio proyectoNegocio = new ProyectosNegocio();
             try
             {
-                if (empleados.Count == 0)
+                List<Empleado> listaEmpleados = empleadoNegocio.ListarEmpleados();
+
+                if (listaEmpleados.Count == 0)
                 {
                     Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                     return;
                 }
 
-                ListaEmpleadosConsola(empleados);
+                ListaEmpleadosConsola();
 
-                Console.Write("\nIngrese el nombre o apellido del empleado a buscar: ");
-                string criterio = Console.ReadLine()?.Trim().ToLower();
+                Console.Write("\nIngrese el ID del empleado a buscar: ");
+                string criterio = Console.ReadLine()?.Trim();
 
-                if (string.IsNullOrWhiteSpace(criterio)) // Validar que el criterio no sea vacío
+                if (string.IsNullOrWhiteSpace(criterio) || !int.TryParse(criterio, out int idEmpleado))
                 {
-                    Negocio.MetodosAuxiliares.MostrarMensaje("\nDebe ingresar un nombre o apellido valido para buscar.");
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nDebe ingresar un ID válido para buscar.");
                     return;
                 }
 
-                var resultados = empleados
-                    .Where(e => e.Nombre.ToLower().Contains(criterio) || e.Apellido.ToLower().Contains(criterio))
-                    .ToList();
-
-                if (resultados.Count > 0)
+                var empleadoEncontrado = listaEmpleados.SingleOrDefault(e => e.Id == idEmpleado);
+                if (empleadoEncontrado != null)
                 {
-                    foreach (var empleado in resultados)
+                    string tipoEmpleado = ObtenerNombreCategoria(empleadoEncontrado.Categoria);
+
+                    Console.WriteLine("\n- Información del empleado -\n");
+                    Console.WriteLine($"Nombre: {empleadoEncontrado.Nombre} {empleadoEncontrado.Apellido}");
+                    Console.WriteLine($"Edad: {DateTime.Now.Year - empleadoEncontrado.FechaNacimiento.Year}");
+                    Console.WriteLine($"Puesto: {tipoEmpleado}");
+                    Console.WriteLine($"Fecha de Ingreso: {empleadoEncontrado.FechaIngreso.ToShortDateString()}");
+                    Console.WriteLine($"Salario Base: ${empleadoEncontrado.SalarioBase}");
+
+                    // Recuperar y mostrar los proyectos asignados
+                    List<Proyectos> proyectosAsignados = proyectoNegocio.ListarProyectosAsignadosEmpleado(idEmpleado);
+                    if (proyectosAsignados.Count > 0)
                     {
-                        string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
-
-                        Console.WriteLine($"\nEmpleado encontrado: \n");
-                        Console.WriteLine("\n# Informacion del empleado\n");
-                        Console.WriteLine($"Nombre: {empleado.Nombre} {empleado.Apellido}");
-
-                        Console.WriteLine($"Edad: {empleado.Edad}"); // fecha de nacimineto 
-                        Console.WriteLine($"Edad: {empleado.FechaNacimiento}"); // fecha de nacimineto 
-
-                        Console.WriteLine($"Puesto: {empleado.GetType().Name} - {tipoEmpleado}");
-                        Console.WriteLine($"Fecha de Ingreso");//Ingreso en la empresa
-                        Console.WriteLine($"Salario Base: ${empleado.SalarioBase}");
+                        Console.WriteLine("\nProyectos Asignados:");
+                        foreach (var proyecto in proyectosAsignados)
+                        {
+                            Console.WriteLine($"- Proyecto: {proyecto.Nombre}. Descripción: {proyecto.Descripcion}. Id proyecto: {proyecto.Id}.");
+                        }
                     }
+                    else
+                        Console.WriteLine("\nEl empleado no tiene proyectos asignados.");       
                 }
                 else
-                {
-                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo se encontraron empleados con ese criterio.");
-                }
-                Console.ReadLine();
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo se encontró un empleado con ese ID.");
+
+                Negocio.MetodosAuxiliares.MostrarMensaje("\n - # -");
             }
             catch (Exception ex)
             {
                 Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al buscar empleado: {ex.Message}\n");
             }
         }
-
-        //----------------------------------------------------------------------------------------------------------------------------------
-
-        //public static void AgregarEmpleadoConsola(List<Empleado> empleados)
-        //{
-        //    while (true)
-        //    {
-        //        try
-        //        {
-        //            Console.Clear();
-        //            Console.WriteLine("\nAñadir Empleado\n");
-        //            Console.WriteLine("1. Añadir Empleado Operativo");
-        //            Console.WriteLine("2. Añadir Gerente");
-        //            Console.WriteLine("3. Añadir Director");
-        //            Console.WriteLine("\n4. Volver");
-        //            Console.Write("\nSelecciona una opción: ");
-
-        //            string opcion = Console.ReadLine();
-
-        //            Empleado nuevoEmpleado = null;
-
-        //            switch (opcion)
-        //            {
-        //                case "1":
-        //                    nuevoEmpleado = new Empleado(esOperativo: true);
-        //                    break;
-        //                case "2":
-        //                    nuevoEmpleado = new Gerente();
-        //                    break;
-        //                case "3":
-        //                    nuevoEmpleado = new Director();
-        //                    break;
-        //                case "4":
-        //                    return;
-        //                default:
-        //                    Negocio.MetodosAuxiliares.MostrarMensaje("\nOpción no válida.");
-        //                    continue;
-        //            }
-
-        //            string tipoEmpleado = nuevoEmpleado.EsOperativo ? "Empleado Operativo" : nuevoEmpleado.GetType().Name;
-
-
-        //            // Solicitar los datos del nuevo empleado
-        //            nuevoEmpleado.Nombre = Negocio.MetodosAuxiliares.LeerDato("Nombre");
-        //            nuevoEmpleado.Apellido = Negocio.MetodosAuxiliares.LeerDato("Apellido");
-        //            nuevoEmpleado.Edad = Convert.ToInt32(Negocio.MetodosAuxiliares.LeerDato("Edad"));
-        //            nuevoEmpleado.FechaNacimiento = Convert.ToInt32(Negocio.MetodosAuxiliares.LeerDato("Edad"));
-        //            // tendria que agregarle un Id
-
-        //            // Asignar el salario por categoría
-        //            SalariosNegocio.AsignarSalarioPorCategoria(nuevoEmpleado);
-
-        //            // Agregar el nuevo empleado a la lista a través de la capa de negocio 
-        //            EmpleadoNegocio.AgregarEmpleado(empleados, nuevoEmpleado);
-
-        //            // Mostrar la información del empleado agregado
-        //            Console.WriteLine($"\nEmpleado agregado: {nuevoEmpleado.Nombre} {nuevoEmpleado.Apellido}; Puesto: {tipoEmpleado}; Salario Base: {nuevoEmpleado.SalarioBase} pesos.");
-        //            Negocio.MetodosAuxiliares.MostrarMensaje("\nAgregado exitosamente.");
-
-
-
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Negocio.MetodosAuxiliares.MostrarMensaje($"\nError inesperado en el proceso de agregar empleado: {ex.Message}\n");
-        //        }
-        //    }
-        //}
-
-
-
-        // puedo mostrar cuantos empleados estan activos o eso en un reporte ....
-
-
-        public static void AgregarEmpleadoConsola(List<Empleado> empleado)
+      
+        public static void AgregarEmpleadoConsola() // Funciona joya 
         {
             while (true)
             {
@@ -217,7 +174,6 @@ namespace AppConsola.LogicaAppConsola
 
                     Empleado nuevoEmpleado = null;
 
-                    // Seleccionar la categoría basada en la opción elegida
                     switch (opcion)
                     {
                         case "1":
@@ -238,29 +194,34 @@ namespace AppConsola.LogicaAppConsola
                             Negocio.MetodosAuxiliares.MostrarMensaje("\nOpción no válida.");
                             continue;
                     }
+                    Console.WriteLine("\n- Agregar Empleado -\n");
 
-                    // Solicitar los datos del nuevo empleado
                     nuevoEmpleado.Nombre = Negocio.MetodosAuxiliares.LeerDato("Nombre");
-                    nuevoEmpleado.Apellido = Negocio.MetodosAuxiliares.LeerDato("Apellido");
-                    nuevoEmpleado.FechaNacimiento = DateTime.Parse(Negocio.MetodosAuxiliares.LeerDato("Fecha de Nacimiento (dd/MM/yyyy)")); // tendria que calcularse el numero de años...
-                    
-                    nuevoEmpleado.DNI = Convert.ToInt32(Negocio.MetodosAuxiliares.LeerDato("DNI")); 
-                    // solo se puede registrar una unica cuenta por dni, tendria que validar esto!!
-                    
+                    nuevoEmpleado.Apellido = Negocio.MetodosAuxiliares.LeerDato("\nApellido");
+                    nuevoEmpleado.FechaNacimiento = DateTime.Parse(Negocio.MetodosAuxiliares.LeerDato("\nFecha de Nacimiento (dd/MM/yyyy)")); // tendria que calcularse el numero de años...       
                     nuevoEmpleado.FechaIngreso = DateTime.Now;  // Fecha de ingreso se asigna automáticamente
                     nuevoEmpleado.IsActive = true;
+
+                    nuevoEmpleado.DNI = Negocio.MetodosAuxiliares.LeerDato("\nDNI");
+
+                    //// Validar si el DNI ya existe
+                    //EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+                    //bool dniExistente = empleadoNegocio.ValidarDNI(nuevoEmpleado.DNI);
+                    //if (dniExistente)
+                    //{
+                    //    Negocio.MetodosAuxiliares.MostrarMensaje("\nEl DNI ya está registrado. Por favor, ingrese otro DNI.");
+                    //    continue;
+                    //}
 
                     // Asignar el salario según la categoría seleccionada
                     EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
                     SalariosNegocio.AsignarSalarioPorCategoria(nuevoEmpleado); // tengo que mejorar esta logica ...
 
                     // Agregar el nuevo empleado a la base de datos a través de la capa de negocio
-                    empleadoNegocio.AgregarEmpleado(nuevoEmpleado); 
+                    empleadoNegocio.AgregarEmpleado(nuevoEmpleado);
 
                     // Mostrar la información del empleado agregado
-                    string tipoEmpleado = nuevoEmpleado.Categoria == 1 ? "Empleado Operativo" :
-                                          nuevoEmpleado.Categoria == 2 ? "Gerente" : "Director";
-
+                    string tipoEmpleado = nuevoEmpleado.Categoria == 1 ? "Empleado Operativo" : nuevoEmpleado.Categoria == 2 ? "Gerente" : "Director";
                     Console.WriteLine($"\nEmpleado agregado: {nuevoEmpleado.Nombre} {nuevoEmpleado.Apellido}; Puesto: {tipoEmpleado}; Salario Base: {nuevoEmpleado.SalarioBase} pesos.");
                     Negocio.MetodosAuxiliares.MostrarMensaje("\nAgregado exitosamente.");
                 }
@@ -271,46 +232,67 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-
-
-
-        //----------------------------------------------------------------------------------------------------------------------------------
-
-        public static void ModificarEmpleadoConsola(List<Empleado> empleados) // cambiar el modificar salario por modificar posicion. 
+        public static void ModificarEmpleadoConsola() // Falta mejorar 
+         // agregar campos para modificar:
+         // - fecha de nacimiento
+         // - dni
+         // - si esta activo o no
+         // - la asignacion  de salario a un nuevo valor en base al cambio de puesto.
         {
-            //var empleados = EmpleadoNegocio.ObtenerListaEmpleados();
-
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
             try
             {
-                if (empleados.Count == 0)
+                List<Empleado> listaEmpleados = empleadoNegocio.ListarEmpleados();
+
+                if (listaEmpleados.Count == 0)
                 {
                     Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
                     return;
                 }
+                ListaEmpleadosConsola();
 
-                //Console.Clear();
-                Console.WriteLine("\nModificar Empleado");
+                Console.WriteLine("\n- Modificar Empleado -\n");
 
-                ListaEmpleadosConsola(empleados);
+                int empleadoId;
+                bool esNumeroValido = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("ID del Empleado", ""), out empleadoId);
 
-                //MostrarListaEmpleados();
-
-                int indice = Negocio.MetodosAuxiliares.ObtenerIndiceEmpleado(empleados);
-                if (indice != -1)
+                if (!esNumeroValido || !listaEmpleados.Any(e => e.Id == empleadoId))
                 {
-                    var empleado = empleados[indice];
-                    string nuevoNombre = Negocio.MetodosAuxiliares.LeerDato("Nombre", empleado.Nombre);
-                    string nuevoApellido = Negocio.MetodosAuxiliares.LeerDato("Apellido", empleado.Apellido);
-
-                    int nuevaEdad = Convert.ToInt32(Negocio.MetodosAuxiliares.LeerDato("Edad", empleado.Edad.ToString()));
-                    //int nuevaEdad = Convert.ToInt32(Negocio.MetodosAuxiliares.LeerDato("Edad", empleado.FechaNacimiento.ToString()));
-
-                    // puesto 
-
-                    //EmpleadoNegocio.ModificarEmpleado(empleado, nuevoNombre, nuevoApellido, nuevaEdad); /*, nuevoPuesto*/
-
-                    Negocio.MetodosAuxiliares.MostrarMensaje("\nDatos actualizados correctamente.");
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nID de empleado no válido. Inténtalo de nuevo.");
+                    return;
                 }
+
+                var empleadoSeleccionado = listaEmpleados.First(e => e.Id == empleadoId);
+
+                string nuevoNombre = Negocio.MetodosAuxiliares.LeerDato("\nNombre", empleadoSeleccionado.Nombre);
+                string nuevoApellido = Negocio.MetodosAuxiliares.LeerDato("\nApellido", empleadoSeleccionado.Apellido);
+                int nuevaCategoria;
+                bool categoriaValida = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("\nCategoría", empleadoSeleccionado.Categoria.ToString()), out nuevaCategoria);
+
+                if (!categoriaValida)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nCategoría no válida. Inténtalo de nuevo.");
+                    return;
+                }
+
+                // Crear un nuevo objeto Empleado con los datos modificados
+                Empleado empleadoModificado = new Empleado
+                {
+                    Id = empleadoSeleccionado.Id,
+                    Nombre = nuevoNombre,
+                    Apellido = nuevoApellido,
+                    FechaNacimiento = empleadoSeleccionado.FechaNacimiento,
+                    DNI = empleadoSeleccionado.DNI,
+                    Imagen = empleadoSeleccionado.Imagen,
+                    FechaIngreso = empleadoSeleccionado.FechaIngreso,
+                    Categoria = nuevaCategoria,
+                    SalarioBase = empleadoSeleccionado.SalarioBase,
+                    IsActive = empleadoSeleccionado.IsActive
+                };
+
+                empleadoNegocio.ModificarEmpleado(empleadoModificado);
+
+                Negocio.MetodosAuxiliares.MostrarMensaje("\nDatos actualizados correctamente.");
             }
             catch (FormatException fe)
             {
@@ -322,37 +304,86 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-        public static void EliminarEmpleadoConsola(List<Empleado> empleados)
+        public static void CambiarEstadoEmpleadoConsola() // Funciona joya 
         {
-            //var empleados = EmpleadoNegocio.ObtenerListaEmpleados();
-
-            if (empleados.Count == 0)
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+            try
             {
-                Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
-                return;
+                List<Empleado> listaEmpleados = empleadoNegocio.ListarEmpleados();
+
+                if (listaEmpleados.Count == 0)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
+                    return;
+                }
+                ListaEmpleadosConsola();
+                Console.WriteLine("\n- Activar/Desactivar Empleado -\n");
+
+                int empleadoId;
+                bool esNumeroValido = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("Id del Empleado", ""), out empleadoId);
+
+                if (!esNumeroValido || !listaEmpleados.Any(e => e.Id == empleadoId))
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nId de empleado no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                string estado = Negocio.MetodosAuxiliares.LeerDato("\n¿Activar o desactivar? (a/d)", "").ToLower();
+                bool activar = estado == "a";
+
+                empleadoNegocio.ActualizarEstadoEmpleado(empleadoId, activar);
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nEmpleado {(activar ? "activado" : "desactivado")} correctamente.");
             }
-
-            //Console.Clear();
-            Console.WriteLine("\nEliminar Empleado");
-
-            ListaEmpleadosConsola(empleados);
-
-            //MostrarListaEmpleados();
-
-            int indice = Negocio.MetodosAuxiliares.ObtenerIndiceEmpleado(empleados);
-            if (indice != -1)
+            catch (Exception ex)
             {
-                Console.Write($"\n¿Estás seguro que deseas eliminar a {empleados[indice].Nombre} {empleados[indice].Apellido}? (S/N): ");
-                string confirmacion = Console.ReadLine();
-                if (confirmacion.ToUpper() == "S")
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al cambiar el estado del empleado: {ex.Message}");
+            }
+        }
+
+        public static void EliminarEmpleadoConsola() // Funciona joya 
+        {
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+            try
+            {
+                List<Empleado> listaEmpleados = empleadoNegocio.ListarEmpleados();
+
+                if (listaEmpleados == null || listaEmpleados.Count == 0)
                 {
-                    //EmpleadoNegocio.EliminarEmpleado(empleados, indice);
-                    Negocio.MetodosAuxiliares.MostrarMensaje("\nEliminado correctamente.");
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
+                    return;
                 }
-                else
+                ListaEmpleadosConsola();
+                Console.WriteLine("\n- Eliminar Empleado -\n");
+
+                // Pedir al usuario que ingrese el ID del empleado a eliminar
+                int empleadoId;
+                bool esNumeroValido = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("Id del Empleado a eliminar", ""), out empleadoId);
+
+                // Verificar si el ID ingresado existe en la lista obtenida
+                if (!esNumeroValido || !listaEmpleados.Any(e => e.Id == empleadoId))
                 {
-                    Negocio.MetodosAuxiliares.MostrarMensaje("\nEliminación cancelada.");
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nId de empleado no válido. Inténtalo de nuevo.");
+                    return;
                 }
+
+                // Confirmación antes de eliminar
+                string confirmacion = Negocio.MetodosAuxiliares.LeerDato("\n¿Estás seguro de que quieres eliminar este empleado? (s/n)", "").ToLower();
+                if (confirmacion != "s")
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nOperación cancelada.");
+                    return;
+                }
+
+                empleadoNegocio.EliminarEmpleado(empleadoId);
+                Negocio.MetodosAuxiliares.MostrarMensaje("\nEmpleado eliminado correctamente.");
+            }
+            catch (FormatException fe)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError de formato: {fe.Message}");
+            }
+            catch (Exception ex)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al eliminar el empleado: {ex.Message}");
             }
         }
 

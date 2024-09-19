@@ -16,35 +16,13 @@ namespace Negocio
 {
     public class EmpleadoNegocio
     {
-
-        //-------------------------------------------------------------------------------------------------------------------------------//
-
-        // Todavia no tiene mucha funcionalidad esta clase pero mas adelante va a servir para conectar los metodos a la Base de datos 
-
-        // y de ahi poder replicar en cada proyecto con la logica correspondiente.
-
-        //-------------------------------------------------------------------------------------------------------------------------------//
-
-
-        // tendria que tener un metodo Listar ...
-
-        //public static List<Empleado> ObtenerListaEmpleados() // Método para obtener la lista de empleados  // no se bien para que sirve
-        //{
-        //    // Retorna la lista de empleados (de alguna fuente de datos, como una lista almacenada o base de datos)
-        //    return listaDeEmpleados;  // Esta lista sería mantenida en el sistema
-        //}
-
-
-
-        // listar Empleados
-        public List<Empleado> listarArticulos() // puedo mostrar cuantos empleados estan activos o eso en un reporte ....
+        public List<Empleado> ListarEmpleados()
         {
             AccesoDatos datos = new AccesoDatos();
             List<Empleado> lista = new List<Empleado>();
 
             try
             {
-
                 datos.setearProcedimiento("ListarEmpleados");
                 datos.ejecutarLectura();
 
@@ -53,30 +31,23 @@ namespace Negocio
                     Empleado aux = new Empleado();
 
                     aux.Id = (int)datos.Lector["Id"];
-
                     aux.Nombre = (string)datos.Lector["Nombre"];
-
                     aux.Apellido = (string)datos.Lector["Apellido"];
+                    aux.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
 
-                    aux.FechaNacimiento= (DateTime)datos.Lector["FechaNacimiento"];
-
-                    if (!(datos.Lector["DNI"] is DBNull))
-                        aux.DNI = (int)datos.Lector["DNI"];
+                    if (!(datos.Lector["DNI"] is DBNull))  
+                        aux.DNI = (string)datos.Lector["DNI"]; 
 
                     if (!(datos.Lector["Imagen"] is DBNull))
                         aux.Imagen = (string)datos.Lector["Imagen"];
 
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
-
-                    aux.Categoria = (int)datos.Lector["Cargo"]; 
-                     
-                    aux.IsActive = (bool)datos.Lector["IsActive"]; 
-                    //aux.IsActive = bool.Parse(datos.Lector["IsActive"].ToString());
-
+                    aux.Categoria = (int)datos.Lector["IdCategoria"]; 
 
                     if (!(datos.Lector["SalarioBase"] is DBNull))
                         aux.SalarioBase = (decimal)datos.Lector["SalarioBase"];
 
+                    aux.IsActive = (bool)datos.Lector["IsActive"];
 
                     lista.Add(aux);
                 }
@@ -93,16 +64,11 @@ namespace Negocio
             }
         }
 
-
-        public void AgregarEmpleado(Empleado agregarEmpleado) // Método para agregar un empleado a la lista
+        public void AgregarEmpleado(Empleado agregarEmpleado)
         {
-            //empleados.Add(empleado);  // Solo agrega el empleado a la lista
-
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                //(@Nombre, @Apellido, @FechaNacimiento, @DNI, @Imagen, @FechaIngreso, @IdCategoria, @IdAsignacionSalario, @IsActive);
-
                 datos.setearProcedimiento("AgregarEmpleado");
                 datos.setearParametro("@Nombre", agregarEmpleado.Nombre);
                 datos.setearParametro("@Apellido", agregarEmpleado.Apellido);
@@ -126,8 +92,6 @@ namespace Negocio
             }
 
         }
-
-
 
         public void ModificarEmpleado(Empleado modificarEmpleado)
         {
@@ -159,8 +123,6 @@ namespace Negocio
             }
         }
 
-
-
         public void EliminarEmpleado(int id)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -179,27 +141,80 @@ namespace Negocio
             }
         }
 
+        public void ActualizarEstadoEmpleado(int id, bool activo = false)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("ActualizarEstadoEmpleado");
+                datos.setearParametro("@Id", id);
+                datos.setearParametro("@IsActive", activo ? 1 : 0);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el estado del empleado.", ex);
+            }
+        }
+   
+        public List<Empleado> ListarEmpleadosAsignados(int idProyecto)
+        // Este metodo busca los empleados asignados a X proyecto.
+        {
+            List<Empleado> empleadosAsignados = new List<Empleado>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarEmpleadosAsignadosAlProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Empleado empleado = new Empleado();
+                    empleado.Id = (int)datos.Lector["Id"];
+                    empleado.Nombre = (string)datos.Lector["Nombre"];
+                    empleado.Apellido = (string)datos.Lector["Apellido"];
+                    empleadosAsignados.Add(empleado);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return empleadosAsignados;
+        }
 
 
-        // Metodo para activar y desactivar empleado
-
-        //public void IsActive (int id, bool activo = false)
+        //// Método para validar el DNI
+        //public bool ValidarDNI(string dni)
         //{
+        //    // Acceso a datos para verificar si el DNI ya está registrado
         //    AccesoDatos datos = new AccesoDatos();
         //    try
         //    {
-        //        datos.setearConsulta("update Empleados set IsActive = @IsActive Where Id = @Id");
-        //        datos.setearParametro("@Id", id);
-        //        datos.setearParametro("@IsActive", activo);
-        //        datos.ejecutarAccion();
+        //        // Configurar el procedimiento almacenado o consulta para buscar el DNI
+        //        datos.setearConsulta("SELECT COUNT(*) FROM Empleados WHERE DNI = @DNI");
+        //        datos.setearParametro("@DNI", dni);
+
+        //        // Ejecutar la consulta y obtener el resultado
+        //        int conteo = (int)datos.ejecutarEscalar();
+        //        return conteo > 0; // Si el conteo es mayor a 0, el DNI ya está registrado
         //    }
         //    catch (Exception ex)
         //    {
-        //        throw ex;
+        //        throw new Exception("Error al validar el DNI", ex);
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
         //    }
         //}
-
-
     }
-
 }

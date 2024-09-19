@@ -10,9 +10,7 @@ namespace AppConsola.LogicaAppConsola
 {
     public class LogicaSalarios
     {
-        //-------------------------------------------------------------------------------------------------------------------------------//
-        //                  Adaptcion de los metodos de SalarioNegocio a la App de Consola                                               //
-        //-------------------------------------------------------------------------------------------------------------------------------//
+        // Adaptcion de los metodos de SalarioNegocio a la App de Consola
 
         public static void CalcularSalariosConIncrementoConsola(List<Empleado> empleados) 
         {
