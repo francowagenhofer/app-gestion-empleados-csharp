@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio.Interfaces;
 using Dominio.ReglasDelNegocio;
 using Dominio.Entidades.Dominio.Entidades;
 
@@ -13,12 +12,35 @@ namespace Negocio
     public class ReportesNegocio
     {
 
-        // tendria que agregar tablas en la base de datos con los registros? 
+        // REPORTE EMPLEADO:
+        // - puesto
+        // - fecha antiguedad
+        // - salario
+        // - bonos
+        // - (salario final?)
+        // - proyectos
+        // - roles
+        // - tareas ...
         
-        // como convierto estos metodos para que sean "universales" 
+        // REPORTE PROYECTOS:
+        // - estado
+        // - presupuesto
+        // - gastos
+        // - comentarios ...
 
-        // los metodos podrian ser "GenerarReporteEmpleado" para que se generen en la base de datos. y luego se podrian llamar desde las aplicaciones
+
+        // REPORTE FINANCIERO:
+        // - gasto total de saldos (de empleados activos)
+        // - gasto total de bonos aplicados a empleados (activos)
+        // - gasto total de presupuestos de proyectos (de proyectos activos)
+        // - gasto total   
+
+
      
+        // los metodos podrian ser "GenerarReporteEmpleado" para que se generen en la base de datos. y luego se podrian llamar desde las aplicaciones
+        
+        // tendria que agregar una tabla nueva por cada tipo de reporte para que queden guardados. 
+
 
 
         //public static void MostrarReportes(List<Empleado> empleados) // Este metodo se elimina...
@@ -60,10 +82,6 @@ namespace Negocio
         //}
 
         //--------------------------------------------------------------------------------------------------------------------------------//
-
-
-        //  Reportes: de empleados, de proyectos y financieros
-
 
         // Reportes de Empleados
         //public static void ReporteEmpleado(int empleadoId, List<Empleado> empleados, List<Proyectos> proyectos)

@@ -1,6 +1,5 @@
 ﻿using Dominio.Entidades;
 using Dominio.Entidades.Dominio.Entidades;
-using Dominio.Interfaces;
 using negocio;
 using System;
 using System.Collections.Generic;
@@ -202,7 +201,6 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Proyectos proyecto = new Proyectos();
-                    //proyecto.Id = (int)datos.Lector["Id"];
                     proyecto.Id = (int)datos.Lector["ProyectoId"];
                     proyecto.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "Nombre no disponible";
                     proyecto.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "Descripción no disponible";
@@ -224,5 +222,14 @@ namespace Negocio
             return proyectosAsignados;
         }
 
+
+        // Me faltan los metodos de Tareas y Roles para los empleados ...
+
+        // AsignarTareaAEmpleado o AsignarRolAEmpleado dentro del contexto del proyecto.
+
+        // podria mejorar el menu: 
+        // - proyectos
+        // - roles
+        // - tareas
     }
 }

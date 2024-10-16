@@ -10,9 +10,9 @@ using AppConsola.LogicaAppConsola;
 
 namespace AppConsola
 {
-    public class LogicaProyectos  // Adaptcion de los metodos de ProyectosNegocio a la App de Consola
+    public class LogicaProyectos  // Adaptcion de los metodos de ProyectosNegocio a la App de Consola.
     {
-        public static void ListaProyectosConsola() // Funciona bien 
+        public static void ListaProyectosConsola() //Bien. 
         {
             ProyectosNegocio proyectoNegocio = new ProyectosNegocio();
             try
@@ -30,7 +30,7 @@ namespace AppConsola
                 {
                     string estadoProyecto = proyectos[i].IsActive ? "Activo" : "Inactivo";
 
-                    Console.WriteLine($"{i + 1}) Nro. Id: {proyectos[i].Id}; Nombre: {proyectos[i].Nombre}; Estado: {estadoProyecto}.");
+                    Console.WriteLine($"{i + 1}) Id: {proyectos[i].Id}; Nombre: {proyectos[i].Nombre}; Estado: {estadoProyecto}.");
                 }
                 Negocio.MetodosAuxiliares.MostrarMensaje($"\n - # -");
             }
@@ -40,7 +40,7 @@ namespace AppConsola
             }
         }
 
-        public static void ResumenProyectosConsola() // Falta mejorar ...
+        public static void ResumenProyectosConsola() //Bien. Falta mejorar 
         {
             ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
             try
@@ -77,7 +77,7 @@ namespace AppConsola
             }
         }
 
-        public static void InformacionProyectoConsola() // Funciona joya 
+        public static void InformacionProyectoConsola() //Bien. 
         // podria agreagar:
         // - roles de proyecto.
         // - tareas del proyecto       
@@ -126,7 +126,7 @@ namespace AppConsola
                             Console.WriteLine("\nEmpleados asignados:");
                             foreach (var empleado in proyectoEncontrado.EmpleadosAsignados)
                             {
-                                Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}. ID de empleado: {empleado.Id}.");
+                                Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}. Id: {empleado.Id}.");
                                 // solo falta agreagr la categoria del empleado ...
                             }
                         }
@@ -148,41 +148,28 @@ namespace AppConsola
             }
         }
 
-        public static void AgregarProyectoConsola() // funciona bien 
+        public static void AgregarProyectoConsola() //Bien. Algo no me cierra 
         {
             Proyectos nuevoProyecto = new Proyectos();
-
+            ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
             while (true)
             {
                 try
                 {
                     Console.WriteLine("\n- Agregar Nuevo Proyecto -\n");
-
-                    // Leer los datos del proyecto
                     nuevoProyecto.Nombre = Negocio.MetodosAuxiliares.LeerDato("Nombre del Proyecto");
                     nuevoProyecto.Descripcion = Negocio.MetodosAuxiliares.LeerDato("\nDescripción del Proyecto");
-
-                    // Leer y parsear las fechas
                     nuevoProyecto.FechaInicio = DateTime.Parse(Negocio.MetodosAuxiliares.LeerDato("\nFecha de Inicio (dd/MM/yyyy)"));
                     nuevoProyecto.FechaFin = DateTime.Parse(Negocio.MetodosAuxiliares.LeerDato("\nFecha de Fin (dd/MM/yyyy)"));
-
-                    // Leer el presupuesto
                     nuevoProyecto.Presupuesto = decimal.Parse(Negocio.MetodosAuxiliares.LeerDato("\nPresupuesto del Proyecto"));
+                    nuevoProyecto.EstadoProyecto = "Pendiente"; // no me cierra este...
+                    nuevoProyecto.IsActive = true;
 
-                    // Asignar el estado inicial del proyecto
-                    nuevoProyecto.EstadoProyecto = "Pendiente"; // Puedes cambiar este estado según tu lógica
-                    nuevoProyecto.IsActive = true; // El proyecto se considera activo por defecto
-
-                    // Instanciar la capa de negocio
-                    ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
-
-                    // Agregar el nuevo proyecto a la base de datos
                     proyectosNegocio.AgregarProyecto(nuevoProyecto);
 
-                    // Mostrar mensaje de éxito
                     Negocio.MetodosAuxiliares.MostrarMensaje($"\nEl proyecto '{nuevoProyecto.Nombre}' ha sido agregado exitosamente.");
 
-                    break; // Salir del loop si se agrega correctamente
+                    break;
                 }
                 catch (FormatException ex)
                 {
@@ -195,7 +182,7 @@ namespace AppConsola
             }
         }
 
-        public static void ModificarDatosDelProyectoConsola() // Funciona bien. Algo para cambiar?s
+        public static void ModificarDatosDelProyectoConsola() //Bien. Algo para cambiar  
         {
             ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
             try
@@ -231,7 +218,6 @@ namespace AppConsola
                 Console.WriteLine("5. Presupuesto");
                 Console.WriteLine("6. Estado del Proyecto");
 
-                // Leer opción seleccionada
                 int opcion = Convert.ToInt32(Console.ReadLine());
 
                 switch (opcion)
@@ -273,24 +259,21 @@ namespace AppConsola
             }
         }
 
-        public static void CambiarEstadoProyectoConsola() // Funciona bien 
+        public static void CambiarEstadoProyectoConsola() //Bien. 
         {
             ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
             try
             {
                 List<Proyectos> listaProyectos = proyectosNegocio.ListarProyectos();
-
                 if (listaProyectos.Count == 0)
                 {
                     Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
                     return;
                 }
-
                 ListaProyectosConsola();
 
                 Console.WriteLine("\n- Activar/Desactivar Proyecto -\n");
 
-                // Pedir al usuario que ingrese el ID del proyecto
                 int proyectoId;
                 bool esNumeroValido = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("Id del Proyecto", ""), out proyectoId);
 
@@ -300,11 +283,9 @@ namespace AppConsola
                     return;
                 }
 
-                // Pedir el nuevo estado (activo o inactivo)
                 string estado = Negocio.MetodosAuxiliares.LeerDato("\n¿Activar o desactivar? (a/d)", "").ToLower();
                 bool activar = estado == "a";
 
-                // Actualizar el estado del proyecto
                 proyectosNegocio.ActualizarEstadoProyecto(proyectoId, activar);
                 Negocio.MetodosAuxiliares.MostrarMensaje($"\nProyecto {(activar ? "activado" : "desactivado")} correctamente.");
             }
@@ -314,36 +295,31 @@ namespace AppConsola
             }
         }
 
-        public static void EliminarProyectoConsola() // Funciona bien 
+        public static void EliminarProyectoConsola() //Bien. 
         {
             ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
 
             try
             {
                 List<Proyectos> proyectos = proyectosNegocio.ListarProyectos();
-
                 if (proyectos == null || proyectos.Count == 0)
                 {
                     MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
                     return;
                 }
-
                 ListaProyectosConsola();
 
                 Console.WriteLine("\n- Eliminar Proyecto -\n");
 
-                // Pedir al usuario que ingrese el ID del proyecto a eliminar
                 int proyectoId;
                 bool esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("ID del Proyecto a eliminar", ""), out proyectoId);
 
-                // Verificar si el ID ingresado existe en la lista obtenida
                 if (!esNumeroValido || !proyectos.Any(p => p.Id == proyectoId))
                 {
                     MetodosAuxiliares.MostrarMensaje("\nID de proyecto no válido. Inténtalo de nuevo.");
                     return;
                 }
 
-                // Confirmación antes de eliminar
                 string confirmacion = MetodosAuxiliares.LeerDato("\n¿Estás seguro de que quieres eliminar este proyecto? (s/n)", "").ToLower();
                 if (confirmacion != "s")
                 {
@@ -351,7 +327,6 @@ namespace AppConsola
                     return;
                 }
 
-                // Llamar al método de negocio para eliminar el proyecto
                 proyectosNegocio.EliminarProyecto(proyectoId);
                 MetodosAuxiliares.MostrarMensaje("\nProyecto eliminado correctamente.");
             }
@@ -365,53 +340,58 @@ namespace AppConsola
             }
         }
 
-        public static void AsignarEmpleadoAProyectoConsola()
-        // Funicona - CORREGIR 
-        // que solo se pueda asignar una sola vez un empleado a un proyecto (puede ser asignado a varios proyectos)
+        public static void AsignarEmpleadoAProyectoConsola() //Bien.
         {
             ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
             EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
 
-            List<Proyectos> proyectos = proyectosNegocio.ListarProyectos();
-            List<Empleado> empleados = empleadoNegocio.ListarEmpleados();
-
-            if (proyectos.Count == 0)
-            {
-                MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
-                return;
-            }
-            else if (empleados.Count == 0)
-            {
-                MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
-                return;
-            }
-
-            Console.WriteLine("\n- Asignar Empleado a Proyecto -");
-
-            ListaProyectosConsola();
-
-            int seleccionProyecto;
-            bool esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del proyecto", ""), out seleccionProyecto);
-
-            if (!esNumeroValido || !proyectos.Any(p => p.Id == seleccionProyecto))
-            {
-                MetodosAuxiliares.MostrarMensaje("\nId de proyecto no válido. Inténtalo de nuevo.");
-                return;
-            }
-
-            LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola(empleados);
-
-            int seleccionEmpleado;
-            esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del empleado", ""), out seleccionEmpleado);
-
-            if (!esNumeroValido || !empleados.Any(e => e.Id == seleccionEmpleado))
-            {
-                MetodosAuxiliares.MostrarMensaje("\nId de empleado no válido. Inténtalo de nuevo.");
-                return;
-            }
-
             try
             {
+                List<Proyectos> proyectos = proyectosNegocio.ListarProyectos();
+                List<Empleado> empleados = empleadoNegocio.ListarEmpleados();
+
+                if (proyectos.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+                    return;
+                }
+                else if (empleados.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
+                    return;
+                }
+
+                Console.WriteLine("\n- Asignar Empleado a Proyecto -");
+
+                ListaProyectosConsola();
+
+                int seleccionProyecto;
+                bool esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del proyecto", ""), out seleccionProyecto);
+
+                if (!esNumeroValido || !proyectos.Any(p => p.Id == seleccionProyecto))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nId de proyecto no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola();
+
+                int seleccionEmpleado;
+                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del empleado", ""), out seleccionEmpleado);
+
+                if (!esNumeroValido || !empleados.Any(e => e.Id == seleccionEmpleado))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nId de empleado no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                List<Proyectos> proyectosAsignados = proyectosNegocio.ListarProyectosAsignadosEmpleado(seleccionEmpleado);
+                if (proyectosAsignados.Any(p => p.Id == seleccionProyecto))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nEl empleado ya está asignado a este proyecto. No se puede asignar más de una vez.");
+                    return;
+                }
+
                 proyectosNegocio.AsignarEmpleadoAProyecto(seleccionProyecto, seleccionEmpleado);
                 MetodosAuxiliares.MostrarMensaje("\nEmpleado asignado al proyecto correctamente.");
             }
@@ -421,7 +401,8 @@ namespace AppConsola
             }
         }
 
-        public static void DesasignarEmpleadoDeProyectoConsola() // Funciona bien 
+        public static void DesasignarEmpleadoDeProyectoConsola() //Bien. 
+        // Seria ideal poder mostrar una lista de los empleados que hay en el proyecto seleccionado ...         
         {
             try
             {
@@ -458,7 +439,7 @@ namespace AppConsola
                     return;
                 }
 
-                LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola(empleadosAsignados);
+                LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola();
 
                 int seleccionEmpleado;
                 esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del empleado a desasignar", ""), out seleccionEmpleado);
@@ -477,7 +458,6 @@ namespace AppConsola
                 MetodosAuxiliares.MostrarMensaje($"\nError al ejecutar la operación: {ex.Message}");
             }
         }
-
 
         // estos por ahora no se usan ...
         public static void ProyectosActivosConsola()

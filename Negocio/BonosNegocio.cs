@@ -4,88 +4,180 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio.Interfaces;
 using Dominio.ReglasDelNegocio;
+using negocio;
 
 namespace Negocio
 {
     public class BonosNegocio
     {
-        // tendria que adaptar la esencia de estos metodos para que sean universales y asi poder llamarlos desde cualquier app
+        public List<Bonos> ListarBonos()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Bonos> lista = new List<Bonos>();
 
-        //public static void AsignarBonos(List<Empleado> empleados)
-        //{
-        //    // Pedimos el ID del empleado
-        //    Console.Write("Ingrese el ID del empleado al que desea asignar un bono:");
-        //    int empleadoId = int.Parse(Console.ReadLine());
+            try
+            {
+                datos.setearProcedimiento("ListarBonos");
+                datos.ejecutarLectura();
 
-        //    // Buscamos el empleado por ID
-        //    var empleado = empleados.FirstOrDefault(e => e.Id == empleadoId);
-        //    if (empleado == null)
-        //    {
-        //        Console.WriteLine("Empleado no encontrado.");
-        //        return;
-        //    }
+                while (datos.Lector.Read())
+                {
+                    Bonos bono = new Bonos();
+                    bono.Id = (int)datos.Lector["Id"];
+                    bono.Nombre = datos.Lector["Nombre"].ToString();
+                    bono.Monto = (decimal)datos.Lector["Monto"];
 
-        //    // Según el tipo de empleado, mostramos el menú de bonos correspondientes
-        //    if (empleado is Empleado) // General para todos los empleados
-        //    {
-        //        Console.WriteLine("Empleado encontrado: Asignando bonos generales...");
-        //        empleado.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Asistencia");
-        //        empleado.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Horas Extra");
-        //        empleado.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Desempeño");
-        //    }
-        //    else if (empleado is Gerente gerente)
-        //    {
-        //        Console.WriteLine("Gerente encontrado: Asignando bonos de gerente...");
-        //        gerente.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Meta Equipo");
-        //        gerente.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Reducción Costos");
-        //        gerente.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Satisfacción Cliente");
-        //    }
-        //    else if (empleado is Director director)
-        //    {
-        //        Console.WriteLine("Director encontrado: Asignando bonos de director...");
-        //        director.Bonos.BonoDesempeñoEmpresa = LeerYAsignarBono("Bono Desempeño Empresa");
-        //        director.Bonos.BonoAsistencia = LeerYAsignarBono("Bono Crecimiento Mercado");
-        //        director.Bonos.BonoAsistencia = LeerYAsignarBono("Stock Options");
-        //    }
+                    lista.Add(bono);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
-        //    Console.WriteLine("Bonos asignados correctamente.");
-        //}
+        public void ModificarBono(Bonos bonoModificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("ModificarBono");
+                datos.setearParametro("@Id", bonoModificado.Id);
+                datos.setearParametro("@Monto", bonoModificado.Monto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
-        //// Método para desasignar bonos
-        //public static void DesasignarBonos(Empleado empleado)
-        //{
-        //    // Según el tipo de empleado, desasignamos los bonos correspondientes
-        //    if (empleado is Empleado)
-        //    {
-        //        empleado.Bonos.BonoAsistencia = 0;
-        //        empleado.Bonos.BonoAsistencia = 0;
-        //        empleado.Bonos.BonoAsistencia = 0;
-        //    }
-        //    else if (empleado is Gerente gerente)
-        //    {
-        //        gerente.Bonos.BonoAsistencia = 0;
-        //        gerente.Bonos.BonoAsistencia = 0;
-        //        gerente.Bonos.BonoAsistencia = 0;
-        //    }
-        //    else if (empleado is Director director)
-        //    {
-        //        director.Bonos.BonoAsistencia = 0;
-        //        director.Bonos.BonoAsistencia = 0;
-        //        director.Bonos.BonoAsistencia = 0;
-        //    }
+        public void AgregarBono(Bonos nuevoBono)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("AgregarBono");
+                datos.setearParametro("@Nombre", nuevoBono.Nombre);
+                datos.setearParametro("@Monto", nuevoBono.Monto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
-        //    Console.WriteLine("Bonos desasignados correctamente.");
-        //}
+        public void EliminarBono(int idBono)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("EliminarBono");
+                datos.setearParametro("@Id", idBono);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
+        public void AsignarBonoAEmpleado(int idEmpleado, int idTipoBono, DateTime fechaAsignacion)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("AsignarBonoAEmpleado");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdTipoBono", idTipoBono);
+                datos.setearParametro("@FechaAsignacion", fechaAsignacion);
 
-        //// Método auxiliar para leer y asignar un bono
-        //private static decimal LeerYAsignarBono(string tipoBono)
-        //{
-        //    Console.Write($"Ingrese el monto del {tipoBono}:");
-        //    return Convert.ToDecimal(Console.ReadLine());
-        //}
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+       
+        public void DesasignarBonoDeEmpleado(int idEmpleado, int idTipoBono)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("DesasignarBonoDeEmpleado");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdTipoBono", idTipoBono);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Bonos> ListarBonosAsignadosEmpleado(int idEmpleado)
+        {
+            List<Bonos> bonosAsignados = new List<Bonos>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarBonosAsignadosEmpleado");
+                datos.setearParametro("@IdEmpleado", idEmpleado); 
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Bonos bono = new Bonos();
+                    bono.Id = (int)datos.Lector["BonoId"]; 
+                    bono.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "Nombre no disponible";
+                    bono.Monto = datos.Lector["Monto"] != DBNull.Value ? (decimal)datos.Lector["Monto"] : 0;
+                    bono.FechaAsignacion = datos.Lector["FechaAsignacion"] != DBNull.Value ? (DateTime)datos.Lector["FechaAsignacion"] : DateTime.MinValue;
+
+                    bonosAsignados.Add(bono);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al leer bonos asignados: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return bonosAsignados;
+        }
 
     }
 }

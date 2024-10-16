@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio.Interfaces;
 using Dominio.ReglasDelNegocio;
 using negocio;
 using static System.Net.Mime.MediaTypeNames;
@@ -35,19 +34,20 @@ namespace Negocio
                     aux.Apellido = (string)datos.Lector["Apellido"];
                     aux.FechaNacimiento = (DateTime)datos.Lector["FechaNacimiento"];
 
-                    if (!(datos.Lector["DNI"] is DBNull))  
-                        aux.DNI = (string)datos.Lector["DNI"]; 
+                    if (!(datos.Lector["DNI"] is DBNull))
+                        aux.DNI = (string)datos.Lector["DNI"];
 
                     if (!(datos.Lector["Imagen"] is DBNull))
                         aux.Imagen = (string)datos.Lector["Imagen"];
 
                     aux.FechaIngreso = (DateTime)datos.Lector["FechaIngreso"];
-                    aux.Categoria = (int)datos.Lector["IdCategoria"]; 
-
-                    if (!(datos.Lector["SalarioBase"] is DBNull))
-                        aux.SalarioBase = (decimal)datos.Lector["SalarioBase"];
-
                     aux.IsActive = (bool)datos.Lector["IsActive"];
+
+                    if (!(datos.Lector["NombreCategoria"] is DBNull))
+                        aux.NombreCategoria = (string)datos.Lector["NombreCategoria"];
+
+                    if (!(datos.Lector["MontoSalario"] is DBNull))
+                        aux.MontoSalario = (decimal)datos.Lector["MontoSalario"];
 
                     lista.Add(aux);
                 }
@@ -69,7 +69,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("AgregarEmpleado");
+                datos.setearProcedimiento("AgregarEmpleado");  // Tengo que modificar el Stored Procedure
                 datos.setearParametro("@Nombre", agregarEmpleado.Nombre);
                 datos.setearParametro("@Apellido", agregarEmpleado.Apellido);
                 datos.setearParametro("@FechaNacimiento", agregarEmpleado.FechaNacimiento);
@@ -77,7 +77,7 @@ namespace Negocio
                 datos.setearParametro("@Imagen", agregarEmpleado.Imagen);
                 datos.setearParametro("@FechaIngreso", agregarEmpleado.FechaIngreso);
                 datos.setearParametro("@IdCategoria", agregarEmpleado.Categoria);
-                datos.setearParametro("@IdAsignacionSalario", agregarEmpleado.SalarioBase);
+                datos.setearParametro("@IdSalario", agregarEmpleado.Salario); 
                 datos.setearParametro("@IsActive", agregarEmpleado.IsActive);
 
                 datos.ejecutarAccion();
@@ -92,8 +92,32 @@ namespace Negocio
             }
 
         }
+        
+        public bool ValidarDNI(string dni)
+        {
+            // Acceso a datos para verificar si el DNI ya está registrado
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Configurar el procedimiento almacenado o consulta para buscar el DNI
+                datos.setearConsulta("SELECT COUNT(*) FROM Empleados WHERE DNI = @DNI");
+                datos.setearParametro("@DNI", dni);
 
-        public void ModificarEmpleado(Empleado modificarEmpleado)
+                // Ejecutar la consulta y obtener el resultado
+                int conteo = (int)datos.ejecutarEscalar();
+                return conteo > 0; // Si el conteo es mayor a 0, el DNI ya está registrado
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al validar el DNI", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void ModificarEmpleado(Empleado modificarEmpleado) 
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -106,7 +130,7 @@ namespace Negocio
                 datos.setearParametro("@Imagen", modificarEmpleado.Imagen);
                 datos.setearParametro("@FechaIngreso", modificarEmpleado.FechaIngreso);
                 datos.setearParametro("@IdCategoria", modificarEmpleado.Categoria);
-                datos.setearParametro("@IdAsignacionSalario", modificarEmpleado.SalarioBase);
+                datos.setearParametro("@IdSalario", modificarEmpleado.Salario); 
                 datos.setearParametro("@IsActive", modificarEmpleado.IsActive);
                 datos.setearParametro("@Id", modificarEmpleado.Id);
 
@@ -159,7 +183,6 @@ namespace Negocio
         }
    
         public List<Empleado> ListarEmpleadosAsignados(int idProyecto)
-        // Este metodo busca los empleados asignados a X proyecto.
         {
             List<Empleado> empleadosAsignados = new List<Empleado>();
             AccesoDatos datos = new AccesoDatos();
@@ -191,30 +214,5 @@ namespace Negocio
             return empleadosAsignados;
         }
 
-
-        //// Método para validar el DNI
-        //public bool ValidarDNI(string dni)
-        //{
-        //    // Acceso a datos para verificar si el DNI ya está registrado
-        //    AccesoDatos datos = new AccesoDatos();
-        //    try
-        //    {
-        //        // Configurar el procedimiento almacenado o consulta para buscar el DNI
-        //        datos.setearConsulta("SELECT COUNT(*) FROM Empleados WHERE DNI = @DNI");
-        //        datos.setearParametro("@DNI", dni);
-
-        //        // Ejecutar la consulta y obtener el resultado
-        //        int conteo = (int)datos.ejecutarEscalar();
-        //        return conteo > 0; // Si el conteo es mayor a 0, el DNI ya está registrado
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al validar el DNI", ex);
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarConexion();
-        //    }
-        //}
     }
 }

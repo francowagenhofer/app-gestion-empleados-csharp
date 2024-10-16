@@ -13,14 +13,7 @@ namespace AppConsola.LogicaAppConsola
 {
     public class LogicaReportes
     {
-
-        //-------------------------------------------------------------------------------------------------------------------------------//
-
-        //                  Adaptcion de los metodos de ProyectosNegocio a la App de Consola               
-
-        //                  Esta clase la voy a dejar para el final.
-
-        //-------------------------------------------------------------------------------------------------------------------------------//
+        // Adaptcion de los metodos de ReportesNegocio a la App de Consola (Esta clase la voy a dejar para el final).
 
         public static void ReporteEmpleadosConsola(List<Empleado> empleados, List<Proyectos> proyectos)
         {
@@ -48,17 +41,17 @@ namespace AppConsola.LogicaAppConsola
 
             foreach (var empleado in empleados) // Genera reporte para cada empleado
             {
-                string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
+                //string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
 
                 // Mostrar la información del empleado
                 Console.WriteLine("# Informacion del empleado");
                 Console.WriteLine($"Nombre: {empleado.Nombre} {empleado.Apellido}");
                 Console.WriteLine($"Edad: {empleado.FechaNacimiento}"); // calcular la Edad ...
-                Console.WriteLine($"Puesto: {tipoEmpleado}");
+                //Console.WriteLine($"Puesto: {tipoEmpleado}");
                 Console.WriteLine($"Fecha de Ingreso");//Ingreso en la empresa
-                Console.WriteLine($"Salario Base: ${empleado.SalarioBase}");
-                Console.WriteLine($"Bonos: ${empleado.CalcularBonos()}");
-                Console.WriteLine($"Salario Final: ${empleado.CalcularSalario()}");
+                //Console.WriteLine($"Salario Base: ${empleado.IdAsignacionSalario}"); // corregir aca ...
+                //Console.WriteLine($"Bonos: ${empleado.CalcularBonos()}");
+                //Console.WriteLine($"Salario Final: ${empleado.CalcularSalario()}");
 
                 // Buscar proyectos asociados al empleado a través del objeto Empleado
                 var proyectosEmpleado = proyectos
@@ -123,8 +116,8 @@ namespace AppConsola.LogicaAppConsola
                     Console.WriteLine("\nEmpleados Asignados:");
                     foreach (var empleado in proyecto.EmpleadosAsignados)
                     {
-                        string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
-                        Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}; Posicion: {tipoEmpleado}.");
+                        //string tipoEmpleado = empleado is Gerente ? "Gerente" : empleado is Director ? "Director" : "Empleado Operativo";
+                        Console.WriteLine($"- {empleado.Nombre} {empleado.Apellido}; Posicion: ."); // {tipoEmpleado}
                     }
                 }
                 else
@@ -169,8 +162,8 @@ namespace AppConsola.LogicaAppConsola
         public static ReporteFinanzas CalcularTotalesFinancieros(List<Empleado> empleados, List<Proyectos> proyectos)
         {
             ReporteFinanzas reporteFinanzas = new ReporteFinanzas();
-            reporteFinanzas.TotalSalarios = empleados.Sum(e => e.SalarioBase);
-            reporteFinanzas.TotalBonos = empleados.Sum(e => e.Bonos.CalcularBonos());
+            //reporteFinanzas.TotalSalarios = empleados.Sum(e => e.IdAsignacionSalario); // corregir aca ...
+            //reporteFinanzas.TotalBonos = empleados.Sum(e => e.Bonos.CalcularBonos());
             reporteFinanzas.TotalPresupuestosProyectos = proyectos.Sum(p => p.Presupuesto);
             reporteFinanzas.TotalGastos = reporteFinanzas.TotalSalarios + reporteFinanzas.TotalBonos + reporteFinanzas.TotalPresupuestosProyectos;
             return reporteFinanzas;

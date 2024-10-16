@@ -39,10 +39,10 @@ namespace AppDeConsola
                             MenuGestionDeProyectos();
                             break;
                         case "3":
-                            MenuOperaciones(empleados, proyectos);
+                            MenuOperaciones();
                             break;
                         case "4":
-                            MenuReportes(empleados, proyectos);
+                            MenuReportes();
                             break;
                         case "5": return;
                         default:
@@ -71,6 +71,13 @@ namespace AppDeConsola
                     Console.WriteLine("4. Modificar Empleado");
                     Console.WriteLine("5. Cambiar Estado");
                     Console.WriteLine("6. Eliminar Empleado");
+
+                    //Console.WriteLine("7. Asignar Salario"); 
+                    //Console.WriteLine("8. Desasignar salario.");
+                    // estos dos metodos no tendrian que estar
+                    // ya que los salarios se asignan automaticamente, segun la categoria seleccionada, cuando se carga un nuevo empleado.
+                    
+
                     Console.WriteLine("\n7. Volver al Menú Principal");
                     Console.Write("\nSelecciona una opción: ");
 
@@ -95,6 +102,14 @@ namespace AppDeConsola
                         case "6":
                             LogicaEmpleados.EliminarEmpleadoConsola();
                             break;
+
+                        //case "7":
+                        //    LogicaEmpleados.AsignarSalario();
+                        //    break;
+                        //case "8":
+                        //    LogicaEmpleados.DesasignarSalario();
+                        //    break;
+
                         case "7":
                             return;
                         default:
@@ -169,7 +184,7 @@ namespace AppDeConsola
             }
         }
 
-        public static void MenuOperaciones(List<Empleado> empleados, List<Proyectos> proyectos)
+        public static void MenuOperaciones()
         {
             while (true)
             {
@@ -177,31 +192,21 @@ namespace AppDeConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\nMenú de Operaciones\n");
-                    Console.WriteLine("1. Asignar Bonos a los Empleados");
-                    Console.WriteLine("2. Calcular Incrementos de Salarios"); // aumento de salarios - calculo de salarios , etc... 
-                    Console.WriteLine("3. Realizar Otras Operaciones"); // decuentos de salario? 
-                    Console.WriteLine("\n4. Volver al Menú Principal\n");
+                    Console.WriteLine("1. Salarios");
+                    Console.WriteLine("2. Bonos");
+                    Console.WriteLine("\n3. Volver al Menú Principal\n");
                     Console.Write("Seleccione una opción: ");
 
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            Console.WriteLine("hola");
-
-                            //AsignarBonos(empleados);
+                            LogicaOperaciones.Salarios();
                             break;
                         case "2":
-                            Console.WriteLine("hola");
-
-                            //CalcularIncrementosSalarios(empleados);
+                            LogicaOperaciones.Bonos();
                             break;
                         case "3":
-                            Console.WriteLine("hola");
-
-                            //RealizarOtrasOperaciones(empleados, proyectos);
-                            break;
-                        case "4":
-                            return; // Salir del submenu y volver al menú principal
+                            return;
                         default:
                             Console.WriteLine("Opción no válida. Intente de nuevo.");
                             break;
@@ -214,7 +219,7 @@ namespace AppDeConsola
             }
         }
 
-        public static void MenuReportes(List<Empleado> empleados, List<Proyectos> proyectos)
+        public static void MenuReportes()
         {
             while (true)
             {
@@ -231,30 +236,15 @@ namespace AppDeConsola
                     switch (Console.ReadLine())
                     {
                         case "1":
-
-                            // Guardar esta logica para mas adelante para conectar con una base de datos
-                            //Console.Write("Ingrese el ID del empleado para mostrar su reporte:");
-                            //if (int.TryParse(Console.ReadLine(), out int empleadoId))
-                            //{
-                            //    ReportesNegocio.ReporteEmpleado(empleadoId, empleados, proyectos);
-
-                            //    LogicaReportes.ReporteEmpleadoConsola(empleadoId, empleados, proyectos);
-
-                            //}
-                            //else
-                            //{
-                            //    Console.WriteLine("\nID de empleado no válido.\n");
-                            //}
-                            //break;
-                            LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos); // juntar toda la info sobre el o los empleados e insertarla aca
+                            LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos); 
                             break;
 
                         case "2":
-                            LogicaReportes.ReporteProyectosConsola(proyectos); // juntar toda la info sobre el o los proyectos e insertarla aca
+                            LogicaReportes.ReporteProyectosConsola(proyectos);
                             break;
 
                         case "3":
-                            LogicaReportes.ReporteFinancieroConsola(empleados, proyectos); // juntar toda la info sobre finanzas e insertarla aca
+                            LogicaReportes.ReporteFinancieroConsola(empleados, proyectos);
                             break;
 
                         case "4":
