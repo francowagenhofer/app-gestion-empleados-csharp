@@ -68,16 +68,9 @@ namespace AppDeConsola
                     Console.WriteLine("1. Lista de Empleados");
                     Console.WriteLine("2. Buscar Empleado");
                     Console.WriteLine("3. Añadir Empleado");
-                    Console.WriteLine("4. Modificar Empleado");
-                    Console.WriteLine("5. Cambiar Estado");
+                    Console.WriteLine("4. Modificar información de Empleado");
+                    Console.WriteLine("5. Cambiar estado del Empleado");
                     Console.WriteLine("6. Eliminar Empleado");
-
-                    //Console.WriteLine("7. Asignar Salario"); 
-                    //Console.WriteLine("8. Desasignar salario.");
-                    // estos dos metodos no tendrian que estar
-                    // ya que los salarios se asignan automaticamente, segun la categoria seleccionada, cuando se carga un nuevo empleado.
-                    
-
                     Console.WriteLine("\n7. Volver al Menú Principal");
                     Console.Write("\nSelecciona una opción: ");
 
@@ -102,14 +95,6 @@ namespace AppDeConsola
                         case "6":
                             LogicaEmpleados.EliminarEmpleadoConsola();
                             break;
-
-                        //case "7":
-                        //    LogicaEmpleados.AsignarSalario();
-                        //    break;
-                        //case "8":
-                        //    LogicaEmpleados.DesasignarSalario();
-                        //    break;
-
                         case "7":
                             return;
                         default:
@@ -133,7 +118,7 @@ namespace AppDeConsola
                     Console.Clear();
                     Console.WriteLine("\n Aministrar Proyectos\n");
                     Console.WriteLine("1. Lista de Proyectos");
-                    Console.WriteLine("2. Informacion de Proyecto"); // tambien esta en Reportes -> Rerporte Proyectos
+                    Console.WriteLine("2. Informacion de Proyecto"); 
                     Console.WriteLine("3. Agregar Proyecto");
                     Console.WriteLine("4. Modificar Datos de Proyecto");
                     Console.WriteLine("5. Cambiar Estado");
@@ -142,6 +127,11 @@ namespace AppDeConsola
                     Console.WriteLine("8. Desasignar Empleado de Proyecto");
                     Console.WriteLine("\n9. Volver al Menú Principal");
                     Console.Write("\nSeleccione una opción: ");
+
+                    // podria mejorar el menu: 
+                    // - proyectos
+                    // - roles
+                    // - tareas
 
                     switch (Console.ReadLine())
                     {

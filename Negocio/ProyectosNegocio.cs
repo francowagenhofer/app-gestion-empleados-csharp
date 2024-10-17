@@ -61,7 +61,6 @@ namespace Negocio
                 datos.setearParametro("@FechaFin", nuevoProyecto.FechaFin);
                 datos.setearParametro("@Presupuesto", nuevoProyecto.Presupuesto);
                 datos.setearParametro("@EstadoProyecto", nuevoProyecto.EstadoProyecto);
-                //datos.setearParametro("@IsActive", nuevoProyecto.IsActive);
 
                 datos.ejecutarAccion();
             }
@@ -143,7 +142,6 @@ namespace Negocio
             }
         }
 
-
         public void AsignarEmpleadoAProyecto(int idProyecto, int idEmpleado)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -172,6 +170,26 @@ namespace Negocio
             {
                 datos.setearProcedimiento("DesasignarEmpleadoDeProyecto");
                 datos.setearParametro("@IdProyecto", idProyecto);
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void DesasignarEmpleadoDeTodosLosProyectos(int idEmpleado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("DesasignarEmpleadoDeTodosLosProyectos");
                 datos.setearParametro("@IdEmpleado", idEmpleado);
 
                 datos.ejecutarAccion();
@@ -224,12 +242,25 @@ namespace Negocio
 
 
         // Me faltan los metodos de Tareas y Roles para los empleados ...
+        
+        // Roles 
+        
+        // - lista de roles por proyecto 
+        // - modificar rol
+        // - asignar rol 
+        // - desasignar rol
 
-        // AsignarTareaAEmpleado o AsignarRolAEmpleado dentro del contexto del proyecto.
 
-        // podria mejorar el menu: 
-        // - proyectos
-        // - roles
-        // - tareas
+
+        // Tareas
+
+        // - lista de tareas por proyecto
+        // - informacion tarea 
+        // - agregar tarea 
+        // - modificar tarea
+        // - eliminar tarea
+        // - asignar tarea
+        // - desasignar tarea 
+
     }
 }

@@ -95,17 +95,14 @@ namespace Negocio
         
         public bool ValidarDNI(string dni)
         {
-            // Acceso a datos para verificar si el DNI ya está registrado
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Configurar el procedimiento almacenado o consulta para buscar el DNI
                 datos.setearConsulta("SELECT COUNT(*) FROM Empleados WHERE DNI = @DNI");
                 datos.setearParametro("@DNI", dni);
 
-                // Ejecutar la consulta y obtener el resultado
                 int conteo = (int)datos.ejecutarEscalar();
-                return conteo > 0; // Si el conteo es mayor a 0, el DNI ya está registrado
+                return conteo > 0;
             }
             catch (Exception ex)
             {
@@ -146,6 +143,23 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+      
+        public void ActualizarEstadoEmpleado(int id, bool activo = false)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("ActualizarEstadoEmpleado");
+                datos.setearParametro("@Id", id);
+                datos.setearParametro("@IsActive", activo ? 1 : 0);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el estado del empleado.", ex);
+            }
+        }
 
         public void EliminarEmpleado(int id)
         {
@@ -165,23 +179,6 @@ namespace Negocio
             }
         }
 
-        public void ActualizarEstadoEmpleado(int id, bool activo = false)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearProcedimiento("ActualizarEstadoEmpleado");
-                datos.setearParametro("@Id", id);
-                datos.setearParametro("@IsActive", activo ? 1 : 0);
-
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al actualizar el estado del empleado.", ex);
-            }
-        }
-   
         public List<Empleado> ListarEmpleadosAsignados(int idProyecto)
         {
             List<Empleado> empleadosAsignados = new List<Empleado>();
