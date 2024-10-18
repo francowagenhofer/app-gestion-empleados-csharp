@@ -243,20 +243,5 @@ namespace Negocio
         }
 
 
-
-
-
-        // -------------------------------------------------------------------------------------------------------------------------------------//
-
-        // Tareas
-
-        // - lista de tareas por proyecto
-        // - informacion tarea 
-        // - agregar tarea 
-        // - modificar tarea
-        // - eliminar tarea
-        // - asignar tarea
-        // - desasignar tarea 
-
     }
 }

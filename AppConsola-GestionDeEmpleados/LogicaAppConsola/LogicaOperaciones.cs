@@ -22,8 +22,8 @@ namespace AppConsola.LogicaAppConsola
                     Console.Clear();
                     Console.WriteLine("\nSalarios\n");
                     Console.WriteLine("1. Lista de Salarios");
-                    Console.WriteLine("2. Modificar Salario");
-                    Console.WriteLine("3. Calcular Salario");
+                    Console.WriteLine("2. Modificar Salarios");
+                    Console.WriteLine("3. Calcular Salarios");
                     //Console.WriteLine("4. Agregar Salario");
                     //Console.WriteLine("5. Eliminar Salario");
                     Console.WriteLine("\n4. Volver\n");
@@ -307,8 +307,8 @@ namespace AppConsola.LogicaAppConsola
                     Console.Clear();
                     Console.WriteLine("\nBonos\n");
                     Console.WriteLine("1. Lista de Bonos");
-                    Console.WriteLine("2. Modificar Bono");
-                    Console.WriteLine("3. Calcular Bono");
+                    Console.WriteLine("2. Modificar Bonos");
+                    Console.WriteLine("3. Calcular Bonos");
                     Console.WriteLine("4. Asignar Bono a Empledo");
                     Console.WriteLine("5. Desasignar Bono a Empleado");
                     Console.WriteLine("\n6. Volver\n");

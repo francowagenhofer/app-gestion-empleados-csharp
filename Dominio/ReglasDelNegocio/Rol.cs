@@ -12,23 +12,6 @@ namespace Dominio.ReglasDelNegocio
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
 
-
-        //// Constructor vacío
-        //public Rol() { }
-
-        //// Constructor con parámetros
-        //public Rol(int id, string nombre, string descripcion)
-        //{
-        //    Id = id;
-        //    Nombre = nombre;
-        //    Descripcion = descripcion;
-        //}
-
-        //// Método para mostrar la información del rol (opcional)
-        //public override string ToString()
-        //{
-        //    return $"Id: {Id}, Nombre: {Nombre}, Descripción: {Descripcion}";
-        //}
     }
 
 }

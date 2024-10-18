@@ -23,8 +23,8 @@ namespace AppDeConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\nMenú Principal\n");
-                    Console.WriteLine("1. Gestión de Empleados");
-                    Console.WriteLine("2. Gestión de Proyectos");
+                    Console.WriteLine("1. Empleados");
+                    Console.WriteLine("2. Proyectos");
                     Console.WriteLine("3. Operaciones");
                     Console.WriteLine("4. Reportes");
                     Console.WriteLine("\n5. Salir");
@@ -64,7 +64,7 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\nAdministrar Empleados\n");
+                    Console.WriteLine("\n Administrar Empleados\n");
                     Console.WriteLine("1. Lista de Empleados");
                     Console.WriteLine("2. Buscar Empleado");
                     Console.WriteLine("3. Añadir Empleado");
@@ -116,51 +116,26 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\n Aministrar Proyectos\n");
-                    Console.WriteLine("1. Lista de Proyectos");
-                    Console.WriteLine("2. Informacion de Proyecto"); 
-                    Console.WriteLine("3. Agregar Proyecto");
-                    Console.WriteLine("4. Modificar Datos de Proyecto");
-                    Console.WriteLine("5. Cambiar Estado");
-                    Console.WriteLine("6. Eliminar Proyecto");
-                    Console.WriteLine("7. Asignar Empleado a Proyecto");
-                    Console.WriteLine("8. Desasignar Empleado de Proyecto");
-                    Console.WriteLine("\n9. Volver al Menú Principal");
+                    Console.WriteLine("\n Proyectos\n");
+                    Console.WriteLine("1. Gestion de Proyectos");
+                    Console.WriteLine("2. Gestion de Roles");
+                    Console.WriteLine("3. Gestion de tareas");
+                    Console.WriteLine("\n4. Volver al Menú Principal");
                     Console.Write("\nSeleccione una opción: ");
 
-                    // podria mejorar el menu: 
-                    // - proyectos
-                    // - roles
-                    // - tareas
 
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            LogicaProyectos.ListaProyectosConsola();
-                            LogicaProyectos.ResumenProyectosConsola();
+                            LogicaProyectos.MenuProyectos();
                             break;
                         case "2":
-                            LogicaProyectos.InformacionProyectoConsola();
+                            LogicaProyectos.MenuRoles();
                             break;
                         case "3":
-                            LogicaProyectos.AgregarProyectoConsola();
+                            LogicaProyectos.MenuTareas();
                             break;
                         case "4":
-                            LogicaProyectos.ModificarDatosDelProyectoConsola();
-                            break;
-                        case "5":
-                            LogicaProyectos.CambiarEstadoProyectoConsola();
-                            break;
-                        case "6":
-                            LogicaProyectos.EliminarProyectoConsola();
-                            break;
-                        case "7":
-                            LogicaProyectos.AsignarEmpleadoAProyectoConsola();
-                            break;
-                        case "8":
-                            LogicaProyectos.DesasignarEmpleadoDeProyectoConsola();
-                            break;
-                        case "9":
                             return;
                         default:
                             Console.WriteLine("\nOpción no válida. Intente de nuevo.");
@@ -181,7 +156,7 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\nMenú de Operaciones\n");
+                    Console.WriteLine("\n Operaciones\n");
                     Console.WriteLine("1. Salarios");
                     Console.WriteLine("2. Bonos");
                     Console.WriteLine("\n3. Volver al Menú Principal\n");
@@ -216,7 +191,7 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\nMenú de Reportes\n");
+                    Console.WriteLine("\n Reportes\n");
                     Console.WriteLine("1. Reporte de Empleados");
                     Console.WriteLine("2. Reporte de Proyectos");
                     Console.WriteLine("3. Reporte Financiero");

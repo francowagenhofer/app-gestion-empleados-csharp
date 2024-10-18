@@ -12,10 +12,11 @@ namespace Negocio
     {
         // Roles 
         // - lista de roles por proyecto 
+        // - crear rol 
+        // - modificar rol
         // - modificar rol
         // - asignar rol 
         // - desasignar rol
-
 
         public List<Rol> ListarRoles()
         {
