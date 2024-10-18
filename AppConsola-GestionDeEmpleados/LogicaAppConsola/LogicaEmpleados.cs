@@ -310,7 +310,7 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-        public static void CambiarEstadoEmpleadoConsola() //Bien.
+        public static void CambiarEstadoEmpleadoConsola() //Bien. 
         {
             EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
             try
@@ -346,7 +346,7 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-        public static void EliminarEmpleadoConsola() //Bien.
+        public static void EliminarEmpleadoConsola() //Bien. 
         {
             EmpleadoNegocio eliminarEmpleado = new EmpleadoNegocio();
             ProyectosNegocio desasignarEmpleado = new ProyectosNegocio(); 

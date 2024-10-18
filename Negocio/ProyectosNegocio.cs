@@ -1,5 +1,7 @@
 ﻿using Dominio.Entidades;
 using Dominio.Entidades.Dominio.Entidades;
+using Dominio.ReglasDelNegocio;
+using Microsoft.VisualBasic;
 using negocio;
 using System;
 using System.Collections.Generic;
@@ -241,16 +243,10 @@ namespace Negocio
         }
 
 
-        // Me faltan los metodos de Tareas y Roles para los empleados ...
-        
-        // Roles 
-        
-        // - lista de roles por proyecto 
-        // - modificar rol
-        // - asignar rol 
-        // - desasignar rol
 
 
+
+        // -------------------------------------------------------------------------------------------------------------------------------------//
 
         // Tareas
 
