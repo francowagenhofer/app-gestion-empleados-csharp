@@ -10,13 +10,6 @@ namespace Negocio
 {
     public class RolNegocio
     {
-        // Roles 
-        // - lista de roles por proyecto 
-        // - crear rol 
-        // - modificar rol
-        // - modificar rol
-        // - asignar rol 
-        // - desasignar rol
 
         public List<Rol> ListarRoles()
         {
@@ -31,37 +24,6 @@ namespace Negocio
                 {
                     Rol rol = new Rol();
                     rol.Id = (int)datos.Lector["Id"];
-                    rol.Nombre = (string)datos.Lector["Nombre"];
-                    rol.Descripcion = (string)datos.Lector["Descripcion"];
-                    roles.Add(rol);
-                }
-
-                return roles;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            List<Rol> roles = new List<Rol>();
-            try
-            {
-                datos.setearProcedimiento("ListarRolesDeEmpleadosEnProyecto");
-                datos.setearParametro("@IdProyecto", idProyecto);
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    Rol rol = new Rol();
-                    rol.Id = (int)datos.Lector["IdRol"];
                     rol.Nombre = (string)datos.Lector["Nombre"];
                     rol.Descripcion = (string)datos.Lector["Descripcion"];
                     roles.Add(rol);
@@ -126,7 +88,7 @@ namespace Negocio
             try
             {
                 datos.setearProcedimiento("EliminarRol");
-                datos.setearParametro("@Id", idRol);
+                datos.setearParametro("@IdRol", idRol);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -139,14 +101,16 @@ namespace Negocio
             }
         }
 
-        public void AsignarRolAEmpleado(int idEmpleado, int idRol)
+        public void AsignarRolAEmpleadoEnProyecto(int idEmpleado, int idRol, int idProyecto)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("AsignarRolAEmpleado");
+                datos.setearProcedimiento("AsignarRolAEmpleadoEnProyecto");
                 datos.setearParametro("@IdEmpleado", idEmpleado);
                 datos.setearParametro("@IdRol", idRol);
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.setearParametro("@FechaAsignacion", DateTime.Now);
 
                 datos.ejecutarAccion();
             }
@@ -160,14 +124,14 @@ namespace Negocio
             }
         }
 
-        public void DesasignarRolDeEmpleado(int idEmpleado, int idRol)
+        public void DesasignarRolDeEmpleadoEnProyecto(int idEmpleado, int idProyecto)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("DesasignarRolDeEmpleado");
+                datos.setearProcedimiento("DesasignarRolDeEmpleadoEnProyecto");
                 datos.setearParametro("@IdEmpleado", idEmpleado);
-                datos.setearParametro("@IdRol", idRol);
+                datos.setearParametro("@IdProyecto", idProyecto);
 
                 datos.ejecutarAccion();
             }
@@ -181,6 +145,36 @@ namespace Negocio
             }
         }
 
+        public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto) // no se para que sirve ..
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Rol> roles = new List<Rol>();
+            try
+            {
+                datos.setearProcedimiento("ListarRolesDeEmpleadosEnProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Rol rol = new Rol();
+                    rol.Id = (int)datos.Lector["IdRol"];
+                    rol.Nombre = (string)datos.Lector["Nombre"];
+                    rol.Descripcion = (string)datos.Lector["Descripcion"];
+                    roles.Add(rol);
+                }
+
+                return roles;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 

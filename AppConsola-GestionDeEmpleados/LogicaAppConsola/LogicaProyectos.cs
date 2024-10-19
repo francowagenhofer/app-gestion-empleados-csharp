@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades.Dominio.Entidades;
+using Dominio.ReglasDelNegocio;
 using Dominio.Entidades;
 using Negocio;
 using System;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppConsola.LogicaAppConsola;
 using System.ComponentModel.Design;
+using System.Data;
 
 namespace AppConsola
 {
@@ -28,22 +30,8 @@ namespace AppConsola
                     Console.WriteLine("4. Modificar Datos de Proyecto");
                     Console.WriteLine("5. Cambiar Estado");
                     Console.WriteLine("6. Eliminar Proyecto");
-                    Console.WriteLine("7. Asignar Empleado a Proyecto");
-                    Console.WriteLine("8. Desasignar Empleado de Proyecto");
-
-                    //// Sección de Roles
-                    //Console.WriteLine("\n Roles");
-                    //Console.WriteLine("9. Listar Roles de Proyecto");  esto no hace falta ya que en la info del proyecto se podria ver.
-                    //Console.WriteLine("7. Asignar Rol a Empleado en Proyecto");
-                    //Console.WriteLine("8. Desasignar Rol de Empleado en Proyecto");
-
-                    //// Sección de Tareas
-                    //Console.WriteLine("\n Tareas ");
-                    // tendria que crear la tarea aca? 
-                    //Console.WriteLine("9. Listar Tareas de Proyecto"); esto no hace falta ya que en la info del proyecto se podria ver.
-                    //Console.WriteLine("12. Asignar Tarea a Empleado");
-                    //Console.WriteLine("13. Desasignar Tarea de Empleado");
-
+                    Console.WriteLine("7. Asignar Empleado a Proyecto"); // tendria que tener un submenu de asiganar proyecto, rol y tareas.
+                    Console.WriteLine("8. Desasignar Empleado de Proyecto"); // lo mismo para desasignar
 
                     Console.WriteLine("\n9. Volver");
                     Console.Write("\nSeleccione una opción: ");
@@ -154,7 +142,7 @@ namespace AppConsola
             }
         }
 
-        public static void InformacionProyectoConsola() //Bien. 
+        public static void InformacionProyectoConsola() //Bien. podria agregar info de roles y tareas 
         // podria agreagar:
         // - roles de proyecto.
         // - tareas del proyecto       
@@ -595,7 +583,6 @@ namespace AppConsola
 
         //-----------------------------------------------------------------------------------------------------------------------------//
         //-----------------------------------------------------------------------------------------------------------------------------//
-        //-----------------------------------------------------------------------------------------------------------------------------//
 
         // Gestion de Roles
         public static void MenuRoles()
@@ -619,25 +606,25 @@ namespace AppConsola
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nLista de roles");
+                            ListarRolesConsola();
                             break;
                         case "2":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nInformacion de rol");
+                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nInformacion de roles por proyecto");
                             break;
                         case "3":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\n Agregar rol");
+                            AgregarRolConsola();
                             break;
                         case "4":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\n Modificar datos de rol");
+                            ModificarDatosDelRolConsola();
                             break;
                         case "5":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nEliminar rol");
+                            EliminarRolConsola();
                             break;
                         case "6":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nAsignar rol");
-                            break; 
+                            AsignarRolAEmpleadoEnProyectoConsola();
+                            break;
                         case "7":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nDesasignar rol");
+                            DesasignarRolDeEmpleadoEnProyectoConsola();
                             break;
                         case "8":
                             return;
@@ -653,17 +640,303 @@ namespace AppConsola
             }
         }
 
+        public static void ListarRolesConsola()
+        {
+            RolNegocio rolesNegocio = new RolNegocio();
+            try
+            {
+                List<Rol> roles = rolesNegocio.ListarRoles();
+
+                if (roles == null || roles.Count == 0)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay roles registrados.");
+                    return;
+                }
+
+                Console.WriteLine("\n- Lista de Roles -\n");
+                for (int i = 0; i < roles.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}) Id: {roles[i].Id}; Nombre: {roles[i].Nombre}; Descripción: {roles[i].Descripcion}.");
+                }
+                Negocio.MetodosAuxiliares.MostrarMensaje("\n - # -");
+            }
+            catch (Exception ex)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError: {ex.Message}\n");
+            }
+        }
+
+        public static void AgregarRolConsola()
+        {
+            Rol nuevoRol = new Rol();
+            RolNegocio rolesNegocio = new RolNegocio();
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("\n- Agregar Nuevo Rol -\n");
+
+                    nuevoRol.Nombre = Negocio.MetodosAuxiliares.LeerDato("Nombre del Rol");
+                    nuevoRol.Descripcion = Negocio.MetodosAuxiliares.LeerDato("\nDescripción del Rol");
+
+                    rolesNegocio.CrearRol(nuevoRol); // Se llama al método de negocio para agregar el rol.
+
+                    Negocio.MetodosAuxiliares.MostrarMensaje($"\nEl rol '{nuevoRol.Nombre}' ha sido agregado exitosamente.");
+
+                    break; // Salimos del bucle si no hay errores.
+                }
+                catch (FormatException ex)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nError de formato: Asegúrate de ingresar los datos correctamente.");
+                }
+                catch (Exception ex)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje($"\nError inesperado al agregar el rol: {ex.Message}");
+                }
+            }
+        }
+
+        public static void ModificarDatosDelRolConsola()
+        {
+            RolNegocio rolesNegocio = new RolNegocio();
+            try
+            {
+                List<Rol> listaRoles = rolesNegocio.ListarRoles();
+
+                if (listaRoles == null || listaRoles.Count == 0)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay roles registrados.");
+                    return;
+                }
+                ListarRolesConsola();
+
+                Console.WriteLine("\n- Modificar Rol -\n");
+
+                int rolId;
+                bool esNumeroValido = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("Id del Rol", ""), out rolId);
+
+                if (!esNumeroValido || !listaRoles.Any(r => r.Id == rolId))
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nId de rol no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                var rolSeleccionado = listaRoles.First(r => r.Id == rolId);
+
+                rolSeleccionado.Nombre = Negocio.MetodosAuxiliares.LeerDato("\nNuevo nombre", rolSeleccionado.Nombre);
+                rolSeleccionado.Descripcion = Negocio.MetodosAuxiliares.LeerDato("\nNueva descripción", rolSeleccionado.Descripcion);
+
+                rolesNegocio.ModificarRol(rolSeleccionado);
+
+                Negocio.MetodosAuxiliares.MostrarMensaje("\nLos datos del rol han sido actualizados exitosamente.");
+            }
+            catch (FormatException fe)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje("\nFormato de entrada incorrecto. Inténtalo de nuevo.");
+            }
+            catch (Exception ex)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al modificar el rol: {ex.Message}");
+            }
+        }
+
+        public static void EliminarRolConsola()
+        {
+            RolNegocio rolesNegocio = new RolNegocio();
+
+            try
+            {
+
+                List<Rol> listaRoles = rolesNegocio.ListarRoles();
+                if (listaRoles == null || listaRoles.Count == 0)
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nNo hay roles registrados.");
+                    return;
+                }
+
+                ListarRolesConsola();
+
+                Console.WriteLine("\n- Eliminar Rol -\n");
+
+                int rolId;
+                bool esNumeroValido = int.TryParse(Negocio.MetodosAuxiliares.LeerDato("Id del Rol a eliminar", ""), out rolId);
+
+                if (!esNumeroValido || !listaRoles.Any(r => r.Id == rolId))
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nId de rol no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                string confirmacion = Negocio.MetodosAuxiliares.LeerDato("\n¿Estás seguro de que quieres eliminar este rol? (s/n)", "").ToLower();
+                if (confirmacion != "s")
+                {
+                    Negocio.MetodosAuxiliares.MostrarMensaje("\nOperación cancelada.");
+                    return;
+                }
+
+                rolesNegocio.EliminarRol(rolId);
+                Negocio.MetodosAuxiliares.MostrarMensaje("\nRol eliminado correctamente.");
+            }
+            catch (FormatException fe)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError de formato: {fe.Message}");
+            }
+            catch (Exception ex)
+            {
+                Negocio.MetodosAuxiliares.MostrarMensaje($"\nError al eliminar el rol: {ex.Message}");
+            }
+        }
 
 
+        // estos dos metodos tendrian que estar en el menu de gestin de proyecto ...
+
+        public static void AsignarRolAEmpleadoEnProyectoConsola()
+        {
+            RolNegocio rolesNegocio = new RolNegocio();
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+            ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
+
+            try
+            {
+                List<Rol> listaRoles = rolesNegocio.ListarRoles();
+                List<Empleado> listaEmpleados = empleadoNegocio.ListarEmpleados();
+                List<Proyectos> listaProyectos = proyectosNegocio.ListarProyectos();
+
+                if (listaRoles.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay roles registrados.");
+                    return;
+                }
+                else if (listaEmpleados.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay empleados registrados.");
+                    return;
+                }
+                else if (listaProyectos.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+                    return;
+                }
+
+                Console.WriteLine("\n- Asignar Rol a Empleado en Proyecto -");
+
+                // Mostrar lista de proyectos
+                ListaProyectosConsola();
+
+                // Seleccionar proyecto
+                int seleccionProyecto;
+                bool esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del proyecto", ""), out seleccionProyecto);
+
+                if (!esNumeroValido || !listaProyectos.Any(p => p.Id == seleccionProyecto))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nID de proyecto no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                // Mostrar lista de empleados
+                LogicaAppConsola.LogicaEmpleados.ListaEmpleadosConsola();
+
+                // Seleccionar empleado
+                int seleccionEmpleado;
+                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del empleado", ""), out seleccionEmpleado);
+
+                if (!esNumeroValido || !listaEmpleados.Any(e => e.Id == seleccionEmpleado))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nID de empleado no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                // Mostrar lista de roles
+                ListarRolesConsola();
+
+                // Seleccionar rol
+                int seleccionRol;
+                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del rol", ""), out seleccionRol);
+
+                if (!esNumeroValido || !listaRoles.Any(r => r.Id == seleccionRol))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nID de rol no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                // Asignar el rol al empleado en el proyecto utilizando RolNegocio
+                rolesNegocio.AsignarRolAEmpleadoEnProyecto(seleccionEmpleado, seleccionRol, seleccionProyecto);
+                MetodosAuxiliares.MostrarMensaje("\nRol asignado correctamente al empleado en el proyecto.");
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"\nError al asignar rol: {ex.Message}");
+            }
+        }
+
+        public static void DesasignarRolDeEmpleadoEnProyectoConsola()
+        {
+            RolNegocio rolesNegocio = new RolNegocio();
+            EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
+            ProyectosNegocio proyectosNegocio = new ProyectosNegocio();
+
+            try
+            {
+                List<Proyectos> listaProyectos = proyectosNegocio.ListarProyectos();
+
+                if (listaProyectos.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay proyectos registrados.");
+                    return;
+                }
+
+                Console.WriteLine("\n- Desasignar Rol de Empleado en Proyecto -");
+
+                // Mostrar lista de proyectos
+                ListaProyectosConsola();
+
+                // Seleccionar proyecto
+                int seleccionProyecto;
+                bool esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del proyecto", ""), out seleccionProyecto);
+
+                if (!esNumeroValido || !listaProyectos.Any(p => p.Id == seleccionProyecto))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nID de proyecto no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                // Listar empleados asignados en el proyecto
+                List<Empleado> empleadosAsignados = empleadoNegocio.ListarEmpleadosAsignados(seleccionProyecto);
+
+                if (empleadosAsignados.Count == 0)
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nNo hay empleados asignados a este proyecto.");
+                    return;
+                }
+
+                // Mostrar lista de empleados asignados
+                Console.WriteLine("\n- Empleados asignados al proyecto -");
+                for (int i = 0; i < empleadosAsignados.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}) Id: {empleadosAsignados[i].Id}; Nombre: {empleadosAsignados[i].Nombre}");
+                }
+
+                // Seleccionar empleado
+                int seleccionEmpleado;
+                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del empleado a desasignar", ""), out seleccionEmpleado);
+
+                if (!esNumeroValido || !empleadosAsignados.Any(e => e.Id == seleccionEmpleado))
+                {
+                    MetodosAuxiliares.MostrarMensaje("\nID de empleado no válido. Inténtalo de nuevo.");
+                    return;
+                }
+
+                // Desasignar el rol del empleado en el proyecto utilizando RolNegocio
+                rolesNegocio.DesasignarRolDeEmpleadoEnProyecto(seleccionEmpleado, seleccionProyecto);
+                MetodosAuxiliares.MostrarMensaje("\nRol desasignado correctamente del empleado en el proyecto.");
+            }
+            catch (Exception ex)
+            {
+                MetodosAuxiliares.MostrarMensaje($"\nError al desasignar rol: {ex.Message}");
+            }
+        }
 
 
-
-
-
-
-
-
-        //-----------------------------------------------------------------------------------------------------------------------------//
         //-----------------------------------------------------------------------------------------------------------------------------//
         //-----------------------------------------------------------------------------------------------------------------------------//
 
@@ -722,9 +995,6 @@ namespace AppConsola
                 }
             }
         }
-
-
-
 
 
 
