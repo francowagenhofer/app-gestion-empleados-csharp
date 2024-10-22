@@ -133,7 +133,7 @@ namespace AppDeConsola
                             LogicaProyectos.MenuRoles();
                             break;
                         case "3":
-                            LogicaProyectos.MenuTareas();
+                            LogicaTareas.MenuTareas();
                             break;
                         case "4":
                             return;
@@ -157,8 +157,8 @@ namespace AppDeConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\n Operaciones\n");
-                    Console.WriteLine("1. Salarios");
-                    Console.WriteLine("2. Bonos");
+                    Console.WriteLine("1. Gestión de Salarios");
+                    Console.WriteLine("2. Gestión Bonos");
                     Console.WriteLine("\n3. Volver al Menú Principal\n");
                     Console.Write("Seleccione una opción: ");
 

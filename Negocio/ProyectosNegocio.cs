@@ -207,7 +207,6 @@ namespace Negocio
         }
 
         public List<Proyectos> ListarProyectosAsignadosEmpleado(int idEmpleado)
-        // Este metodo busca los proyectos que tiene asignado X empleado.
         {
             List<Proyectos> proyectosAsignados = new List<Proyectos>();
             AccesoDatos datos = new AccesoDatos();

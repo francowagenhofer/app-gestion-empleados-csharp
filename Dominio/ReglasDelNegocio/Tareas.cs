@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio.Entidades.Dominio.Entidades;
+using Dominio.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +11,6 @@ namespace Dominio.ReglasDelNegocio
     public class Tareas
     {
         public int Id { get; set; }
-        
-        public int IdProyecto { get; set; }
 
         public string Nombre { get; set; }
         
@@ -20,7 +20,12 @@ namespace Dominio.ReglasDelNegocio
 
         public DateTime FechaFin { get; set; }
 
-        public string Estado { get; set; } 
+        public string Estado { get; set; }
 
+        public List<Proyectos> ProyectosAsignados { get; set; }
+        public List<Empleado> EmpleadosAsignados { get; set; }
+    
+    
+    
     }
 }

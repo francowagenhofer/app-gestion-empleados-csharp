@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using AppConsola.LogicaAppConsola;
 using System.ComponentModel.Design;
 using System.Data;
+using System.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Data.Common;
 
 namespace AppConsola
 {
@@ -30,8 +33,8 @@ namespace AppConsola
                     Console.WriteLine("4. Modificar Datos de Proyecto");
                     Console.WriteLine("5. Cambiar Estado");
                     Console.WriteLine("6. Eliminar Proyecto");
-                    Console.WriteLine("7. Asignar Empleado a Proyecto"); // tendria que tener un submenu de asiganar proyecto, rol y tareas.
-                    Console.WriteLine("8. Desasignar Empleado de Proyecto"); // lo mismo para desasignar
+                    Console.WriteLine("7. Asignar Empleado a Proyecto");
+                    Console.WriteLine("8. Desasignar Empleado de Proyecto");
 
                     Console.WriteLine("\n9. Volver");
                     Console.Write("\nSeleccione una opción: ");
@@ -525,7 +528,10 @@ namespace AppConsola
         }
 
 
+
         // estos por ahora no se usan ...
+       
+        
         public static void ProyectosActivosConsola()
         {
             ProyectosNegocio proyectoNegocio = new ProyectosNegocio();
@@ -581,6 +587,8 @@ namespace AppConsola
             }
         }
 
+
+        //-----------------------------------------------------------------------------------------------------------------------------//
         //-----------------------------------------------------------------------------------------------------------------------------//
         //-----------------------------------------------------------------------------------------------------------------------------//
 
@@ -609,7 +617,7 @@ namespace AppConsola
                             ListarRolesConsola();
                             break;
                         case "2":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nInformacion de roles por proyecto");
+                            Console.WriteLine("falta...");
                             break;
                         case "3":
                             AgregarRolConsola();
@@ -787,9 +795,6 @@ namespace AppConsola
             }
         }
 
-
-        // estos dos metodos tendrian que estar en el menu de gestin de proyecto ...
-
         public static void AsignarRolAEmpleadoEnProyectoConsola()
         {
             RolNegocio rolesNegocio = new RolNegocio();
@@ -829,7 +834,7 @@ namespace AppConsola
 
                 if (!esNumeroValido || !listaProyectos.Any(p => p.Id == seleccionProyecto))
                 {
-                    MetodosAuxiliares.MostrarMensaje("\nID de proyecto no válido. Inténtalo de nuevo.");
+                    MetodosAuxiliares.MostrarMensaje("\nId de proyecto no válido. Inténtalo de nuevo.");
                     return;
                 }
 
@@ -838,7 +843,7 @@ namespace AppConsola
 
                 // Seleccionar empleado
                 int seleccionEmpleado;
-                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del empleado", ""), out seleccionEmpleado);
+                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el Id del empleado", ""), out seleccionEmpleado);
 
                 if (!esNumeroValido || !listaEmpleados.Any(e => e.Id == seleccionEmpleado))
                 {
@@ -851,11 +856,11 @@ namespace AppConsola
 
                 // Seleccionar rol
                 int seleccionRol;
-                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el ID del rol", ""), out seleccionRol);
+                esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el Id del rol", ""), out seleccionRol);
 
                 if (!esNumeroValido || !listaRoles.Any(r => r.Id == seleccionRol))
                 {
-                    MetodosAuxiliares.MostrarMensaje("\nID de rol no válido. Inténtalo de nuevo.");
+                    MetodosAuxiliares.MostrarMensaje("\nId de rol no válido. Inténtalo de nuevo.");
                     return;
                 }
 
@@ -935,72 +940,6 @@ namespace AppConsola
                 MetodosAuxiliares.MostrarMensaje($"\nError al desasignar rol: {ex.Message}");
             }
         }
-
-
-        //-----------------------------------------------------------------------------------------------------------------------------//
-        //-----------------------------------------------------------------------------------------------------------------------------//
-
-        // Gestion de Tareas
-        public static void MenuTareas()
-        {
-            while (true)
-            {
-                try
-                {
-                    Console.Clear();
-                    Console.WriteLine("\n Aministrar Tareas\n");
-                    Console.WriteLine("1. Lista de Tareas");
-                    Console.WriteLine("2. Informacion de Tarea");
-                    Console.WriteLine("3. Agregar Tarea");
-                    Console.WriteLine("4. Modificar Tarea");
-                    Console.WriteLine("5. Eliminar Tarea");
-                    Console.WriteLine("6. Asignar Tarea");
-                    Console.WriteLine("7. Desasignar Tarea");
-                    Console.WriteLine("\n8. Volver");
-                    Console.Write("\nSeleccione una opción: ");
-
-                    switch (Console.ReadLine())
-                    {
-                        case "1":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\n lista de tareas");
-                            break;
-                        case "2":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\n Informacion de tarea");
-                            break;
-                        case "3":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nAgregar Tarea");
-                            break;
-                        case "4":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nModificar Tarea");
-                            break;
-                        case "5":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nEliminar Tarea");
-                            break;
-                        case "6":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nAsignar Tarea");
-                            break;
-                        case "7":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nDesasignar Tarea");
-                            break;
-                        case "8":
-                            return;
-                        default:
-                            Console.WriteLine("\nOpción no válida. Intente de nuevo.");
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Negocio.MetodosAuxiliares.MostrarMensaje($"\nError inesperado: {ex.Message}\n");
-                }
-            }
-        }
-
-
-
-
-
-
 
 
 
