@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace AppConsola.LogicaAppConsola
 {
-    public class LogicaTareas
+    public class LogicaTareas  // Adaptcion de los metodos de TareasNegocio a la App de Consola.
     {
-        // Gestion de Tareas
         public static void MenuTareas()
         {
             while (true)
@@ -20,18 +19,25 @@ namespace AppConsola.LogicaAppConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\nAministrar Tareas\n");
-                    Console.WriteLine("1. Lista de Tareas");
-                    Console.WriteLine("2. Informacion de Tarea");
-                    Console.WriteLine("3. Agregar Tarea");
-                    Console.WriteLine("4. Modificar Tarea");
-                    Console.WriteLine("5. Eliminar Tarea");
-                    Console.WriteLine("6. Asignar Tarea a un Proyecto");
-                    Console.WriteLine("7. Asignar Tarea a un Empleado en Proyecto");
-                    Console.WriteLine("8. Desasignar Tarea de un Proyecto");
-                    Console.WriteLine("9. Desasignar Tarea a un Empleado en Proyecto");
-                    Console.WriteLine("\n10. Volver");
+                    Console.WriteLine("\n Administrar Tareas\n");
+                    //Console.WriteLine("1. Lista de Tareas\n");
+                    //Console.WriteLine("2. Información de Tarea\n");
+                    //Console.WriteLine("3. Agregar Tarea\n");
+                    //Console.WriteLine("4. Modificar Tarea\n");
+                    //Console.WriteLine("5. Asignar Tarea a un Proyecto\n");
+                    //Console.WriteLine("6. Asignar Tarea a un Empleado en Proyecto\n");
+                    //Console.WriteLine("7. Desasignar Tarea de un Proyecto\n");
+                    //Console.WriteLine("8. Desasignar Tarea a un Empleado en Proyecto\n");
+                    //Console.WriteLine("9. Eliminar Tarea\n");
+                    //Console.WriteLine("\n10. Volver");
+                    Console.WriteLine("1. Ver lista de tareas\n");
+                    Console.WriteLine("2. Ver detalles de una tarea específica\n");
+                    Console.WriteLine("3. Registrar una nueva tarea\n");
+                    Console.WriteLine("4. Editar los detalles de una tarea\n");
+                    Console.WriteLine("5. Eliminar una tarea del sistema\n");
+                    Console.WriteLine("\n6. Volver");
                     Console.Write("\nSeleccione una opción: ");
+
 
                     switch (Console.ReadLine())
                     {
@@ -47,22 +53,22 @@ namespace AppConsola.LogicaAppConsola
                         case "4":
                             ModificarDatosDeLaTareaConsola();
                             break;
+                        //case "5":
+                        //    AsignarTareaAProyectoConsola();
+                        //    break;
+                        //case "6":
+                        //    AsignarTareaAEmpleadoEnProyectoConsola();
+                        //    break;
+                        //case "7":
+                        //    DesasignarTareaDeProyectoConsola();
+                        //    break;
+                        //case "8":
+                        //    DesasignarTareaDeEmpleadoEnProyectoConsola();
+                        //    break;
                         case "5":
                             EliminarTareaConsola();
                             break;
                         case "6":
-                            AsignarTareaAProyectoConsola();
-                            break;
-                        case "7":
-                            AsignarTareaAEmpleadoEnProyectoConsola();
-                            break;
-                        case "8":
-                            DesasignarTareaDeProyectoConsola();
-                            break;
-                        case "9":
-                            DesasignarTareaDeEmpleadoEnProyectoConsola();
-                            break;
-                        case "10":
                             return;
                         default:
                             Console.WriteLine("\nOpción no válida. Intente de nuevo.");
@@ -132,7 +138,7 @@ namespace AppConsola.LogicaAppConsola
                 Console.WriteLine($"Nombre: {informacionTarea.Nombre}");
                 Console.WriteLine($"Descripción: {informacionTarea.Descripcion}");
 
-                Console.WriteLine($"\nProyectos vinculados:");
+                Console.WriteLine($"\nProyectos vinculados:\n");
                 if (informacionTarea.ProyectosAsignados.Count == 0)
                 {
                     Console.WriteLine("No hay proyectos asignados a esta tarea.");
@@ -141,11 +147,11 @@ namespace AppConsola.LogicaAppConsola
                 {
                     foreach (var proyecto in informacionTarea.ProyectosAsignados)
                     {
-                        Console.WriteLine($"Id: {proyecto.Id}; Nombre: {proyecto.Nombre}");
+                        Console.WriteLine($"Id: {proyecto.Id} - Nombre del proyecto: {proyecto.Nombre}");
                     }
                 }
 
-                Console.WriteLine($"\nEmpleados Asignados:");
+                Console.WriteLine($"\nEmpleados Asignados:\n");
                 if (informacionTarea.EmpleadosAsignados.Count == 0)
                 {
                     Console.WriteLine("No hay empleados asignados a esta tarea.");
@@ -154,7 +160,7 @@ namespace AppConsola.LogicaAppConsola
                 {
                     foreach (var empleado in informacionTarea.EmpleadosAsignados)
                     {
-                        Console.WriteLine($"Id: {empleado.Id}; Nombre: {empleado.Nombre} {empleado.Apellido}");
+                        Console.WriteLine($"Id: {empleado.Id} - Nombre del empleado: {empleado.Nombre} {empleado.Apellido}");
                     }
                 }
 
@@ -565,9 +571,6 @@ namespace AppConsola.LogicaAppConsola
                 MetodosAuxiliares.MostrarMensaje($"\nError al ejecutar la operación: {ex.Message}");
             }
         }
-
-
-
 
     }
 }

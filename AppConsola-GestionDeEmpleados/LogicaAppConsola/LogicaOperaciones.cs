@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace AppConsola.LogicaAppConsola
 {
-    public class LogicaOperaciones
+    public class LogicaOperaciones // Adaptcion de los metodos de las clases SalarioNegocio y BonosNegocio a la App de Consola
     {
-        // SALARIOS - Adaptcion de los metodos de SalarioNegocio a la App de Consola
+        // SALARIOS
         public static void Salarios() // Bien.
         {
             while (true)
@@ -21,13 +21,13 @@ namespace AppConsola.LogicaAppConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\nSalarios\n");
-                    Console.WriteLine("1. Lista de Salarios");
-                    Console.WriteLine("2. Modificar Salarios");
-                    Console.WriteLine("3. Calcular Salarios");
-                    //Console.WriteLine("4. Agregar Salario");
-                    //Console.WriteLine("5. Eliminar Salario");
-                    Console.WriteLine("\n4. Volver\n");
-                    Console.Write("Seleccione una opción: ");
+                    Console.WriteLine("1. Ver lista de salarios\n");
+                    Console.WriteLine("2. Modificar salarios existentes\n");
+                    Console.WriteLine("3. Calcular salarios existentes, aplicando incrementos o deducciones\n");
+                    //Console.WriteLine("4. Agregar Salario\n");
+                    //Console.WriteLine("5. Eliminar Salario\n");
+                    Console.WriteLine("\n4. Volver");
+                    Console.Write("\nSeleccione una opción: ");
 
                     switch (Console.ReadLine())
                     {
@@ -296,8 +296,7 @@ namespace AppConsola.LogicaAppConsola
         //}
 
 
-
-        // BONOS - Adaptcion de los metodos de BonosNegocio a la App de Consola
+        // BONOS 
         public static void Bonos() // Bien. 
         {
             while (true)
@@ -305,14 +304,14 @@ namespace AppConsola.LogicaAppConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\nBonos\n");
-                    Console.WriteLine("1. Lista de Bonos");
-                    Console.WriteLine("2. Modificar Bonos");
-                    Console.WriteLine("3. Calcular Bonos");
-                    Console.WriteLine("4. Asignar Bono a Empledo");
-                    Console.WriteLine("5. Desasignar Bono a Empleado");
-                    Console.WriteLine("\n6. Volver\n");
-                    Console.Write("Seleccione una opción: ");
+                    Console.WriteLine("\n Bonos\n");
+                    Console.WriteLine("1. Ver lista de bonos\n");
+                    Console.WriteLine("2. Modificar bonos existentes\n");
+                    Console.WriteLine("3. Calcular bonos existentes, aplicando incrementos o deducciones\n");
+                    Console.WriteLine("4. Asignar bono/s a un empleado\n");
+                    Console.WriteLine("5. Desasignar bono/s a un empleado\n");
+                    Console.WriteLine("\n6. Volver");
+                    Console.Write("\nSeleccione una opción: ");
 
                     switch (Console.ReadLine())
                     {

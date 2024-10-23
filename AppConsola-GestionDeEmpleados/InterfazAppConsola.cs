@@ -23,10 +23,10 @@ namespace AppDeConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\nMenú Principal\n");
-                    Console.WriteLine("1. Empleados");
-                    Console.WriteLine("2. Proyectos");
-                    Console.WriteLine("3. Operaciones");
-                    Console.WriteLine("4. Reportes");
+                    Console.WriteLine("1. Empleados\n");
+                    Console.WriteLine("2. Proyectos\n");
+                    Console.WriteLine("3. Operaciones\n");
+                    Console.WriteLine("4. Reportes\n");
                     Console.WriteLine("\n5. Salir");
                     Console.Write("\nSelecciona una opción: ");
 
@@ -64,14 +64,21 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\n Administrar Empleados\n");
-                    Console.WriteLine("1. Lista de Empleados");
-                    Console.WriteLine("2. Buscar Empleado");
-                    Console.WriteLine("3. Añadir Empleado");
-                    Console.WriteLine("4. Modificar información de Empleado");
-                    Console.WriteLine("5. Cambiar estado del Empleado");
-                    Console.WriteLine("6. Eliminar Empleado");
-                    Console.WriteLine("\n7. Volver al Menú Principal");
+                    Console.WriteLine("\nGestión de Empleados\n");
+                    //Console.WriteLine("1. Lista de Empleados");
+                    //Console.WriteLine("2. Buscar Empleado");
+                    //Console.WriteLine("3. Añadir Empleado");
+                    //Console.WriteLine("4. Modificar información de Empleado");
+                    //Console.WriteLine("5. Cambiar estado del Empleado");
+                    //Console.WriteLine("6. Eliminar Empleado");
+                    //Console.WriteLine("\n7. Regresar al menú principal");
+                    Console.WriteLine("1. Ver lista de empleados registrados\n");
+                    Console.WriteLine("2. Buscar detalles de un empleado específico\n");
+                    Console.WriteLine("3. Registrar un nuevo empleado\n");
+                    Console.WriteLine("4. Editar los datos de un empleado\n");
+                    Console.WriteLine("5. Cambiar el estado de un empleado\n");
+                    Console.WriteLine("6. Eliminar un empleado del sistema\n");
+                    Console.WriteLine("\n7. Volver al menú principal");
                     Console.Write("\nSelecciona una opción: ");
 
                     switch (Console.ReadLine())
@@ -116,11 +123,11 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\n Proyectos\n");
-                    Console.WriteLine("1. Gestion de Proyectos");
-                    Console.WriteLine("2. Gestion de Roles");
-                    Console.WriteLine("3. Gestion de tareas");
-                    Console.WriteLine("\n4. Volver al Menú Principal");
+                    Console.WriteLine("\nGestión de Proyectos\n");
+                    Console.WriteLine("1. Proyectos\n");
+                    Console.WriteLine("2. Roles\n");
+                    Console.WriteLine("3. Tareas\n");
+                    Console.WriteLine("\n4. Volver al menú principal");
                     Console.Write("\nSeleccione una opción: ");
 
 
@@ -130,7 +137,7 @@ namespace AppDeConsola
                             LogicaProyectos.MenuProyectos();
                             break;
                         case "2":
-                            LogicaProyectos.MenuRoles();
+                            LogicaRoles.MenuRoles();
                             break;
                         case "3":
                             LogicaTareas.MenuTareas();
@@ -156,11 +163,11 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\n Operaciones\n");
-                    Console.WriteLine("1. Gestión de Salarios");
-                    Console.WriteLine("2. Gestión Bonos");
-                    Console.WriteLine("\n3. Volver al Menú Principal\n");
-                    Console.Write("Seleccione una opción: ");
+                    Console.WriteLine("\nGestión de Operaciones\n");
+                    Console.WriteLine("1. Salarios\n");
+                    Console.WriteLine("2. Bonos\n");
+                    Console.WriteLine("\n3. Volver al menú principal");
+                    Console.Write("\nSeleccione una opción: ");
 
                     switch (Console.ReadLine())
                     {
@@ -191,11 +198,11 @@ namespace AppDeConsola
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("\n Reportes\n");
-                    Console.WriteLine("1. Reporte de Empleados");
-                    Console.WriteLine("2. Reporte de Proyectos");
-                    Console.WriteLine("3. Reporte Financiero");
-                    Console.WriteLine("\n4. Volver al Menú Principal");
+                    Console.WriteLine("\nReportes\n");
+                    Console.WriteLine("1. Reporte de Empleados\n");
+                    Console.WriteLine("2. Reporte de Proyectos\n");
+                    Console.WriteLine("3. Reporte Financiero\n");
+                    Console.WriteLine("\n4. Volver al menú principal");
                     Console.Write("\nSeleccione una opción: ");
 
                     switch (Console.ReadLine())
@@ -203,18 +210,14 @@ namespace AppDeConsola
                         case "1":
                             LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos); 
                             break;
-
                         case "2":
                             LogicaReportes.ReporteProyectosConsola(proyectos);
                             break;
-
                         case "3":
                             LogicaReportes.ReporteFinancieroConsola(empleados, proyectos);
                             break;
-
                         case "4":
                             return;
-
                         default:
                             Negocio.MetodosAuxiliares.MostrarMensaje("\nOpción no válida.");
                             break;

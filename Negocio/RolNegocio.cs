@@ -1,4 +1,6 @@
-﻿using Dominio.ReglasDelNegocio;
+﻿using Dominio.Entidades.Dominio.Entidades;
+using Dominio.Entidades;
+using Dominio.ReglasDelNegocio;
 using negocio;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,6 @@ namespace Negocio
 {
     public class RolNegocio
     {
-
         public List<Rol> ListarRoles()
         {
             AccesoDatos datos = new AccesoDatos();
@@ -30,6 +31,72 @@ namespace Negocio
                 }
 
                 return roles;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Rol ObtenerInformacionRol(int idRol)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Rol rol = null;
+
+            try
+            {
+                datos.setearProcedimiento("ObtenerInformacionRol");
+                datos.setearParametro("@IdRol", idRol);
+                datos.ejecutarLectura();
+
+                List<Empleado> empleadosAsignados = new List<Empleado>();
+                HashSet<Proyectos> proyectosAsignados = new HashSet<Proyectos>(new ProyectosComparer());
+
+                while (datos.Lector.Read())
+                {
+                    if (rol == null)
+                    {
+                        rol = new Rol
+                        {
+                            Id = (int)datos.Lector["RolId"],
+                            Nombre = (string)datos.Lector["RolNombre"],
+                            Descripcion = (string)datos.Lector["RolDescripcion"]
+                        };
+                    }
+
+                    if (datos.Lector["ProyectoId"] != DBNull.Value)
+                    {
+                        Proyectos proyecto = new Proyectos
+                        {
+                            Id = (int)datos.Lector["ProyectoId"],
+                            Nombre = (string)datos.Lector["ProyectoNombre"]
+                        };
+                        proyectosAsignados.Add(proyecto); // Usa HashSet para evitar duplicados
+                    }
+
+                    if (datos.Lector["EmpleadoId"] != DBNull.Value)
+                    {
+                        Empleado empleado = new Empleado
+                        {
+                            Id = (int)datos.Lector["EmpleadoId"],
+                            Nombre = (string)datos.Lector["EmpleadoNombre"],
+                            Apellido = (string)datos.Lector["EmpleadoApellido"]
+                        };
+                        empleadosAsignados.Add(empleado);
+                    }
+                }
+
+                if (rol != null)
+                {
+                    rol.EmpleadosAsignados = empleadosAsignados;
+                    rol.ProyectosAsignados = proyectosAsignados.ToList(); // Convertir de HashSet a List
+                }
+
+                return rol;
             }
             catch (Exception ex)
             {
@@ -145,7 +212,7 @@ namespace Negocio
             }
         }
 
-        public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto) // no se para que sirve ..
+        public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto)  
         {
             AccesoDatos datos = new AccesoDatos();
             List<Rol> roles = new List<Rol>();
@@ -176,17 +243,6 @@ namespace Negocio
             }
         }
 
-    
-    
-    
-    
-    
-    
-    // tengo que hacer un gran cambio ...
-    
-    
-    
-    
     }
 
 }

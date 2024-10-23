@@ -143,7 +143,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-      
+
         public void ActualizarEstadoEmpleado(int id, bool activo = false)
         {
             AccesoDatos datos = new AccesoDatos();
