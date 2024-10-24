@@ -69,7 +69,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("AgregarEmpleado");  // Tengo que modificar el Stored Procedure
+                datos.setearProcedimiento("AgregarEmpleado"); 
                 datos.setearParametro("@Nombre", agregarEmpleado.Nombre);
                 datos.setearParametro("@Apellido", agregarEmpleado.Apellido);
                 datos.setearParametro("@FechaNacimiento", agregarEmpleado.FechaNacimiento);

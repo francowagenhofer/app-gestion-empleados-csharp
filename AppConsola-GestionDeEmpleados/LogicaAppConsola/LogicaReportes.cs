@@ -11,25 +11,108 @@ using System.Threading;
 
 namespace AppConsola.LogicaAppConsola
 {
-    public class LogicaReportes
+    public class LogicaReportes // Adaptcion de los metodos de ReportesNegocio a la App de Consola.
     {
-        // Adaptcion de los metodos de ReportesNegocio a la App de Consola (Esta clase la voy a dejar para el final).
+
+        //  Reporte de Empleados 
+
+        // Obtener Reportes de Empleados
+        public void MostrarReportesEmpleadosConsola()
+        {
+            // mostrar una lsta de todos los reportes disponibles
+            // seleccionar un reporte
+            // mostrar la informacion...
+        }
+
+        // Generar Reporte de Empleados
+        public void GenerarReporteEmpleadoConsola()
+        {
+            // Lógica para capturar datos y llamar a reportesNegocio.GenerarReporteEmpleado
+        }
+
+        // Modificar Reporte de Empleados
+        public void ModificarReporteEmpleadoConsola()
+        {
+            // Lógica para capturar ID y nuevos datos y llamar a reportesNegocio.ModificarReporteEmpleado
+        }
+
+        // Eliminar Reporte de Empleados
+        public void EliminarReporteEmpleadoConsola()
+        {
+            // Lógica para capturar ID y llamar a reportesNegocio.EliminarReporteEmpleado
+        }
+
+
+
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+
+        // Reporte de Proyectos
+
+        // Obtener Reportes de Proyectos
+        public void MostrarReportesProyectosConsola()
+        {
+
+        }
+
+        // Generar Reporte de Proyectos
+        public void GenerarReporteProyectoConsola()
+        {
+            // Lógica para capturar datos y llamar a reportesNegocio.GenerarReporteProyecto
+        }
+
+        // Modificar Reporte de Proyectos
+        public void ModificarReporteProyectoConsola()
+        {
+            // Lógica para capturar ID y nuevos datos y llamar a reportesNegocio.ModificarReporteProyecto
+        }
+
+        // Eliminar Reporte de Proyectos
+        public void EliminarReporteProyectoConsola()
+        {
+            // Lógica para capturar ID y llamar a reportesNegocio.EliminarReporteProyecto
+        }
+
+
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+
+        // Reporte de Finzas
+
+        // Obtener Reportes de Finanzas
+        public void MostrarReportesFinanzasConsola()
+        {
+
+        }
+
+        // Generar Reporte de Finanzas
+        public void GenerarReporteFinanzasConsola()
+        {
+            // Lógica para capturar datos y llamar a reportesNegocio.GenerarReporteFinanzas
+        }
+
+        // Modificar Reporte de Finanzas
+        public void ModificarReporteFinanzasConsola()
+        {
+            // Lógica para capturar ID y nuevos datos y llamar a reportesNegocio.ModificarReporteFinanzas
+        }
+
+        // Eliminar Reporte de Finanzas
+        public void EliminarReporteFinanzasConsola()
+        {
+            // Lógica para capturar ID y llamar a reportesNegocio.EliminarReporteFinanzas
+        }
+
+
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+        // ------------------------------------------------------------------------------------------------------------------------- // 
+
 
         public static void ReporteEmpleadosConsola(List<Empleado> empleados, List<Proyectos> proyectos)
         {
-            // -> Aplicar la logica de la Eliminar/Modificar empleado en LogicaEmpleados. 
-
-            // tengo que cambiar la informacion que brinda este metodo sobre el empleado -> tiene que ser mas orientada a los rendimientos de este: 
-
-            //Proyectos Asignados
-            //Horas Trabajadas por Proyecto
-            //Tareas Completadas
-            //Evaluaciones de Desempeño
-            //Metas Alcanzadas
-            //Feedback del Supervisor
-            //Ausencias o Tardanzas
-            //Productividad(Tareas / Proyectos Completados)
-
 
             if (empleados.Count == 0)
             {
@@ -79,20 +162,8 @@ namespace AppConsola.LogicaAppConsola
             MetodosAuxiliares.MostrarMensaje("Fin del reporte.");
         }
 
-
         public static void ReporteProyectosConsola(List<Proyectos> proyectos)
         {
-            // Items que oodria agregar:
-            // podria agregar si el proyecto esta activo o no lo esta ...
-            //Empleados Asignados
-            //Progreso(%)
-            //Tareas Completadas
-            //Horas Trabajadas
-            //Problemas
-            //Retrasos
-            //presupuesto
-            //Gastos 
-
 
             if (proyectos == null || proyectos.Count == 0)
             {
@@ -132,17 +203,6 @@ namespace AppConsola.LogicaAppConsola
 
         public static void ReporteFinancieroConsola(List<Empleado> empleados, List<Proyectos> proyectos)
         {
-            // este reporte financiero responde a un proyecto? a un empleado? o a la "empresa"?
-
-            //Reporte de Finanzas de la Empresa:
-            //Presupuesto Total Asignado a Proyectos
-            //Gastos Totales en Proyectos
-            //Salarios Totales Pagados
-            //Bonos Totales Pagados
-            //Costos Operativos Generales(Alquiler, servicios, etc.)
-            //Costos Extraordinarios(Equipos, licencias, etc.)
-            //Beneficio Neto de la Empresa
-            //Diferencia entre Presupuesto y Gastos Totales
 
             try
             {
@@ -168,6 +228,7 @@ namespace AppConsola.LogicaAppConsola
             reporteFinanzas.TotalGastos = reporteFinanzas.TotalSalarios + reporteFinanzas.TotalBonos + reporteFinanzas.TotalPresupuestosProyectos;
             return reporteFinanzas;
         }
+
 
     }
 }

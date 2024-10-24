@@ -13,7 +13,7 @@ namespace AppConsola.LogicaAppConsola
     public class LogicaOperaciones // Adaptcion de los metodos de las clases SalarioNegocio y BonosNegocio a la App de Consola
     {
         // SALARIOS
-        public static void Salarios() // Bien.
+        public static void MenuSalarios() // Bien.
         {
             while (true)
             {
@@ -297,7 +297,7 @@ namespace AppConsola.LogicaAppConsola
 
 
         // BONOS 
-        public static void Bonos() // Bien. 
+        public static void MenuBonos() // Bien. 
         {
             while (true)
             {

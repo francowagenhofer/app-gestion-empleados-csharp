@@ -172,10 +172,10 @@ namespace AppDeConsola
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            LogicaOperaciones.Salarios();
+                            LogicaOperaciones.MenuSalarios();
                             break;
                         case "2":
-                            LogicaOperaciones.Bonos();
+                            LogicaOperaciones.MenuBonos();
                             break;
                         case "3":
                             return;
@@ -208,13 +208,13 @@ namespace AppDeConsola
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            LogicaReportes.ReporteEmpleadosConsola(empleados, proyectos); 
+                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nMenu reporte empleado");
                             break;
                         case "2":
-                            LogicaReportes.ReporteProyectosConsola(proyectos);
+                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nMenu reporte proyecto");
                             break;
                         case "3":
-                            LogicaReportes.ReporteFinancieroConsola(empleados, proyectos);
+                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nMenu reporte finanza");
                             break;
                         case "4":
                             return;

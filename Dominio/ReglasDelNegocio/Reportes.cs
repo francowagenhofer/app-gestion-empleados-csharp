@@ -8,38 +8,41 @@ using System.Threading.Tasks;
 
 namespace Dominio.ReglasDelNegocio
 {
-    //public class ReporteEmpleado 
-    //{
-    //    public string Nombre { get; set; }
-    //    public string Posicion { get; set; }
-    //    public decimal Salario { get; set; }
-    //    public decimal Bonos { get; set; }
-    //}
+    public class ReporteEmpleado
+    {
+        public int Id { get; set; }
+        public int IdEmpleado { get; set; }
+        public string NombreEmpleado { get; set; }
+        public string Categoria { get; set; }
+        public decimal SalarioActual { get; set; }
+        public decimal TotalBonos { get; set; }
+        public string ProyectosAsignados { get; set; }
+        public string RolesAsignados { get; set; }
+        public string TareasAsignadas { get; set; }
+        public DateTime FechaGeneracion { get; set; }
+    }
 
-    //public class ReporteProyecto
-    //{
-    //    public string Nombre { get; set; }
-    //    public string Estado { get; set; }
-    //    public DateTime FechaInicio { get; set; }
-    //    public DateTime FechaFin { get; set; }
-    //    public decimal Presupuesto { get; set; }
-    //}
+    public class ReporteProyecto
+    {
+        public int Id { get; set; }
+        public int IdProyecto { get; set; }
+        public string NombreProyecto { get; set; }
+        public decimal Presupuesto { get; set; }
+        public string EstadoProyecto { get; set; }
+        public string AsignacionesEmpleados { get; set; }
+        public string TareasAsignadas { get; set; }
+        public string RolesAsignados { get; set; }
+        public decimal TiempoEstimado { get; set; }
+        public DateTime FechaGeneracion { get; set; }
+    }
 
     public class ReporteFinanzas
     {
+        public int Id { get; set; }
         public decimal TotalSalarios { get; set; }
         public decimal TotalBonos { get; set; }
         public decimal TotalPresupuestosProyectos { get; set; }
         public decimal TotalGastos { get; set; }
-
-        //public List<DetalleFinanciero> Detalles { get; set; } = new List<DetalleFinanciero>();
-
+        public DateTime FechaGeneracion { get; set; }
     }
-
-    //public class DetalleFinanciero
-    //{
-    //    public string Concepto { get; set; }
-    //    public decimal Monto { get; set; }
-    //}
-
 }
