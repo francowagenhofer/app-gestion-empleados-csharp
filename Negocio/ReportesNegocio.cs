@@ -12,8 +12,7 @@ namespace Negocio
 {
     public class ReportesNegocio
     {
-
-        // REPORTE EMPLEADO
+        // METODOS DE REPORTE DE EMPLEADOS
 
         public List<ReporteEmpleado> ObtenerReportesEmpleados()
         {
@@ -33,11 +32,14 @@ namespace Negocio
                     aux.IdEmpleado = (int)datos.Lector["IdEmpleado"];
                     aux.NombreEmpleado = (string)datos.Lector["NombreEmpleado"];
                     aux.Categoria = (string)datos.Lector["Categoria"];
-                    aux.SalarioActual = (decimal)datos.Lector["SalarioActual"];
-                    aux.TotalBonos = (decimal)datos.Lector["TotalBonos"];
-                    aux.ProyectosAsignados = (string)datos.Lector["ProyectosAsignados"];
-                    aux.RolesAsignados = (string)datos.Lector["RolesAsignados"];
-                    aux.TareasAsignadas = (string)datos.Lector["TareasAsignadas"];
+
+                    aux.SalarioActual = datos.Lector["SalarioActual"] != DBNull.Value ? (decimal)datos.Lector["SalarioActual"] : 0m;
+                    aux.TotalBonos = datos.Lector["TotalBonos"] != DBNull.Value ? (decimal)datos.Lector["TotalBonos"] : 0m;
+
+                    aux.ProyectosAsignados = datos.Lector["ProyectosAsignados"] != DBNull.Value ? (string)datos.Lector["ProyectosAsignados"] : "";
+                    aux.RolesAsignados = datos.Lector["RolesAsignados"] != DBNull.Value ? (string)datos.Lector["RolesAsignados"] : "";
+                    aux.TareasAsignadas = datos.Lector["TareasAsignadas"] != DBNull.Value ? (string)datos.Lector["TareasAsignadas"] : "";
+
                     aux.FechaGeneracion = (DateTime)datos.Lector["FechaGeneracion"];
 
                     lista.Add(aux);
@@ -54,23 +56,14 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-       
+
         public void GenerarReporteEmpleados(ReporteEmpleado nuevoReporte)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("GenerarReporteEmpleados");
+                datos.setearProcedimiento("GenerarReporteEmpleado");
                 datos.setearParametro("@IdEmpleado", nuevoReporte.IdEmpleado);
-                datos.setearParametro("@NombreEmpleado", nuevoReporte.NombreEmpleado);
-                datos.setearParametro("@Categoria", nuevoReporte.Categoria);
-                datos.setearParametro("@SalarioActual", nuevoReporte.SalarioActual);
-                datos.setearParametro("@TotalBonos", nuevoReporte.TotalBonos);
-                datos.setearParametro("@ProyectosAsignados", nuevoReporte.ProyectosAsignados);
-                datos.setearParametro("@RolesAsignados", nuevoReporte.RolesAsignados);
-                datos.setearParametro("@TareasAsignadas", nuevoReporte.TareasAsignadas);
-                datos.setearParametro("@FechaGeneracion", nuevoReporte.FechaGeneracion);
-
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -132,10 +125,8 @@ namespace Negocio
             }
         }
 
-
         // ------------------------------------------------------------------------------------------------------------- // 
-
-        // REPORTE PROYECTOS
+        // METODOS DE REPORTE DE PROYECTOS
 
         public List<ReporteProyecto> ObtenerReportesProyectos()
         {
@@ -154,13 +145,19 @@ namespace Negocio
                     aux.Id = (int)datos.Lector["Id"];
                     aux.IdProyecto = (int)datos.Lector["IdProyecto"];
                     aux.NombreProyecto = (string)datos.Lector["NombreProyecto"];
-                    aux.Presupuesto = (decimal)datos.Lector["Presupuesto"];
-                    aux.EstadoProyecto = (string)datos.Lector["EstadoProyecto"];
-                    aux.AsignacionesEmpleados = (string)datos.Lector["AsignacionesEmpleados"];
-                    aux.TareasAsignadas = (string)datos.Lector["TareasAsignadas"];
-                    aux.RolesAsignados = (string)datos.Lector["RolesAsignados"];
-                    aux.TiempoEstimado = (decimal)datos.Lector["TiempoEstimado"];
-                    aux.FechaGeneracion = (DateTime)datos.Lector["FechaGeneracion"];
+
+                    // Verificación para columnas de tipo decimal
+                    aux.Presupuesto = datos.Lector["Presupuesto"] != DBNull.Value ? (decimal)datos.Lector["Presupuesto"] : 0m;
+                    aux.TiempoEstimado = datos.Lector["TiempoEstimado"] != DBNull.Value ? (decimal)datos.Lector["TiempoEstimado"] : 0m;
+
+                    // Verificación para columnas de tipo string
+                    aux.EstadoProyecto = datos.Lector["EstadoProyecto"] != DBNull.Value ? (string)datos.Lector["EstadoProyecto"] : "";
+                    aux.AsignacionesEmpleados = datos.Lector["AsignacionesEmpleados"] != DBNull.Value ? (string)datos.Lector["AsignacionesEmpleados"] : "";
+                    aux.TareasAsignadas = datos.Lector["TareasAsignadas"] != DBNull.Value ? (string)datos.Lector["TareasAsignadas"] : "";
+                    aux.RolesAsignados = datos.Lector["RolesAsignados"] != DBNull.Value ? (string)datos.Lector["RolesAsignados"] : "";
+
+                    // Verificación para la fecha
+                    aux.FechaGeneracion = datos.Lector["FechaGeneracion"] != DBNull.Value ? (DateTime)datos.Lector["FechaGeneracion"] : DateTime.MinValue;
 
                     lista.Add(aux);
                 }
@@ -169,7 +166,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ex; // Podrías considerar registrar el error en lugar de lanzar directamente
             }
             finally
             {
@@ -182,16 +179,16 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("GenerarReporteProyectos");
+                datos.setearProcedimiento("GenerarReporteProyecto");
                 datos.setearParametro("@IdProyecto", nuevoReporte.IdProyecto);
-                datos.setearParametro("@NombreProyecto", nuevoReporte.NombreProyecto);
-                datos.setearParametro("@Presupuesto", nuevoReporte.Presupuesto);
-                datos.setearParametro("@EstadoProyecto", nuevoReporte.EstadoProyecto);
-                datos.setearParametro("@AsignacionesEmpleados", nuevoReporte.AsignacionesEmpleados);
-                datos.setearParametro("@TareasAsignadas", nuevoReporte.TareasAsignadas);
-                datos.setearParametro("@RolesAsignados", nuevoReporte.RolesAsignados);
-                datos.setearParametro("@TiempoEstimado", nuevoReporte.TiempoEstimado);
-                datos.setearParametro("@FechaGeneracion", nuevoReporte.FechaGeneracion);
+                //datos.setearParametro("@NombreProyecto", nuevoReporte.NombreProyecto);
+                //datos.setearParametro("@Presupuesto", nuevoReporte.Presupuesto);
+                //datos.setearParametro("@EstadoProyecto", nuevoReporte.EstadoProyecto);
+                //datos.setearParametro("@AsignacionesEmpleados", nuevoReporte.AsignacionesEmpleados);
+                //datos.setearParametro("@TareasAsignadas", nuevoReporte.TareasAsignadas);
+                //datos.setearParametro("@RolesAsignados", nuevoReporte.RolesAsignados);
+                //datos.setearParametro("@TiempoEstimado", nuevoReporte.TiempoEstimado);
+                //datos.setearParametro("@FechaGeneracion", nuevoReporte.FechaGeneracion);
 
                 datos.ejecutarAccion();
             }
@@ -256,8 +253,7 @@ namespace Negocio
 
 
         // ------------------------------------------------------------------------------------------------------------- // 
-
-        // REPORTE FINANCIERO
+        // METODOS DE REPORTES FINANCIEROS
 
         public List<ReporteFinanzas> ObtenerReportesFinanzas()
         {
@@ -274,10 +270,10 @@ namespace Negocio
                     ReporteFinanzas aux = new ReporteFinanzas();
 
                     aux.Id = (int)datos.Lector["Id"];
-                    aux.TotalSalarios = (decimal)datos.Lector["TotalSalarios"];
-                    aux.TotalBonos = (decimal)datos.Lector["TotalBonos"];
-                    aux.TotalPresupuestosProyectos = (decimal)datos.Lector["TotalPresupuestosProyectos"];
-                    aux.TotalGastos = (decimal)datos.Lector["TotalGastos"];
+                    aux.TotalSalarios = datos.Lector["TotalSalarios"] != DBNull.Value ? (decimal)datos.Lector["TotalSalarios"] : 0m;
+                    aux.TotalBonos = datos.Lector["TotalBonos"] != DBNull.Value ? (decimal)datos.Lector["TotalBonos"] : 0m;
+                    aux.TotalPresupuestosProyectos = datos.Lector["TotalPresupuestosProyectos"] != DBNull.Value ? (decimal)datos.Lector["TotalPresupuestosProyectos"] : 0m;
+                    aux.TotalGastos = datos.Lector["TotalGastos"] != DBNull.Value ? (decimal)datos.Lector["TotalGastos"] : 0m;
                     aux.FechaGeneracion = (DateTime)datos.Lector["FechaGeneracion"];
 
                     lista.Add(aux);
@@ -301,12 +297,11 @@ namespace Negocio
             try
             {
                 datos.setearProcedimiento("GenerarReporteFinanzas");
-                datos.setearParametro("@TotalSalarios", nuevoReporte.TotalSalarios);
-                datos.setearParametro("@TotalBonos", nuevoReporte.TotalBonos);
-                datos.setearParametro("@TotalPresupuestosProyectos", nuevoReporte.TotalPresupuestosProyectos);
-                datos.setearParametro("@TotalGastos", nuevoReporte.TotalGastos);
-                datos.setearParametro("@FechaGeneracion", nuevoReporte.FechaGeneracion);
-
+                //datos.setearParametro("@TotalSalarios", nuevoReporte.TotalSalarios);
+                //datos.setearParametro("@TotalBonos", nuevoReporte.TotalBonos);
+                //datos.setearParametro("@TotalPresupuestosProyectos", nuevoReporte.TotalPresupuestosProyectos);
+                //datos.setearParametro("@TotalGastos", nuevoReporte.TotalGastos);
+                //datos.setearParametro("@FechaGeneracion", nuevoReporte.FechaGeneracion);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -329,7 +324,7 @@ namespace Negocio
                 datos.setearParametro("@TotalSalarios", reporteModificado.TotalSalarios);
                 datos.setearParametro("@TotalBonos", reporteModificado.TotalBonos);
                 datos.setearParametro("@TotalPresupuestosProyectos", reporteModificado.TotalPresupuestosProyectos);
-                datos.setearParametro("@TotalGastos", reporteModificado.TotalGastos);
+                //datos.setearParametro("@TotalGastos", reporteModificado.TotalGastos);
                 datos.setearParametro("@FechaGeneracion", reporteModificado.FechaGeneracion);
 
                 datos.ejecutarAccion();

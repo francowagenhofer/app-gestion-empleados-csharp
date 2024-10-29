@@ -208,13 +208,13 @@ namespace AppDeConsola
                     switch (Console.ReadLine())
                     {
                         case "1":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nMenu reporte empleado");
+                            LogicaReportes.MenuReporteEmpleados();
                             break;
                         case "2":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nMenu reporte proyecto");
+                            LogicaReportes.MenuReporteProyectos();
                             break;
                         case "3":
-                            Negocio.MetodosAuxiliares.MostrarMensaje($"\nMenu reporte finanza");
+                            LogicaReportes.MenuReporteFinanzas();
                             break;
                         case "4":
                             return;
