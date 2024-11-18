@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace AppEscritorio_GestiónDeEmpleados
 {
-    public static class Program
+    internal static class Program
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -16,7 +16,7 @@ namespace AppEscritorio_GestiónDeEmpleados
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FormMain());
         }
     }
 }
