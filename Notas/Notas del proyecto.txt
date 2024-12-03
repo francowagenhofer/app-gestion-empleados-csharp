@@ -1,0 +1,108 @@
+
+Notas del proyecto
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+APP DE CONSOLA 
+
+° 27 de agosto de 2024 °
+
+La aplicacion de consola va bastante bien. Las funciones basicas estan perfecto. 
+Estaria bueno poder agregarle comentarios en los reportes de las tareas.
+
+El menu principal podria ser: 
+
+- Gestion de Empleados: lista de empleados, agregar, modificar, eliminar, buscar empleado. - LISTO
+
+- Gestion de proyectos: idem pero de proyectos - Falta pero va
+
+- Operaciones: aca se administran los bonos y los proyectos a los empleados. - Falta pero va
+
+- Reportes: reportes de empleados, reportes de proyectos y reportes financieros - LISTO.
+
+- Fin (Salir) 
+
+
+° 18 de septiembre 2024 °
+
+Actualizacion del proyecto...
+- Mejore el menu principal.
+- Cree la base de datos (con muchas tablas). 
+- Adapte las clases de la capa Negocio para que se conecten a la base de datos.
+- Agregue clases de logica que sirven para la interfaz de la app de consola. Su funcion es adaptar los metodos y las clases de la capa Negocio a la app de consola.  
+
+Lo que me falta...
+- Me faltan detalles de empleados y proyectos pero la idea general esta bien.
+- Me falta meterle a la parte de reportes y de operaciones 
+- que los salarios se adjudiquen automaticamente pero tambien me gustaria que los salarios se puedan agreagar manualmente.
+
+
+° 2 de Octubre 2024 °
+
+Cambie unas tablas (Empleados, Salarios, AsignacionSalarios) de la base de datos, esto genero problemas en la app.
+Tengo que resolverlo ... LISTO
+
+
+° 9 de Octubre 2024 °
+
+# Empleados: corregir lo que falta.
+# Proyectos: agregar Tareas y Roles.
+# Operaciones: realizar operaciones de salarios y bonos ... (si hay mas operaciones agregarlas tambien).
+# Reportes: generar los distintos tipos de reportes.
+
+
+° 16 de octubre de 2024 °
+
+- En el reporte de un empleado tengo que poner el puesto de trabajo, el salariio, los proyectos asignados, los bonos, las tareas y los roles... 
+- Comentar los metodos de logica de consola. Esto va a servir para dejar explicito la logica de los metodos, para que funciona cada linea ... 
+
+
+° 17 de octubre de 2024 °
+
+# Empleados: listo.
+# Proyectos: Faltan detalles ...
+# Tareas y Roles: Listo
+# Operaciones: listo.
+# Reportes: generar los distintos tipos de reportes.
+
+
+° 23 de octubre de 2024 °
+
+Se avanzo bastante con los roles y las tareas. 
+Tambien se avanzo con toda la logica de la app, la interfaz de consola quedo muy bien organizada. 
+Queda mejorar los metodos de proyectos consola y los reportes
+
+
+° 29 de octubre de 2024 °
+
+# Empleados: listo.
+# Proyectos: Listo.
+# Tareas y Roles: Listo.
+# Operaciones: listo.
+# Reportes: listo.
+
+Termine la app de consola.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+APP DE ESCRITORIO 
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+# Nueva idea para el proyecto: agregarle un proyecto con interfaz WinForms y otro con interfaz ASP
+
+° interfaz WinForms
+
+
+
+° interfaz Asp.NET
+- pagina de perfil del empleado: nombre, apellido, edad, imagen de perfil 
+- usuarios: administrador - puede manejar los datos de los empleados (seria manejada por recursos humanos?) ; empleados solo puede ver informacion solicidada.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
