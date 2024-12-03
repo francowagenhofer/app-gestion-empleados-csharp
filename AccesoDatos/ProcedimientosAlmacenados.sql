@@ -84,8 +84,8 @@ AS
 BEGIN
     DELETE FROM Empleados
     WHERE Id = @Id;
-END
-<s
+END;
+
 
 -- desasignar empleado de todos los proyectos para eliminar 
 alter PROCEDURE DesasignarEmpleadoDeTodosLosProyectos
@@ -275,7 +275,8 @@ BEGIN
 END
 
 
--- Agregar Proyectos CREATE PROCEDURE AgregarProyecto
+-- Agregar Proyectos
+CREATE PROCEDURE AgregarProyecto
     @Nombre VARCHAR(100),
     @Descripcion VARCHAR(255),
     @FechaInicio DATE,

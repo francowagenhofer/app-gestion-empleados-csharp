@@ -3,28 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notas", "notas", "{A214A10A-1810-4E47-A160-B32289F95578}"
-	ProjectSection(SolutionItems) = preProject
-		..\Descripcion del proyecto.txt = ..\Descripcion del proyecto.txt
-		..\Guia del proyecto.txt = ..\Guia del proyecto.txt
-		..\Notas del proyecto.txt = ..\Notas del proyecto.txt
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.csproj", "{3C123448-3380-4D22-93D9-713886E826DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Negocio", "Negocio\Negocio.csproj", "{BCD680E8-4F05-4029-8227-5D19F193F6AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppWeb-GestiónDeEmpleados", "AppWeb-GestiónDeEmpleados\AppWeb-GestiónDeEmpleados.csproj", "{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base de Datos", "Base de Datos", "{FE3F273B-2EEB-46C9-A2F5-79E6D581DD0F}"
-	ProjectSection(SolutionItems) = preProject
-		..\Base de datos\Creacion Base de datos - GestionEmpleadosDB.sql = ..\Base de datos\Creacion Base de datos - GestionEmpleadosDB.sql
-		..\Base de datos\StoredProdcedure.sql = ..\Base de datos\StoredProdcedure.sql
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppConsola-GestiónDeEmpleados", "AppConsola-GestionDeEmpleados\AppConsola-GestiónDeEmpleados.csproj", "{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEscritorio-GestiónDeEmpleados", "AppEscritorio-GestiónDeEmpleados\AppEscritorio-GestiónDeEmpleados.csproj", "{68B83C70-DF04-470B-8E91-F7712CF48E95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acceso-datos", "Acceso-datos", "{A48B32DA-50E7-4EF5-AE4E-7F7B72117EB4}"
+	ProjectSection(SolutionItems) = preProject
+		AccesoDatos\AccesoDatos.cs = AccesoDatos\AccesoDatos.cs
+		AccesoDatos\Consultas.sql = AccesoDatos\Consultas.sql
+		AccesoDatos\Funciones.sql = AccesoDatos\Funciones.sql
+		AccesoDatos\Script-BaseDeDatos.sql = AccesoDatos\Script-BaseDeDatos.sql
+		AccesoDatos\StoredProdcedure.sql = AccesoDatos\StoredProdcedure.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
