@@ -20,14 +20,6 @@ namespace AppConsola.LogicaAppConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\n Administrar Roles\n");
-                    //Console.WriteLine("1. Lista de Roles\n");
-                    //Console.WriteLine("2. Información de Rol\n");
-                    //Console.WriteLine("3. Agregar Rol\n");
-                    //Console.WriteLine("4. Modificar datos de Rol\n");
-                    //Console.WriteLine("5. Asignar Rol\n");
-                    //Console.WriteLine("6. Desasignar Rol\n");
-                    //Console.WriteLine("7. Eliminar Rol\n");
-                    //Console.WriteLine("\n8. Volver");
                     Console.WriteLine("1. Ver lista de roles registrados\n");
                     Console.WriteLine("2. Ver detalles de un rol específico\n");
                     Console.WriteLine("3. Registrar un nuevo rol\n");
@@ -318,7 +310,6 @@ namespace AppConsola.LogicaAppConsola
 
                 // Mostrar lista de proyectos
                 LogicaProyectos.ListaProyectosConsola();
-                // Seleccionar proyecto
                 int seleccionProyecto;
                 bool esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el Id del proyecto", ""), out seleccionProyecto);
 
@@ -328,7 +319,6 @@ namespace AppConsola.LogicaAppConsola
                     return;
                 }
 
-                // Listar empleados asignados en el proyecto
                 List<Empleado> empleadosAsignados = empleadoNegocio.ListarEmpleadosAsignados(seleccionProyecto);
 
                 if (empleadosAsignados.Count == 0)
@@ -336,13 +326,12 @@ namespace AppConsola.LogicaAppConsola
                     MetodosAuxiliares.MostrarMensaje("\nNo hay empleados asignados a este proyecto.");
                     return;
                 }
-                // Mostrar lista de empleados asignados
                 Console.WriteLine("\n- Empleados asignados al proyecto -\n");
                 for (int i = 0; i < empleadosAsignados.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}) Id: {empleadosAsignados[i].Id} - Nombre: {empleadosAsignados[i].Nombre} {empleadosAsignados[i].Apellido}");
                 }
-                // Seleccionar empleado
+
                 int seleccionEmpleado;
                 esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el Id del empleado", ""), out seleccionEmpleado);
 
@@ -401,7 +390,6 @@ namespace AppConsola.LogicaAppConsola
                     return;
                 }
 
-                // Listar empleados asignados en el proyecto
                 List<Empleado> empleadosAsignados = empleadoNegocio.ListarEmpleadosAsignados(seleccionProyecto);
 
                 if (empleadosAsignados.Count == 0)
@@ -410,14 +398,12 @@ namespace AppConsola.LogicaAppConsola
                     return;
                 }
 
-                // Mostrar lista de empleados asignados
                 Console.WriteLine("\n- Empleados asignados al proyecto -\n");
                 for (int i = 0; i < empleadosAsignados.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}) Id: {empleadosAsignados[i].Id} - Nombre: {empleadosAsignados[i].Nombre} {empleadosAsignados[i].Apellido}");
                 }
 
-                // Seleccionar empleado
                 int seleccionEmpleado;
                 esNumeroValido = int.TryParse(MetodosAuxiliares.LeerDato("\nSeleccione el Id del empleado a desasignar del rol", ""), out seleccionEmpleado);
 

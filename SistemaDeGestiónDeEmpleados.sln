@@ -7,11 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Negocio", "Negocio\Negocio.csproj", "{BCD680E8-4F05-4029-8227-5D19F193F6AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppWeb-GestiónDeEmpleados", "AppWeb-GestiónDeEmpleados\AppWeb-GestiónDeEmpleados.csproj", "{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppConsola-GestiónDeEmpleados", "AppConsola-GestionDeEmpleados\AppConsola-GestiónDeEmpleados.csproj", "{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEscritorio-GestiónDeEmpleados", "AppEscritorio-GestiónDeEmpleados\AppEscritorio-GestiónDeEmpleados.csproj", "{68B83C70-DF04-470B-8E91-F7712CF48E95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acceso-datos", "Acceso-datos", "{A48B32DA-50E7-4EF5-AE4E-7F7B72117EB4}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acceso-datos", "Acceso-dato
 		AccesoDatos\Script-BaseDeDatos.sql = AccesoDatos\Script-BaseDeDatos.sql
 		AccesoDatos\StoredProdcedure.sql = AccesoDatos\StoredProdcedure.sql
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppEscritorio_GestionDeEmpleados", "AppEscritorio_GestionDeEmpleados\AppEscritorio_GestionDeEmpleados.csproj", "{7B1F87BF-DD34-497C-A00A-CDB5ABA8A3BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,18 +34,14 @@ Global
 		{BCD680E8-4F05-4029-8227-5D19F193F6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD680E8-4F05-4029-8227-5D19F193F6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD680E8-4F05-4029-8227-5D19F193F6AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F25650B-171F-4F4E-91F1-DD2C0705ADCC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68B83C70-DF04-470B-8E91-F7712CF48E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68B83C70-DF04-470B-8E91-F7712CF48E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68B83C70-DF04-470B-8E91-F7712CF48E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68B83C70-DF04-470B-8E91-F7712CF48E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B1F87BF-DD34-497C-A00A-CDB5ABA8A3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B1F87BF-DD34-497C-A00A-CDB5ABA8A3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B1F87BF-DD34-497C-A00A-CDB5ABA8A3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B1F87BF-DD34-497C-A00A-CDB5ABA8A3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

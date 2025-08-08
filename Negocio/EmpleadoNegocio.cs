@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio.ReglasDelNegocio;
 using negocio;
+
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Net;
@@ -161,23 +162,25 @@ namespace Negocio
             }
         }
 
-        public void EliminarEmpleado(int id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                //datos.setearConsulta("delete from Empleados where id = @id");
-                datos.setearProcedimiento("EliminarEmpleado");
-                datos.setearParametro("@Id", id);
+        //public void EliminarEmpleado(int id)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    try
+        //    {
+        //        //datos.setearConsulta("delete from Empleados where id = @id");
+        //        datos.setearProcedimiento("EliminarEmpleado");
+        //        datos.setearParametro("@Id", id);
 
-                datos.ejecutarAccion();
+        //        datos.ejecutarAccion();
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+
 
         public List<Empleado> ListarEmpleadosAsignados(int idProyecto)
         {
@@ -210,6 +213,101 @@ namespace Negocio
 
             return empleadosAsignados;
         }
+
+
+        public bool TieneDependencias(int empleadoId)
+        {
+            return ObtenerCantidadRoles(empleadoId) > 0 ||
+                   ObtenerCantidadProyectos(empleadoId) > 0 ||
+                   ObtenerCantidadTareas(empleadoId) > 0 ||
+                   ObtenerCantidadBonos(empleadoId) > 0;
+        }
+
+        private int ObtenerCantidadRoles(int empleadoId)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM AsignacionRolesProyecto WHERE IdEmpleado = @IdEmpleado");
+                datos.setearParametro("@IdEmpleado", empleadoId);
+                return (int)datos.ejecutarEscalar();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        private int ObtenerCantidadProyectos(int empleadoId)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM AsignacionProyectos WHERE IdEmpleado = @IdEmpleado");
+                datos.setearParametro("@IdEmpleado", empleadoId);
+                return (int)datos.ejecutarEscalar();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        private int ObtenerCantidadTareas(int empleadoId)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM AsignacionTareas WHERE IdEmpleado = @IdEmpleado");
+                datos.setearParametro("@IdEmpleado", empleadoId);
+                return (int)datos.ejecutarEscalar();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        private int ObtenerCantidadBonos(int empleadoId)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM AsignacionBonos WHERE IdEmpleado = @IdEmpleado");
+                datos.setearParametro("@IdEmpleado", empleadoId);
+                return (int)datos.ejecutarEscalar();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void EliminarEmpleado(int id)
+        {
+            if (TieneDependencias(id))
+                throw new InvalidOperationException("El empleado tiene roles, proyectos, tareas o bonos vinculados. Debe desvincularlos antes de eliminar.");
+
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("EliminarEmpleado");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+
 
     }
 }

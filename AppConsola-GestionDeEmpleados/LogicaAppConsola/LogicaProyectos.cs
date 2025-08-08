@@ -26,15 +26,6 @@ namespace AppConsola
                 {
                     Console.Clear();
                     Console.WriteLine("\n Administrar Proyectos\n");
-                    //Console.WriteLine("1. Lista de Proyectos");
-                    //Console.WriteLine("2. Informacion de Proyecto");
-                    //Console.WriteLine("3. Agregar Proyecto");
-                    //Console.WriteLine("4. Modificar Datos de Proyecto");
-                    //Console.WriteLine("5. Cambiar Estado");
-                    //Console.WriteLine("6. Eliminar Proyecto");
-                    //Console.WriteLine("7. Asignar Empleado a Proyecto");
-                    //Console.WriteLine("8. Desasignar Empleado de Proyecto");
-                    //Console.WriteLine("\n9. Regresar al menú anterior\n");
                     Console.WriteLine("1. Ver lista de proyectos registrados\n");
                     Console.WriteLine("2. Ver detalles de un proyecto específico\n");
                     Console.WriteLine("3. Registrar un nuevo proyecto\n");

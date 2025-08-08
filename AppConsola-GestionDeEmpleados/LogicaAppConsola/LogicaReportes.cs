@@ -257,7 +257,6 @@ namespace AppConsola.LogicaAppConsola
                             break;
 
                         case "9":
-                            // Guardar y salir
                             reportesNegocio.ModificarReporteEmpleados(reporteModificado);
                             Negocio.MetodosAuxiliares.MostrarMensaje("\nEl reporte ha sido modificado exitosamente.");
                             salir = true;
@@ -298,7 +297,6 @@ namespace AppConsola.LogicaAppConsola
 
                 if (int.TryParse(seleccion, out int numeroSeleccionado) && numeroSeleccionado > 0 && numeroSeleccionado <= reportes.Count)
                 {
-                    // Obtener el ID del reporte a eliminar
                     int idReporte = reportes[numeroSeleccionado - 1].Id;
 
                     Console.Write($"\n¿Está seguro que desea eliminar el reporte de {reportes[numeroSeleccionado - 1].NombreEmpleado}? (S/N): ");
@@ -325,8 +323,6 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-
-        // Reporte de Proyectos
         public static void MenuReporteProyectos()
         {
             while (true)
@@ -373,8 +369,6 @@ namespace AppConsola.LogicaAppConsola
 
         public static void MostrarReportesProyectosConsola() // Bien. 
         {
-            // se podria mejorar la informacion ... 
-
             try
             {
                 ReportesNegocio reportesNegocio = new ReportesNegocio();
@@ -443,7 +437,6 @@ namespace AppConsola.LogicaAppConsola
             {
                 Console.WriteLine("\n- Generar Reporte de Proyecto -");
 
-                // Aquí se puede implementar un método que liste los proyectos disponibles, por ejemplo:
                 LogicaProyectos.ListaProyectosConsola();
 
                 Console.Write("\nIngrese el Id del proyecto: ");
@@ -628,8 +621,6 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-
-        // Reporte de Finzas
         public static void MenuReporteFinanzas()
         {
             while (true)

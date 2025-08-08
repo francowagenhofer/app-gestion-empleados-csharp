@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+    // Adaptcion de los metodos de Empleado Negocio a la logica de la App de Consola.
 namespace AppConsola.LogicaAppConsola
 {
-    public class LogicaEmpleados  // Adaptcion de los metodos de EmpleadoNegocio a la logica de la App de Consola.
+    public class LogicaEmpleados
     {
         public static void ListaEmpleadosConsola() //Bien.
         {
@@ -56,8 +57,8 @@ namespace AppConsola.LogicaAppConsola
 
                     int totalEmpleados = empleados.Count;
 
-                    int totalOperativos = empleados.Count(e => e.NombreCategoria == "Operativo"); 
-                    int totalGerentes = empleados.Count(e => e.NombreCategoria == "Gerente");     
+                    int totalOperativos = empleados.Count(e => e.NombreCategoria == "Operativo");
+                    int totalGerentes = empleados.Count(e => e.NombreCategoria == "Gerente");
                     int totalDirectores = empleados.Count(e => e.NombreCategoria == "Director");
 
                     Console.WriteLine("\n- Resumen de Empleados -\n");
@@ -76,7 +77,7 @@ namespace AppConsola.LogicaAppConsola
             }
         }
 
-        public static void InformacionEmpleadoConsola()//Bien. 
+        public static void InformacionEmpleadoConsola() //Bien. 
         {
             EmpleadoNegocio empleadoNegocio = new EmpleadoNegocio();
             ProyectosNegocio proyectoNegocio = new ProyectosNegocio();
@@ -109,8 +110,8 @@ namespace AppConsola.LogicaAppConsola
                     Console.WriteLine($"DNI: {empleadoEncontrado.DNI}");
                     Console.WriteLine($"Edad: {DateTime.Now.Year - empleadoEncontrado.FechaNacimiento.Year}");
                     Console.WriteLine($"Fecha de Ingreso: {empleadoEncontrado.FechaIngreso.ToShortDateString()}");
-                    Console.WriteLine($"Puesto: {empleadoEncontrado.NombreCategoria}"); 
-                    Console.WriteLine($"Salario Base: ${empleadoEncontrado.MontoSalario}"); 
+                    Console.WriteLine($"Puesto: {empleadoEncontrado.NombreCategoria}");
+                    Console.WriteLine($"Salario Base: ${empleadoEncontrado.MontoSalario}");
 
                     List<Proyectos> proyectosAsignados = proyectoNegocio.ListarProyectosAsignadosEmpleado(idEmpleado);
                     if (proyectosAsignados.Count > 0)
@@ -168,7 +169,7 @@ namespace AppConsola.LogicaAppConsola
                             nuevoEmpleado.Categoria = 3;
                             nuevoEmpleado.Salario = 3;
                             break;
-                        case "4": 
+                        case "4":
                             return;
                         default:
                             Negocio.MetodosAuxiliares.MostrarMensaje("\nOpción no válida.");
@@ -179,7 +180,7 @@ namespace AppConsola.LogicaAppConsola
                     nuevoEmpleado.Nombre = Negocio.MetodosAuxiliares.LeerDato("Nombre");
                     nuevoEmpleado.Apellido = Negocio.MetodosAuxiliares.LeerDato("\nApellido");
                     nuevoEmpleado.FechaNacimiento = DateTime.Parse(Negocio.MetodosAuxiliares.LeerDato("\nFecha de Nacimiento (dd/MM/yyyy)"));
-                    nuevoEmpleado.FechaIngreso = DateTime.Now;  // Fecha de ingreso se asigna automáticamente
+                    nuevoEmpleado.FechaIngreso = DateTime.Now; 
                     nuevoEmpleado.DNI = Negocio.MetodosAuxiliares.LeerDato("\nDNI");
                     nuevoEmpleado.IsActive = true;
 
@@ -267,15 +268,15 @@ namespace AppConsola.LogicaAppConsola
                 {
                     case 1:
                         nuevaCategoria = 1;
-                        nuevoSalario = 1; 
+                        nuevoSalario = 1;
                         break;
                     case 2:
                         nuevaCategoria = 2;
-                        nuevoSalario = 2; 
+                        nuevoSalario = 2;
                         break;
                     case 3:
                         nuevaCategoria = 3;
-                        nuevoSalario = 3; 
+                        nuevoSalario = 3;
                         break;
                     default:
                         Negocio.MetodosAuxiliares.MostrarMensaje("\nSelección no válida. Inténtalo de nuevo.");
@@ -292,7 +293,7 @@ namespace AppConsola.LogicaAppConsola
                     Imagen = empleadoSeleccionado.Imagen,
                     FechaIngreso = empleadoSeleccionado.FechaIngreso,
                     Categoria = nuevaCategoria,
-                    Salario = nuevoSalario, 
+                    Salario = nuevoSalario,
                     IsActive = empleadoSeleccionado.IsActive
                 };
 
@@ -349,7 +350,7 @@ namespace AppConsola.LogicaAppConsola
         public static void EliminarEmpleadoConsola() //Bien. 
         {
             EmpleadoNegocio eliminarEmpleado = new EmpleadoNegocio();
-            ProyectosNegocio desasignarEmpleado = new ProyectosNegocio(); 
+            ProyectosNegocio desasignarEmpleado = new ProyectosNegocio();
             try
             {
                 List<Empleado> listaEmpleados = eliminarEmpleado.ListarEmpleados();
@@ -392,4 +393,8 @@ namespace AppConsola.LogicaAppConsola
         }
 
     }
+
+
+
+
 }
