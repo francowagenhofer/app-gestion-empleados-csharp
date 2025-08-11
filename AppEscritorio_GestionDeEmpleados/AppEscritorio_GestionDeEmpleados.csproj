@@ -13,4 +13,19 @@
     <ProjectReference Include="..\Negocio\Negocio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="FormGestionarTarea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormProyectos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormRoles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

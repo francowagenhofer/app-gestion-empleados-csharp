@@ -16,16 +16,15 @@ namespace Dominio.ReglasDelNegocio
         
         public string Descripcion { get; set; }
 
-        public DateTime FechaInicio { get; set; }
+        public DateTime ?FechaInicio { get; set; }
 
-        public DateTime FechaFin { get; set; }
+        public DateTime? FechaFin { get; set; }
 
         public string Estado { get; set; }
 
         public List<Proyectos> ProyectosAsignados { get; set; }
         public List<Empleado> EmpleadosAsignados { get; set; }
-    
-    
+
     
     }
 }

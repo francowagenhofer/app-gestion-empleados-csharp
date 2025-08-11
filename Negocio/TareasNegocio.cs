@@ -31,8 +31,11 @@ namespace Negocio
                     tarea.Id = (int)datos.Lector["Id"];
                     tarea.Nombre = (string)datos.Lector["Nombre"];
                     tarea.Descripcion = (string)datos.Lector["Descripcion"];
-                    tarea.FechaInicio = (DateTime)datos.Lector["FechaInicio"];
-                    tarea.FechaFin = (DateTime)datos.Lector["FechaFin"];
+                    //tarea.FechaInicio = (DateTime)datos.Lector["FechaInicio"];
+                    //tarea.FechaFin = (DateTime)datos.Lector["FechaFin"];
+                    tarea.FechaInicio = datos.Lector["FechaInicio"] == DBNull.Value ? (DateTime?)null : (DateTime)datos.Lector["FechaInicio"];
+                    tarea.FechaFin = datos.Lector["FechaFin"] == DBNull.Value ? (DateTime?)null : (DateTime)datos.Lector["FechaFin"];
+
                     tarea.Estado = (string)datos.Lector["Estado"];
                     tareas.Add(tarea);
                 }
@@ -123,8 +126,21 @@ namespace Negocio
                 datos.setearProcedimiento("AgregarTarea");
                 datos.setearParametro("@Nombre", nuevaTarea.Nombre);
                 datos.setearParametro("@Descripcion", nuevaTarea.Descripcion);
-                datos.setearParametro("@FechaInicio", nuevaTarea.FechaInicio);
-                datos.setearParametro("@FechaFin", nuevaTarea.FechaFin);
+
+                //datos.setearParametro("@FechaInicio", nuevaTarea.FechaInicio);
+                //datos.setearParametro("@FechaFin", nuevaTarea.FechaFin);
+
+                if (nuevaTarea.FechaInicio.HasValue)
+                    datos.setearParametro("@FechaInicio", nuevaTarea.FechaInicio.Value);
+                else
+                    datos.setearParametro("@FechaInicio", DBNull.Value);
+
+                if (nuevaTarea.FechaFin.HasValue)
+                    datos.setearParametro("@FechaFin", nuevaTarea.FechaFin.Value);
+                else
+                    datos.setearParametro("@FechaFin", DBNull.Value);
+
+
                 datos.setearParametro("@Estado", nuevaTarea.Estado);
 
                 datos.ejecutarAccion();
@@ -148,8 +164,21 @@ namespace Negocio
                 datos.setearParametro("@IdTarea", tarea.Id);
                 datos.setearParametro("@Nombre", tarea.Nombre);
                 datos.setearParametro("@Descripcion", tarea.Descripcion);
-                datos.setearParametro("@FechaInicio", tarea.FechaInicio);
-                datos.setearParametro("@FechaFin", tarea.FechaFin);
+
+                //datos.setearParametro("@FechaInicio", tarea.FechaInicio);
+                //datos.setearParametro("@FechaFin", tarea.FechaFin);
+
+                if (tarea.FechaInicio.HasValue)
+                    datos.setearParametro("@FechaInicio", tarea.FechaInicio.Value);
+                else
+                    datos.setearParametro("@FechaInicio", DBNull.Value);
+
+                if (tarea.FechaFin.HasValue)
+                    datos.setearParametro("@FechaFin", tarea.FechaFin.Value);
+                else
+                    datos.setearParametro("@FechaFin", DBNull.Value);
+
+
                 datos.setearParametro("@Estado", tarea.Estado);
 
                 datos.ejecutarAccion();

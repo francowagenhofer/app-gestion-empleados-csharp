@@ -23,6 +23,8 @@ namespace AppEscritorio_GestionDeEmpleados
         }
         private void FormEmpleados_Load(object sender, EventArgs e)
         {
+            tsFecha.Text = "Fecha: " + DateTime.Now.ToShortDateString();
+
             ConfigurarEstiloGrilla();
             CargarEmpleados();
 
@@ -118,7 +120,7 @@ namespace AppEscritorio_GestionDeEmpleados
             dgvEmpleados.DataSource = listaFiltrada;
             ocultarColumnas();
         }
-        
+
         private Empleado ObtenerEmpleadoSeleccionado()
         {
             if (dgvEmpleados.CurrentRow != null)
@@ -193,5 +195,10 @@ namespace AppEscritorio_GestionDeEmpleados
             Close();
         }
 
+        private void btnAsignaciones_Click(object sender, EventArgs e)
+        {
+            FormAsignacionEmpleado form = new FormAsignacionEmpleado();
+            form.ShowDialog();
+        }
     }
 }

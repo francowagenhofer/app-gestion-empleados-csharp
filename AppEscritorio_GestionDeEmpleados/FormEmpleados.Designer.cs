@@ -42,10 +42,11 @@
             tlpMenuEmpleados = new TableLayoutPanel();
             tlpBotones = new TableLayoutPanel();
             btnAgregar = new Button();
+            btnAsignaciones = new Button();
             btnModificar = new Button();
             btnVerDetalle = new Button();
-            btnEliminar = new Button();
             btnSalir = new Button();
+            btnEliminar = new Button();
             tlpFiltrar = new TableLayoutPanel();
             tbFiltro = new TextBox();
             cbActivo = new CheckBox();
@@ -169,17 +170,20 @@
             // 
             // tlpBotones
             // 
-            tlpBotones.ColumnCount = 5;
-            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tlpBotones.BackgroundImageLayout = ImageLayout.None;
+            tlpBotones.ColumnCount = 6;
+            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+            tlpBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
             tlpBotones.Controls.Add(btnAgregar, 0, 1);
+            tlpBotones.Controls.Add(btnAsignaciones, 3, 1);
             tlpBotones.Controls.Add(btnModificar, 1, 1);
             tlpBotones.Controls.Add(btnVerDetalle, 2, 1);
-            tlpBotones.Controls.Add(btnEliminar, 3, 1);
-            tlpBotones.Controls.Add(btnSalir, 4, 1);
+            tlpBotones.Controls.Add(btnSalir, 5, 1);
+            tlpBotones.Controls.Add(btnEliminar, 4, 1);
             tlpBotones.Dock = DockStyle.Fill;
             tlpBotones.Location = new Point(33, 422);
             tlpBotones.MinimumSize = new Size(734, 107);
@@ -194,26 +198,39 @@
             // btnAgregar
             // 
             btnAgregar.Dock = DockStyle.Fill;
-            btnAgregar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAgregar.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAgregar.ForeColor = Color.SteelBlue;
             btnAgregar.Location = new Point(10, 30);
             btnAgregar.Margin = new Padding(10);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(168, 84);
+            btnAgregar.Size = new Size(136, 84);
             btnAgregar.TabIndex = 0;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
             btnAgregar.Click += btnAgregar_Click;
             // 
+            // btnAsignaciones
+            // 
+            btnAsignaciones.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAsignaciones.ForeColor = Color.SteelBlue;
+            btnAsignaciones.Location = new Point(478, 30);
+            btnAsignaciones.Margin = new Padding(10);
+            btnAsignaciones.Name = "btnAsignaciones";
+            btnAsignaciones.Size = new Size(131, 66);
+            btnAsignaciones.TabIndex = 5;
+            btnAsignaciones.Text = "Gestionar Asignaciones";
+            btnAsignaciones.UseVisualStyleBackColor = true;
+            btnAsignaciones.Click += btnAsignaciones_Click;
+            // 
             // btnModificar
             // 
             btnModificar.Dock = DockStyle.Fill;
-            btnModificar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnModificar.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnModificar.ForeColor = Color.SteelBlue;
-            btnModificar.Location = new Point(198, 30);
+            btnModificar.Location = new Point(166, 30);
             btnModificar.Margin = new Padding(10);
             btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(168, 84);
+            btnModificar.Size = new Size(136, 84);
             btnModificar.TabIndex = 1;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
@@ -222,44 +239,43 @@
             // btnVerDetalle
             // 
             btnVerDetalle.Dock = DockStyle.Fill;
-            btnVerDetalle.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVerDetalle.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnVerDetalle.ForeColor = Color.SteelBlue;
-            btnVerDetalle.Location = new Point(386, 30);
+            btnVerDetalle.Location = new Point(322, 30);
             btnVerDetalle.Margin = new Padding(10);
             btnVerDetalle.Name = "btnVerDetalle";
-            btnVerDetalle.Size = new Size(168, 84);
+            btnVerDetalle.Size = new Size(136, 84);
             btnVerDetalle.TabIndex = 2;
             btnVerDetalle.Text = "Ver Detalle";
             btnVerDetalle.UseVisualStyleBackColor = true;
             btnVerDetalle.Click += btnVerDetalle_Click;
             // 
-            // btnEliminar
-            // 
-            btnEliminar.Dock = DockStyle.Fill;
-            btnEliminar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEliminar.ForeColor = Color.SteelBlue;
-            btnEliminar.Location = new Point(574, 30);
-            btnEliminar.Margin = new Padding(10);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(168, 84);
-            btnEliminar.TabIndex = 3;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = true;
-            btnEliminar.Click += btnEliminar_Click;
-            // 
             // btnSalir
             // 
             btnSalir.Dock = DockStyle.Fill;
-            btnSalir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSalir.ForeColor = Color.SteelBlue;
-            btnSalir.Location = new Point(767, 30);
+            btnSalir.Location = new Point(795, 30);
             btnSalir.Margin = new Padding(15, 10, 10, 10);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(165, 84);
+            btnSalir.Size = new Size(137, 84);
             btnSalir.TabIndex = 4;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = true;
             btnSalir.Click += btnSalir_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEliminar.ForeColor = Color.SteelBlue;
+            btnEliminar.Location = new Point(634, 30);
+            btnEliminar.Margin = new Padding(10);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(131, 66);
+            btnEliminar.TabIndex = 3;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // tlpFiltrar
             // 
@@ -367,8 +383,9 @@
             MainMenuStrip = menuStrip1;
             MinimumSize = new Size(1030, 710);
             Name = "FormEmpleados";
+            ShowIcon = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Gestión de Empleados";
+            Text = "👥 Empleados";
             Load += FormEmpleados_Load;
             stEmpleados.ResumeLayout(false);
             stEmpleados.PerformLayout();
@@ -411,5 +428,6 @@
         private Button btnSalir;
         private CheckBox cbActivo;
         private TextBox tbFiltro;
+        private Button btnAsignaciones;
     }
 }

@@ -45,6 +45,17 @@ namespace AppEscritorio_GestionDeEmpleados
             form.ShowDialog();
         }
 
+        private void btnRoles_Click(object sender, EventArgs e)
+        {
+            FormRoles form = new FormRoles();
+            form.ShowDialog();
+        }
+
+        private void btnTareas_Click(object sender, EventArgs e)
+        {
+            FormTareas form = new FormTareas();
+            form.ShowDialog();
+        }
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Close();
