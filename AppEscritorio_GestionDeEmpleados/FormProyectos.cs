@@ -27,11 +27,11 @@ namespace AppEscritorio_GestionDeEmpleados
             tsFecha.Text = "Fecha: " + DateTime.Now.ToShortDateString();
 
             ConfigurarEstiloGrilla();
-            CargarEmpleados();
+            CargarProyectos();
 
         }
 
-        private void CargarEmpleados()
+        private void CargarProyectos()
         {
             try
             {
@@ -59,11 +59,13 @@ namespace AppEscritorio_GestionDeEmpleados
             string filtro = tbFiltro.Text.Trim();
             bool soloActivos = cbActivo.Checked;
 
-            var listaFiltrada = listaProyectos;
+            IEnumerable<Proyectos> listaFiltrada = listaProyectos;
 
+            // Filtrar solo activos si está marcado
             if (soloActivos)
-                listaFiltrada = listaFiltrada.Where(p => p.IsActive).ToList();
+                listaFiltrada = listaFiltrada.Where(p => p.IsActive);
 
+            // Filtrar por texto si no está vacío
             if (!string.IsNullOrEmpty(filtro))
             {
                 int idFiltro;
@@ -73,24 +75,27 @@ namespace AppEscritorio_GestionDeEmpleados
                 {
                     listaFiltrada = listaFiltrada.Where(p =>
                         p.Id == idFiltro ||
-                        (p.Nombre != null && p.Nombre.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                        (p.Descripcion != null && p.Descripcion.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0)
-                    ).ToList();
+                        (!string.IsNullOrEmpty(p.Nombre) && p.Nombre.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (!string.IsNullOrEmpty(p.Descripcion) && p.Descripcion.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (!string.IsNullOrEmpty(p.EstadoProyecto) && p.EstadoProyecto.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0)
+                    );
                 }
                 else
                 {
                     listaFiltrada = listaFiltrada.Where(p =>
-                        (p.Nombre != null && p.Nombre.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                        (p.Descripcion != null && p.Descripcion.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0)
-                    ).ToList();
+                        (!string.IsNullOrEmpty(p.Nombre) && p.Nombre.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (!string.IsNullOrEmpty(p.Descripcion) && p.Descripcion.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (!string.IsNullOrEmpty(p.EstadoProyecto) && p.EstadoProyecto.IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0)
+                    );
                 }
             }
 
             dgvProyectos.DataSource = null;
-            dgvProyectos.DataSource = listaFiltrada;
+            dgvProyectos.DataSource = listaFiltrada.ToList();
 
             modificarColumnas();
         }
+    
 
         private void modificarColumnas()
         {
@@ -109,6 +114,7 @@ namespace AppEscritorio_GestionDeEmpleados
 
             // Modificar texto de columnas
             dgvProyectos.Columns["IsActive"].HeaderText = "Activo";
+            dgvProyectos.Columns["EstadoProyecto"].HeaderText = "Evolución";
             dgvProyectos.Columns["Nombre"].HeaderText = "Proyecto";
 
         }
@@ -145,63 +151,63 @@ namespace AppEscritorio_GestionDeEmpleados
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            //var formGestionarProyecto = new FormGestionarProyecto(ModoFormulario.Agregar);
-            //if (formGestionarProyecto.ShowDialog() == DialogResult.OK)
-            //    CargarProyectos();
+            var formGestionarProyecto = new FormGestionarProyecto(ModoFormulario.Agregar);
+            if (formGestionarProyecto.ShowDialog() == DialogResult.OK)
+                CargarProyectos();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-        //    Proyectos seleccionado = ObtenerProyectoSeleccionado();
-        //    if (seleccionado == null)
-        //    {
-        //        MessageBox.Show("Seleccione un proyecto para modificar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        return;
-        //    }
+            Proyectos seleccionado = ObtenerProyectoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un proyecto para modificar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-        //    var formGestionarProyecto = new FormGestionarProyecto(ModoFormulario.Modificar, seleccionado);
-        //    if (formGestionarProyecto.ShowDialog() == DialogResult.OK)
-        //        CargarProyectos();
+            var formGestionarProyecto = new FormGestionarProyecto(ModoFormulario.Modificar, seleccionado);
+            if (formGestionarProyecto.ShowDialog() == DialogResult.OK)
+                CargarProyectos();
         }
 
         private void btnVerDetalle_Click(object sender, EventArgs e)
         {
-            //Proyectos seleccionado = ObtenerProyectoSeleccionado();
-            //if (seleccionado == null)
-            //{
-            //    MessageBox.Show("Seleccione un proyecto para ver detalle.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    return;
-            //}
+            Proyectos seleccionado = ObtenerProyectoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un proyecto para ver detalle.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            //var formGestionarProyecto = new FormGestionarProyecto(ModoFormulario.VerDetalle, seleccionado);
-            //formGestionarProyecto.ShowDialog();
+            var formGestionarProyecto = new FormGestionarProyecto(ModoFormulario.VerDetalle, seleccionado);
+            formGestionarProyecto.ShowDialog();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            //Proyectos seleccionado = ObtenerProyectoSeleccionado();
-            //if (seleccionado == null)
-            //{
-            //    MessageBox.Show("Seleccione un proyecto para eliminar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    return;
-            //}
+            Proyectos seleccionado = ObtenerProyectoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un proyecto para eliminar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            //if (MessageBox.Show($"¿Eliminar proyecto {seleccionado.Nombre}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            //{
-            //    try
-            //    {
-            //        proyectosNegocio.EliminarProyecto(seleccionado.Id);
-            //        CargarProyectos();
-            //    }
-            //    catch (InvalidOperationException ex)
-            //    {
-            //        MessageBox.Show(ex.Message, "No se puede eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Error al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
+            if (MessageBox.Show($"¿Eliminar proyecto {seleccionado.Nombre}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    proyectosNegocio.EliminarProyecto(seleccionado.Id);
+                    CargarProyectos();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(ex.Message, "No se puede eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

@@ -302,7 +302,7 @@
             tbFiltro.Location = new Point(0, 23);
             tbFiltro.Margin = new Padding(0);
             tbFiltro.Name = "tbFiltro";
-            tbFiltro.PlaceholderText = "Buscar por nombre o ID...";
+            tbFiltro.PlaceholderText = "Buscar por nombre, ID o descripción...";
             tbFiltro.Size = new Size(471, 31);
             tbFiltro.TabIndex = 1;
             tbFiltro.TextChanged += tbFiltrar_TextChanged;

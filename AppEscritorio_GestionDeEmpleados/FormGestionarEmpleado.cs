@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using Dominio.ReglasDelNegocio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -38,8 +39,6 @@ namespace AppEscritorio_GestionDeEmpleados
         {
             CargarEstados();
             CargarCategorias();
-
-
             ConfigurarFormularioSegunModo();
         }
 
@@ -78,7 +77,6 @@ namespace AppEscritorio_GestionDeEmpleados
                     LimpiarCampos();
                     dtpFechaIngreso.Value = DateTime.Now;
                     HabilitarCampos(true);
-                    //cbCategoria.SelectedIndex = -1;
                     btnGuardar.Visible = true;
                     break;
 

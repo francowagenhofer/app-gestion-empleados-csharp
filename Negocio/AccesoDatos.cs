@@ -111,6 +111,12 @@ namespace negocio
             }
         }
 
+        public void LimpiarParametros()
+        {
+            comando.Parameters.Clear();
+        }
+
+
 
     }
 }
