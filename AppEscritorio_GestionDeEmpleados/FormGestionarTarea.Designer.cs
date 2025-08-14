@@ -41,15 +41,15 @@
             txtId = new TextBox();
             txtNombre = new TextBox();
             txtDescripcion = new TextBox();
-            tableLayoutPanel5 = new TableLayoutPanel();
-            btnGuardar = new Button();
-            btnCancelar = new Button();
             dtpFechaInicio = new DateTimePicker();
             dtpFechaFin = new DateTimePicker();
             tbEstado = new TextBox();
             lblFechaInicio = new Label();
             lblFechaFin = new Label();
             lblEstado = new Label();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            btnGuardar = new Button();
+            btnCancelar = new Button();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -63,7 +63,7 @@
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Location = new Point(0, 549);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(658, 22);
+            statusStrip1.Size = new Size(548, 22);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -73,7 +73,7 @@
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(658, 24);
+            menuStrip1.Size = new Size(548, 24);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -92,7 +92,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(658, 525);
+            tableLayoutPanel1.Size = new Size(548, 525);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -103,11 +103,11 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Controls.Add(lblTitulo, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(68, 3);
+            tableLayoutPanel2.Location = new Point(57, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(520, 95);
+            tableLayoutPanel2.Size = new Size(432, 95);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // lblTitulo
@@ -116,7 +116,7 @@
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.ForeColor = Color.Navy;
-            lblTitulo.Location = new Point(213, 28);
+            lblTitulo.Location = new Point(169, 28);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(94, 38);
             lblTitulo.TabIndex = 0;
@@ -131,12 +131,12 @@
             tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 0, 0);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel5, 0, 1);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(68, 104);
+            tableLayoutPanel3.Location = new Point(57, 104);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
-            tableLayoutPanel3.Size = new Size(520, 398);
+            tableLayoutPanel3.Size = new Size(432, 398);
             tableLayoutPanel3.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -166,14 +166,14 @@
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6666679F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6666679F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6666679F));
-            tableLayoutPanel4.Size = new Size(514, 327);
+            tableLayoutPanel4.Size = new Size(426, 327);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // lblID
             // 
             lblID.Anchor = AnchorStyles.Right;
             lblID.AutoSize = true;
-            lblID.Location = new Point(98, 17);
+            lblID.Location = new Point(76, 17);
             lblID.Name = "lblID";
             lblID.Size = new Size(27, 20);
             lblID.TabIndex = 0;
@@ -183,7 +183,7 @@
             // 
             lblNombre.Anchor = AnchorStyles.Right;
             lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(58, 71);
+            lblNombre.Location = new Point(36, 71);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(67, 20);
             lblNombre.TabIndex = 1;
@@ -193,7 +193,7 @@
             // 
             lblDescripcion.Anchor = AnchorStyles.Right;
             lblDescripcion.AutoSize = true;
-            lblDescripcion.Location = new Point(35, 125);
+            lblDescripcion.Location = new Point(13, 125);
             lblDescripcion.Name = "lblDescripcion";
             lblDescripcion.Size = new Size(90, 20);
             lblDescripcion.TabIndex = 2;
@@ -202,7 +202,7 @@
             // txtId
             // 
             txtId.Anchor = AnchorStyles.Left;
-            txtId.Location = new Point(131, 13);
+            txtId.Location = new Point(109, 13);
             txtId.Name = "txtId";
             txtId.Size = new Size(128, 27);
             txtId.TabIndex = 3;
@@ -210,18 +210,73 @@
             // txtNombre
             // 
             txtNombre.Anchor = AnchorStyles.Left;
-            txtNombre.Location = new Point(131, 67);
+            txtNombre.Location = new Point(109, 67);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(302, 27);
             txtNombre.TabIndex = 4;
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(131, 111);
+            txtDescripcion.Location = new Point(109, 111);
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(302, 48);
             txtDescripcion.TabIndex = 5;
+            // 
+            // dtpFechaInicio
+            // 
+            dtpFechaInicio.Anchor = AnchorStyles.Left;
+            dtpFechaInicio.Location = new Point(109, 175);
+            dtpFechaInicio.Name = "dtpFechaInicio";
+            dtpFechaInicio.Size = new Size(302, 27);
+            dtpFechaInicio.TabIndex = 6;
+            // 
+            // dtpFechaFin
+            // 
+            dtpFechaFin.Anchor = AnchorStyles.Left;
+            dtpFechaFin.Location = new Point(109, 229);
+            dtpFechaFin.Name = "dtpFechaFin";
+            dtpFechaFin.Size = new Size(302, 27);
+            dtpFechaFin.TabIndex = 7;
+            // 
+            // tbEstado
+            // 
+            tbEstado.Anchor = AnchorStyles.Left;
+            tbEstado.Location = new Point(109, 285);
+            tbEstado.Name = "tbEstado";
+            tbEstado.Size = new Size(125, 27);
+            tbEstado.TabIndex = 8;
+            // 
+            // lblFechaInicio
+            // 
+            lblFechaInicio.Anchor = AnchorStyles.Right;
+            lblFechaInicio.AutoSize = true;
+            lblFechaInicio.Location = new Point(31, 169);
+            lblFechaInicio.Name = "lblFechaInicio";
+            lblFechaInicio.Size = new Size(72, 40);
+            lblFechaInicio.TabIndex = 9;
+            lblFechaInicio.Text = "Fecha de inicio:";
+            // 
+            // lblFechaFin
+            // 
+            lblFechaFin.Anchor = AnchorStyles.Right;
+            lblFechaFin.AutoSize = true;
+            lblFechaFin.Location = new Point(15, 223);
+            lblFechaFin.Name = "lblFechaFin";
+            lblFechaFin.Size = new Size(88, 40);
+            lblFechaFin.TabIndex = 10;
+            lblFechaFin.Text = "Fecha de finalización:";
+            // 
+            // lblEstado
+            // 
+            lblEstado.Anchor = AnchorStyles.Right;
+            lblEstado.AutoSize = true;
+            lblEstado.Location = new Point(46, 288);
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(57, 20);
+            lblEstado.TabIndex = 11;
+            lblEstado.Text = "Estado:";
+            lblEstado.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel5
             // 
@@ -235,7 +290,7 @@
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new Size(514, 59);
+            tableLayoutPanel5.Size = new Size(426, 59);
             tableLayoutPanel5.TabIndex = 1;
             // 
             // btnGuardar
@@ -246,7 +301,7 @@
             btnGuardar.Location = new Point(5, 5);
             btnGuardar.Margin = new Padding(5);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(247, 49);
+            btnGuardar.Size = new Size(203, 49);
             btnGuardar.TabIndex = 0;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -257,76 +312,21 @@
             btnCancelar.Dock = DockStyle.Fill;
             btnCancelar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = Color.SteelBlue;
-            btnCancelar.Location = new Point(262, 5);
+            btnCancelar.Location = new Point(218, 5);
             btnCancelar.Margin = new Padding(5);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(247, 49);
+            btnCancelar.Size = new Size(203, 49);
             btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click_1;
-            // 
-            // dtpFechaInicio
-            // 
-            dtpFechaInicio.Anchor = AnchorStyles.Left;
-            dtpFechaInicio.Location = new Point(131, 175);
-            dtpFechaInicio.Name = "dtpFechaInicio";
-            dtpFechaInicio.Size = new Size(302, 27);
-            dtpFechaInicio.TabIndex = 6;
-            // 
-            // dtpFechaFin
-            // 
-            dtpFechaFin.Anchor = AnchorStyles.Left;
-            dtpFechaFin.Location = new Point(131, 239);
-            dtpFechaFin.Name = "dtpFechaFin";
-            dtpFechaFin.Size = new Size(302, 27);
-            dtpFechaFin.TabIndex = 7;
-            // 
-            // tbEstado
-            // 
-            tbEstado.Anchor = AnchorStyles.Left;
-            tbEstado.Location = new Point(131, 285);
-            tbEstado.Name = "tbEstado";
-            tbEstado.Size = new Size(125, 27);
-            tbEstado.TabIndex = 8;
-            // 
-            // lblFechaInicio
-            // 
-            lblFechaInicio.Anchor = AnchorStyles.Right;
-            lblFechaInicio.AutoSize = true;
-            lblFechaInicio.Location = new Point(14, 179);
-            lblFechaInicio.Name = "lblFechaInicio";
-            lblFechaInicio.Size = new Size(111, 20);
-            lblFechaInicio.TabIndex = 9;
-            lblFechaInicio.Text = "Fecha de inicio:";
-            // 
-            // lblFechaFin
-            // 
-            lblFechaFin.Anchor = AnchorStyles.Right;
-            lblFechaFin.AutoSize = true;
-            lblFechaFin.Location = new Point(37, 223);
-            lblFechaFin.Name = "lblFechaFin";
-            lblFechaFin.Size = new Size(88, 40);
-            lblFechaFin.TabIndex = 10;
-            lblFechaFin.Text = "Fecha de finalización:";
-            // 
-            // lblEstado
-            // 
-            lblEstado.Anchor = AnchorStyles.Right;
-            lblEstado.AutoSize = true;
-            lblEstado.Location = new Point(68, 288);
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(57, 20);
-            lblEstado.TabIndex = 11;
-            lblEstado.Text = "Estado:";
-            lblEstado.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormGestionarTarea
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
-            ClientSize = new Size(658, 571);
+            ClientSize = new Size(548, 571);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);

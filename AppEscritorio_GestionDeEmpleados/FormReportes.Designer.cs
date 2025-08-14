@@ -68,6 +68,7 @@
             // 
             // tsFecha
             // 
+            tsFecha.BackColor = SystemColors.Control;
             tsFecha.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsFecha.Name = "tsFecha";
             tsFecha.Size = new Size(57, 25);
@@ -80,7 +81,7 @@
             tcReportes.Controls.Add(tpReporteProyectos);
             tcReportes.Controls.Add(tpReporteFinanzas);
             tcReportes.Dock = DockStyle.Fill;
-            tcReportes.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tcReportes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tcReportes.Location = new Point(0, 0);
             tcReportes.Name = "tcReportes";
             tcReportes.SelectedIndex = 0;
@@ -96,7 +97,7 @@
             tpReporteEmpleados.Padding = new Padding(3);
             tpReporteEmpleados.Size = new Size(1074, 588);
             tpReporteEmpleados.TabIndex = 0;
-            tpReporteEmpleados.Text = "Reporte de Empleados";
+            tpReporteEmpleados.Text = "Empleados";
             tpReporteEmpleados.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
@@ -158,7 +159,7 @@
             tpReporteProyectos.Padding = new Padding(3);
             tpReporteProyectos.Size = new Size(1074, 588);
             tpReporteProyectos.TabIndex = 1;
-            tpReporteProyectos.Text = "Reporte de Proyectos";
+            tpReporteProyectos.Text = "Proyectos";
             tpReporteProyectos.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
@@ -220,7 +221,7 @@
             tpReporteFinanzas.Padding = new Padding(3);
             tpReporteFinanzas.Size = new Size(1074, 588);
             tpReporteFinanzas.TabIndex = 2;
-            tpReporteFinanzas.Text = "Reporte de Finanzas";
+            tpReporteFinanzas.Text = "Finanzas";
             tpReporteFinanzas.UseVisualStyleBackColor = true;
             tpReporteFinanzas.Click += tpReporteFinanzas_Click;
             // 
@@ -283,9 +284,11 @@
             ClientSize = new Size(1082, 663);
             Controls.Add(tcReportes);
             Controls.Add(statusStrip1);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             MinimumSize = new Size(1030, 710);
             Name = "FormReportes";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "📊 Reportes";
             Load += FormReportes_Load;
             statusStrip1.ResumeLayout(false);

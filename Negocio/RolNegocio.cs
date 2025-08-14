@@ -191,13 +191,14 @@ namespace Negocio
             }
         }
 
-        public void DesasignarRolDeEmpleadoEnProyecto(int idEmpleado, int idProyecto)
+        public void DesasignarRolDeEmpleadoEnProyecto(int idEmpleado, int idRol, int idProyecto)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearProcedimiento("DesasignarRolDeEmpleadoEnProyecto");
                 datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdRol", idRol);
                 datos.setearParametro("@IdProyecto", idProyecto);
 
                 datos.ejecutarAccion();
@@ -212,37 +213,95 @@ namespace Negocio
             }
         }
 
-        public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto)  
+
+        //public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    List<Rol> roles = new List<Rol>();
+        //    try
+        //    {
+        //        datos.setearProcedimiento("ListarRolesDeEmpleadosEnProyecto");
+        //        datos.setearParametro("@IdProyecto", idProyecto);
+        //        datos.ejecutarLectura();
+
+        //        while (datos.Lector.Read())
+        //        {
+        //            Rol rol = new Rol();
+        //            rol.Id = (int)datos.Lector["IdRol"];
+        //            rol.Nombre = (string)datos.Lector["Nombre"];
+        //            rol.Descripcion = (string)datos.Lector["Descripcion"];
+        //            roles.Add(rol);
+        //        }
+
+        //        return roles;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
+
+        public List<Rol> ListarRolesAsignadosPorEmpleadoYProyecto(int idEmpleado, int idProyecto)
         {
+            List<Rol> lista = new List<Rol>();
             AccesoDatos datos = new AccesoDatos();
-            List<Rol> roles = new List<Rol>();
+
             try
             {
-                datos.setearProcedimiento("ListarRolesDeEmpleadosEnProyecto");
+                datos.setearProcedimiento("ListarRolesAsignadosDeEmpleadoPorProyecto");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
                 datos.setearParametro("@IdProyecto", idProyecto);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Rol rol = new Rol();
-                    rol.Id = (int)datos.Lector["IdRol"];
-                    rol.Nombre = (string)datos.Lector["Nombre"];
-                    rol.Descripcion = (string)datos.Lector["Descripcion"];
-                    roles.Add(rol);
+                    lista.Add(new Rol
+                    {
+                        Id = (int)datos.Lector["IdRol"],
+                        Nombre = datos.Lector["NombreRol"].ToString()
+                    });
                 }
-
-                return roles;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             finally
             {
                 datos.cerrarConexion();
             }
+
+            return lista;
+        }
+
+        public List<Rol> ListarRolesDisponiblesParaAsignarPorEmpleadoYProyecto(int idEmpleado, int idProyecto)
+        {
+            List<Rol> lista = new List<Rol>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarRolesDisponiblesParaAsignarPorEmpleadoYProyecto");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    lista.Add(new Rol
+                    {
+                        Id = (int)datos.Lector["IdRol"],
+                        Nombre = datos.Lector["NombreRol"].ToString()
+                    });
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
         }
 
     }
-
 }

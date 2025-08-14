@@ -1,14 +1,6 @@
 ﻿using Dominio.ReglasDelNegocio;
 using Negocio;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace AppEscritorio_GestionDeEmpleados
 {
@@ -16,6 +8,9 @@ namespace AppEscritorio_GestionDeEmpleados
     {
         private List<CategoriaConSalario> listaCategorias;
         private CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+
+        private List<Bonos> listaBonos;
+        private BonosNegocio bonosNegocio = new BonosNegocio();
 
         public FormOperaciones()
         {
@@ -28,6 +23,9 @@ namespace AppEscritorio_GestionDeEmpleados
 
             ConfigurarEstiloGrilla();
             CargarCategorias();
+
+            ConfigurarEstiloGrillaBonos();
+            CargarBonos();
         }
 
         private void CargarCategorias()
@@ -166,9 +164,139 @@ namespace AppEscritorio_GestionDeEmpleados
             Close();
         }
 
-        private void dgvCategorias_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
+
+        // -------------------------------------------------------------------------------------- //
+
+        private void CargarBonos()
+        {
+            try
+            {
+                listaBonos = bonosNegocio.ListarBonos();
+                AplicarFiltrosBonos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar bonos: " + ex.Message);
+            }
         }
+
+        private void AplicarFiltrosBonos()
+        {
+            string filtro = txtFiltrobonos.Text.Trim().ToUpper();
+            var listaFiltrada = listaBonos;
+
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                listaFiltrada = listaFiltrada.Where(b =>
+                    (b.Nombre != null && b.Nombre.ToUpper().Contains(filtro)) ||
+                    b.Id.ToString().Contains(filtro) ||
+                    b.Monto.ToString("0.##").Contains(filtro)
+                ).ToList();
+            }
+
+            dgvBonos.DataSource = null;
+            dgvBonos.DataSource = listaFiltrada;
+
+            if (dgvBonos.Columns.Contains("Id"))
+                dgvBonos.Columns["Id"].Visible = true;
+            if (dgvBonos.Columns.Contains("FechaAsignacion"))
+                dgvBonos.Columns["FechaAsignacion"].Visible = false;
+
+            dgvBonos.Columns["Id"].FillWeight = 15;
+            dgvBonos.Columns["Nombre"].FillWeight = 45;
+            dgvBonos.Columns["Monto"].FillWeight = 40;
+        }
+
+        private void ConfigurarEstiloGrillaBonos()
+        {
+            dgvBonos.RowHeadersVisible = false;
+            dgvBonos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBonos.MultiSelect = false;
+            dgvBonos.ReadOnly = true;
+            dgvBonos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBonos.AllowUserToAddRows = false;
+            dgvBonos.AllowUserToDeleteRows = false;
+            dgvBonos.BackgroundColor = SystemColors.Window;
+
+            dgvBonos.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgvBonos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvBonos.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            dgvBonos.EnableHeadersVisualStyles = false;
+        }
+
+        private Bonos ObtenerBonoSeleccionado()
+        {
+            return dgvBonos.CurrentRow?.DataBoundItem as Bonos;
+        }
+
+        private void txtFiltrobonos_TextChanged(object sender, EventArgs e)
+        {
+            AplicarFiltrosBonos();
+        }
+
+        private void btnAgregarBono_Click(object sender, EventArgs e)
+        {
+            var formGestionar = new FormGestionarBono(ModoFormulario.Agregar);
+            if (formGestionar.ShowDialog() == DialogResult.OK)
+                CargarBonos();
+        }
+
+        private void btnModificarBono_Click(object sender, EventArgs e)
+        {
+            var seleccionado = ObtenerBonoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un bono para modificar.");
+                return;
+            }
+
+            var formGestionar = new FormGestionarBono(ModoFormulario.Modificar, seleccionado);
+            if (formGestionar.ShowDialog() == DialogResult.OK)
+                CargarBonos();
+        }
+
+        private void btnVerDetalleBono_Click(object sender, EventArgs e)
+        {
+            var seleccionado = ObtenerBonoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un bono para ver detalle.");
+                return;
+            }
+
+            var formGestionar = new FormGestionarBono(ModoFormulario.VerDetalle, seleccionado);
+            formGestionar.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var seleccionado = ObtenerBonoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un bono para eliminar.");
+                return;
+            }
+
+            if (MessageBox.Show($"¿Eliminar bono '{seleccionado.Nombre}'?", "Confirmar",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    bonosNegocio.EliminarBono(seleccionado.Id);
+                    CargarBonos();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al eliminar: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnSalirBono_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
     }
 }

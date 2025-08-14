@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Dominio.ReglasDelNegocio
 {
@@ -25,6 +26,9 @@ namespace Dominio.ReglasDelNegocio
         public List<Proyectos> ProyectosAsignados { get; set; }
         public List<Empleado> EmpleadosAsignados { get; set; }
 
-    
+        public int IdTareaProyecto { get; set; }          // para relación Tarea-Proyecto
+        public DateTime? FechaAsignacion { get; set; }    // para asignación a empleado
+
     }
+
 }

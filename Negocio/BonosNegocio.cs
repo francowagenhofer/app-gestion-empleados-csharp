@@ -122,7 +122,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-       
+
         public void DesasignarBonoDeEmpleado(int idEmpleado, int idTipoBono)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -146,19 +146,19 @@ namespace Negocio
 
         public List<Bonos> ListarBonosAsignadosEmpleado(int idEmpleado)
         {
-            List<Bonos> bonosAsignados = new List<Bonos>();
             AccesoDatos datos = new AccesoDatos();
+            List<Bonos> bonosAsignados = new List<Bonos>();
 
             try
             {
                 datos.setearProcedimiento("ListarBonosAsignadosEmpleado");
-                datos.setearParametro("@IdEmpleado", idEmpleado); 
+                datos.setearParametro("@IdEmpleado", idEmpleado);
 
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Bonos bono = new Bonos();
-                    bono.Id = (int)datos.Lector["BonoId"]; 
+                    bono.Id = (int)datos.Lector["BonoId"];
                     bono.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "Nombre no disponible";
                     bono.Monto = datos.Lector["Monto"] != DBNull.Value ? (decimal)datos.Lector["Monto"] : 0;
                     bono.FechaAsignacion = datos.Lector["FechaAsignacion"] != DBNull.Value ? (DateTime)datos.Lector["FechaAsignacion"] : DateTime.MinValue;
@@ -178,6 +178,43 @@ namespace Negocio
 
             return bonosAsignados;
         }
+
+        public List<Bonos> ListarBonosDisponiblesEmpleado(int idEmpleado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Bonos> bonosDisponibles = new List<Bonos>();
+
+            try
+            {
+                datos.setearProcedimiento("ListarBonosDisponiblesEmpleado");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Bonos bono = new Bonos();
+                    bono.Id = (int)datos.Lector["BonoId"];
+                    bono.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "Nombre no disponible";
+                    bono.Monto = datos.Lector["Monto"] != DBNull.Value ? (decimal)datos.Lector["Monto"] : 0;
+
+                    bonosDisponibles.Add(bono);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al leer bonos asignados: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return bonosDisponibles;
+        }
+
+
+
 
     }
 }

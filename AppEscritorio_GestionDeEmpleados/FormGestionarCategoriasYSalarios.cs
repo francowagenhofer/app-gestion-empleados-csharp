@@ -37,7 +37,7 @@ namespace AppEscritorio_GestionDeEmpleados
             {
                 case ModoFormulario.Agregar:
                     lblTitulo.Text = "Agregar Categoría y Salario";
-                    this.Text = "Agregar Categoría y Salario";
+                    this.Text = "Agregar";
                     txtId.Visible = false;
                     LimpiarCampos();
                     HabilitarCampos(true);
@@ -45,7 +45,7 @@ namespace AppEscritorio_GestionDeEmpleados
                     break;
                 case ModoFormulario.Modificar:
                     lblTitulo.Text = "Modificar Categoría y Salario";
-                    this.Text = "Modificar Categoría y Salario";
+                    this.Text = "Modificar";
                     txtId.Visible = true;
                     CargarDatosCategoria();
                     HabilitarCampos(true);
@@ -53,7 +53,7 @@ namespace AppEscritorio_GestionDeEmpleados
                     break;
                 case ModoFormulario.VerDetalle:
                     lblTitulo.Text = "Detalle Categoría y Salario";
-                    this.Text = "Detalle Categoría y Salario";
+                    this.Text = "Detalle";
                     txtId.Visible = true;
                     CargarDatosCategoria();
                     HabilitarCampos(false);

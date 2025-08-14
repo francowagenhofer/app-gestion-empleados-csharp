@@ -181,30 +181,31 @@
             tlpBotones.RowCount = 3;
             tlpBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             tlpBotones.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 143F));
+            tlpBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 69F));
             tlpBotones.Size = new Size(942, 433);
             tlpBotones.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 205F));
-            tableLayoutPanel1.Controls.Add(btnTareas, 2, 1);
-            tableLayoutPanel1.Controls.Add(btnOperaciones, 1, 0);
-            tableLayoutPanel1.Controls.Add(btnReportes, 0, 1);
-            tableLayoutPanel1.Controls.Add(btnEmpleados, 0, 0);
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
             tableLayoutPanel1.Controls.Add(btnProyectos, 2, 0);
+            tableLayoutPanel1.Controls.Add(btnTareas, 2, 1);
             tableLayoutPanel1.Controls.Add(btnRoles, 1, 1);
+            tableLayoutPanel1.Controls.Add(btnOperaciones, 1, 2);
+            tableLayoutPanel1.Controls.Add(btnReportes, 2, 2);
+            tableLayoutPanel1.Controls.Add(btnEmpleados, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(156, 11);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(595, 276);
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.Size = new Size(595, 350);
             tableLayoutPanel1.TabIndex = 5;
             // 
             // btnTareas
@@ -212,10 +213,10 @@
             btnTareas.Dock = DockStyle.Fill;
             btnTareas.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTareas.ForeColor = Color.SteelBlue;
-            btnTareas.Location = new Point(400, 148);
+            btnTareas.Location = new Point(307, 126);
             btnTareas.Margin = new Padding(10);
             btnTareas.Name = "btnTareas";
-            btnTareas.Size = new Size(185, 118);
+            btnTareas.Size = new Size(188, 96);
             btnTareas.TabIndex = 4;
             btnTareas.Text = "Tareas";
             btnTareas.UseVisualStyleBackColor = true;
@@ -226,10 +227,10 @@
             btnOperaciones.Dock = DockStyle.Fill;
             btnOperaciones.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnOperaciones.ForeColor = Color.SteelBlue;
-            btnOperaciones.Location = new Point(205, 10);
+            btnOperaciones.Location = new Point(99, 242);
             btnOperaciones.Margin = new Padding(10);
             btnOperaciones.Name = "btnOperaciones";
-            btnOperaciones.Size = new Size(175, 118);
+            btnOperaciones.Size = new Size(188, 98);
             btnOperaciones.TabIndex = 2;
             btnOperaciones.Text = "Operaciones";
             btnOperaciones.UseVisualStyleBackColor = true;
@@ -240,10 +241,10 @@
             btnReportes.Dock = DockStyle.Fill;
             btnReportes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnReportes.ForeColor = Color.SteelBlue;
-            btnReportes.Location = new Point(10, 148);
+            btnReportes.Location = new Point(307, 242);
             btnReportes.Margin = new Padding(10);
             btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(175, 118);
+            btnReportes.Size = new Size(188, 98);
             btnReportes.TabIndex = 3;
             btnReportes.Text = "Reportes";
             btnReportes.UseVisualStyleBackColor = true;
@@ -254,10 +255,10 @@
             btnEmpleados.Dock = DockStyle.Fill;
             btnEmpleados.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEmpleados.ForeColor = Color.SteelBlue;
-            btnEmpleados.Location = new Point(10, 10);
+            btnEmpleados.Location = new Point(99, 10);
             btnEmpleados.Margin = new Padding(10);
             btnEmpleados.Name = "btnEmpleados";
-            btnEmpleados.Size = new Size(175, 118);
+            btnEmpleados.Size = new Size(188, 96);
             btnEmpleados.TabIndex = 0;
             btnEmpleados.Text = "Empleados";
             btnEmpleados.UseVisualStyleBackColor = true;
@@ -268,10 +269,10 @@
             btnProyectos.Dock = DockStyle.Fill;
             btnProyectos.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnProyectos.ForeColor = Color.SteelBlue;
-            btnProyectos.Location = new Point(400, 10);
+            btnProyectos.Location = new Point(307, 10);
             btnProyectos.Margin = new Padding(10);
             btnProyectos.Name = "btnProyectos";
-            btnProyectos.Size = new Size(185, 118);
+            btnProyectos.Size = new Size(188, 96);
             btnProyectos.TabIndex = 1;
             btnProyectos.Text = "Proyectos";
             btnProyectos.UseVisualStyleBackColor = true;
@@ -282,10 +283,10 @@
             btnRoles.Dock = DockStyle.Fill;
             btnRoles.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRoles.ForeColor = Color.SteelBlue;
-            btnRoles.Location = new Point(205, 148);
+            btnRoles.Location = new Point(99, 126);
             btnRoles.Margin = new Padding(10);
             btnRoles.Name = "btnRoles";
-            btnRoles.Size = new Size(175, 118);
+            btnRoles.Size = new Size(188, 96);
             btnRoles.TabIndex = 5;
             btnRoles.Text = "Roles";
             btnRoles.UseVisualStyleBackColor = true;

@@ -186,5 +186,9 @@ namespace AppEscritorio_GestionDeEmpleados
             Close();
         }
 
+        private void btnAsignaciones_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

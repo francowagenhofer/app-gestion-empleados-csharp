@@ -197,7 +197,15 @@ namespace AppEscritorio_GestionDeEmpleados
 
         private void btnAsignaciones_Click(object sender, EventArgs e)
         {
-            FormAsignacionEmpleado form = new FormAsignacionEmpleado();
+            Empleado seleccionado = ObtenerEmpleadoSeleccionado();
+            
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un empleado para gestionar asignaciones.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            FormAsignacionEmpleado form = new FormAsignacionEmpleado(seleccionado.Id);
             form.ShowDialog();
         }
     }

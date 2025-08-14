@@ -14,10 +14,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FormAsignacionProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormGestionarProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormGestionarCategoriasYSalarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormGestionarBono.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormGestionarTarea.cs">

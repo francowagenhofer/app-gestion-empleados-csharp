@@ -150,8 +150,8 @@ namespace Negocio
             try
             {
                 datos.setearProcedimiento("AsignarEmpleadoAProyecto");
-                datos.setearParametro("@IdProyecto", idProyecto);
                 datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdProyecto", idProyecto);
 
                 datos.ejecutarAccion();
             }
@@ -171,8 +171,8 @@ namespace Negocio
             try
             {
                 datos.setearProcedimiento("DesasignarEmpleadoDeProyecto");
-                datos.setearParametro("@IdProyecto", idProyecto);
                 datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdProyecto", idProyecto);
 
                 datos.ejecutarAccion();
             }
@@ -221,8 +221,9 @@ namespace Negocio
                 {
                     Proyectos proyecto = new Proyectos();
                     proyecto.Id = (int)datos.Lector["ProyectoId"];
-                    proyecto.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "Nombre no disponible";
-                    proyecto.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "Descripción no disponible";
+                    proyecto.Nombre = datos.Lector["Nombre"]?.ToString() ?? "Nombre no disponible";
+                    proyecto.Descripcion = datos.Lector["Descripcion"]?.ToString() ?? "Descripción no disponible";
+                    proyecto.EstadoProyecto = datos.Lector["EstadoProyecto"]?.ToString() ?? "Estado no disponible";
 
                     proyectosAsignados.Add(proyecto);
                 }
@@ -232,7 +233,6 @@ namespace Negocio
                 Console.WriteLine($"Error al leer proyectos asignados: {ex.Message}");
                 Console.WriteLine($"StackTrace: {ex.StackTrace}");
             }
-
             finally
             {
                 datos.cerrarConexion();
@@ -241,6 +241,37 @@ namespace Negocio
             return proyectosAsignados;
         }
 
+
+        public List<Proyectos> ListarProyectosDisponiblesEmpleado(int idEmpleado)
+        {
+            List<Proyectos> proyectosDisponibles = new List<Proyectos>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarProyectosDisponiblesEmpleado");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Proyectos proyecto = new Proyectos();
+                    proyecto.Id = (int)datos.Lector["Id"];
+                    proyecto.Nombre = datos.Lector["Nombre"]?.ToString() ?? "Nombre no disponible";
+                    proyecto.Descripcion = datos.Lector["Descripcion"]?.ToString() ?? "Descripción no disponible";
+                    proyecto.EstadoProyecto = datos.Lector["EstadoProyecto"]?.ToString() ?? "Estado no disponible";
+                    proyecto.IsActive = datos.Lector["IsActive"] != DBNull.Value && (bool)datos.Lector["IsActive"];
+
+                    proyectosDisponibles.Add(proyecto);
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return proyectosDisponibles;
+        }
 
     }
 }

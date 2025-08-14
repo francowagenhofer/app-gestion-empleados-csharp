@@ -162,6 +162,30 @@ namespace Negocio
             }
         }
 
+
+        public void EliminarEmpleado(int id)
+        {
+            if (TieneDependencias(id))
+                throw new InvalidOperationException("El empleado tiene roles, proyectos, tareas o bonos vinculados. Debe desvincularlos antes de eliminar.");
+
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("EliminarEmpleado");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
         //public void EliminarEmpleado(int id)
         //{
         //    AccesoDatos datos = new AccesoDatos();
@@ -213,6 +237,39 @@ namespace Negocio
 
             return empleadosAsignados;
         }
+
+        public List<Empleado> ListarEmpleadosDisponiblesParaAsignarAProyecto(int idProyecto)
+        {
+            List<Empleado> empleadosDisponibles = new List<Empleado>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarEmpleadosDisponiblesParaAsignarAlProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Empleado empleado = new Empleado();
+                    empleado.Id = (int)datos.Lector["Id"];
+                    empleado.Nombre = (string)datos.Lector["Nombre"];
+                    empleado.Apellido = (string)datos.Lector["Apellido"];
+                    empleadosDisponibles.Add(empleado);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return empleadosDisponibles;
+        }
+
 
 
         public bool TieneDependencias(int empleadoId)
@@ -283,27 +340,6 @@ namespace Negocio
             }
         }
 
-        public void EliminarEmpleado(int id)
-        {
-            if (TieneDependencias(id))
-                throw new InvalidOperationException("El empleado tiene roles, proyectos, tareas o bonos vinculados. Debe desvincularlos antes de eliminar.");
-
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearProcedimiento("EliminarEmpleado");
-                datos.setearParametro("@Id", id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
 
 
 

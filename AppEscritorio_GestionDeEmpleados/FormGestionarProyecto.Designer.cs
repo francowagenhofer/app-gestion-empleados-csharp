@@ -30,15 +30,6 @@
         {
             statusStrip1 = new StatusStrip();
             tsFecha = new ToolStripStatusLabel();
-            tsEstado = new ToolStripStatusLabel();
-            menuStrip1 = new MenuStrip();
-            archivoToolStripMenuItem = new ToolStripMenuItem();
-            cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
-            salirToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
-            manualDeInformaciónToolStripMenuItem = new ToolStripMenuItem();
-            acercaDeToolStripMenuItem = new ToolStripMenuItem();
-            informaciónDeSistemaToolStripMenuItem = new ToolStripMenuItem();
             tlpFondo = new TableLayoutPanel();
             tlpTitulo = new TableLayoutPanel();
             lblTitulo = new Label();
@@ -64,7 +55,6 @@
             btnCancelar = new Button();
             btnGuardar = new Button();
             statusStrip1.SuspendLayout();
-            menuStrip1.SuspendLayout();
             tlpFondo.SuspendLayout();
             tlpTitulo.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -77,7 +67,7 @@
             statusStrip1.BackColor = SystemColors.Control;
             statusStrip1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { tsFecha, tsEstado });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { tsFecha });
             statusStrip1.Location = new Point(0, 628);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(578, 31);
@@ -90,70 +80,6 @@
             tsFecha.Size = new Size(57, 25);
             tsFecha.Text = "Fecha";
             // 
-            // tsEstado
-            // 
-            tsEstado.Name = "tsEstado";
-            tsEstado.Size = new Size(66, 25);
-            tsEstado.Text = "Estado";
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, ayudaToolStripMenuItem, acercaDeToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(578, 33);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            archivoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesiónToolStripMenuItem, salirToolStripMenuItem });
-            archivoToolStripMenuItem.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(86, 29);
-            archivoToolStripMenuItem.Text = "Archivo";
-            // 
-            // cerrarSesiónToolStripMenuItem
-            // 
-            cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            cerrarSesiónToolStripMenuItem.Size = new Size(200, 30);
-            cerrarSesiónToolStripMenuItem.Text = "Cerrar sesión";
-            // 
-            // salirToolStripMenuItem
-            // 
-            salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            salirToolStripMenuItem.Size = new Size(200, 30);
-            salirToolStripMenuItem.Text = "Salir";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { manualDeInformaciónToolStripMenuItem });
-            ayudaToolStripMenuItem.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(77, 29);
-            ayudaToolStripMenuItem.Text = "Ayuda";
-            // 
-            // manualDeInformaciónToolStripMenuItem
-            // 
-            manualDeInformaciónToolStripMenuItem.Name = "manualDeInformaciónToolStripMenuItem";
-            manualDeInformaciónToolStripMenuItem.Size = new Size(244, 30);
-            manualDeInformaciónToolStripMenuItem.Text = "Manual de usuario";
-            // 
-            // acercaDeToolStripMenuItem
-            // 
-            acercaDeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { informaciónDeSistemaToolStripMenuItem });
-            acercaDeToolStripMenuItem.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            acercaDeToolStripMenuItem.Size = new Size(103, 29);
-            acercaDeToolStripMenuItem.Text = "Acerca de";
-            // 
-            // informaciónDeSistemaToolStripMenuItem
-            // 
-            informaciónDeSistemaToolStripMenuItem.Name = "informaciónDeSistemaToolStripMenuItem";
-            informaciónDeSistemaToolStripMenuItem.Size = new Size(284, 30);
-            informaciónDeSistemaToolStripMenuItem.Text = "Información de sistema";
-            // 
             // tlpFondo
             // 
             tlpFondo.ColumnCount = 3;
@@ -163,14 +89,14 @@
             tlpFondo.Controls.Add(tlpTitulo, 1, 0);
             tlpFondo.Controls.Add(tableLayoutPanel1, 1, 1);
             tlpFondo.Dock = DockStyle.Fill;
-            tlpFondo.Location = new Point(0, 33);
+            tlpFondo.Location = new Point(0, 0);
             tlpFondo.Name = "tlpFondo";
             tlpFondo.RowCount = 3;
             tlpFondo.RowStyles.Add(new RowStyle(SizeType.Percent, 10.3873243F));
             tlpFondo.RowStyles.Add(new RowStyle(SizeType.Percent, 89.61268F));
             tlpFondo.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tlpFondo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tlpFondo.Size = new Size(578, 595);
+            tlpFondo.Size = new Size(578, 628);
             tlpFondo.TabIndex = 2;
             // 
             // tlpTitulo
@@ -185,7 +111,7 @@
             tlpTitulo.Name = "tlpTitulo";
             tlpTitulo.RowCount = 1;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpTitulo.Size = new Size(512, 52);
+            tlpTitulo.Size = new Size(512, 56);
             tlpTitulo.TabIndex = 0;
             // 
             // lblTitulo
@@ -194,7 +120,7 @@
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.ForeColor = Color.Navy;
-            lblTitulo.Location = new Point(209, 7);
+            lblTitulo.Location = new Point(209, 9);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(94, 38);
             lblTitulo.TabIndex = 0;
@@ -210,14 +136,14 @@
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel6, 1, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(33, 61);
+            tableLayoutPanel1.Location = new Point(33, 65);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 5F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 92.63158F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 2.368421F));
-            tableLayoutPanel1.Size = new Size(512, 500);
+            tableLayoutPanel1.Size = new Size(512, 529);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -242,7 +168,7 @@
             tableLayoutPanel2.Controls.Add(cbEstado, 1, 6);
             tableLayoutPanel2.Controls.Add(cbEstadoProyecto, 1, 7);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(17, 23);
+            tableLayoutPanel2.Location = new Point(17, 24);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 8;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 12.499999F));
@@ -254,7 +180,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 12.499999F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 12.499999F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(476, 367);
+            tableLayoutPanel2.Size = new Size(476, 394);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // lblEstado
@@ -262,7 +188,7 @@
             lblEstado.Anchor = AnchorStyles.Right;
             lblEstado.AutoSize = true;
             lblEstado.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEstado.Location = new Point(9, 331);
+            lblEstado.Location = new Point(9, 358);
             lblEstado.Name = "lblEstado";
             lblEstado.Size = new Size(145, 20);
             lblEstado.TabIndex = 2;
@@ -273,7 +199,7 @@
             lblId.Anchor = AnchorStyles.Right;
             lblId.AutoSize = true;
             lblId.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblId.Location = new Point(126, 12);
+            lblId.Location = new Point(126, 14);
             lblId.Name = "lblId";
             lblId.Size = new Size(28, 20);
             lblId.TabIndex = 0;
@@ -284,7 +210,7 @@
             lblNombre.Anchor = AnchorStyles.Right;
             lblNombre.AutoSize = true;
             lblNombre.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNombre.Location = new Point(80, 57);
+            lblNombre.Location = new Point(80, 63);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(74, 20);
             lblNombre.TabIndex = 1;
@@ -296,7 +222,7 @@
             lblApellido.Anchor = AnchorStyles.Right;
             lblApellido.AutoSize = true;
             lblApellido.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblApellido.Location = new Point(61, 102);
+            lblApellido.Location = new Point(61, 112);
             lblApellido.Name = "lblApellido";
             lblApellido.Size = new Size(93, 20);
             lblApellido.TabIndex = 2;
@@ -307,7 +233,7 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(58, 192);
+            label2.Location = new Point(58, 210);
             label2.Name = "label2";
             label2.Size = new Size(96, 20);
             label2.TabIndex = 4;
@@ -317,7 +243,7 @@
             // 
             txtId.Anchor = AnchorStyles.Left;
             txtId.BorderStyle = BorderStyle.FixedSingle;
-            txtId.Location = new Point(160, 9);
+            txtId.Location = new Point(160, 11);
             txtId.Name = "txtId";
             txtId.Size = new Size(106, 27);
             txtId.TabIndex = 5;
@@ -326,17 +252,17 @@
             // 
             txtDescripcion.BorderStyle = BorderStyle.FixedSingle;
             txtDescripcion.Dock = DockStyle.Fill;
-            txtDescripcion.Location = new Point(160, 93);
+            txtDescripcion.Location = new Point(160, 101);
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(313, 39);
+            txtDescripcion.Size = new Size(313, 43);
             txtDescripcion.TabIndex = 7;
             // 
             // txtNombre
             // 
             txtNombre.Anchor = AnchorStyles.Left;
             txtNombre.BorderStyle = BorderStyle.FixedSingle;
-            txtNombre.Location = new Point(160, 54);
+            txtNombre.Location = new Point(160, 60);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(175, 27);
             txtNombre.TabIndex = 6;
@@ -344,7 +270,7 @@
             // dtpFechaInicio
             // 
             dtpFechaInicio.Anchor = AnchorStyles.Left;
-            dtpFechaInicio.Location = new Point(160, 144);
+            dtpFechaInicio.Location = new Point(160, 158);
             dtpFechaInicio.Name = "dtpFechaInicio";
             dtpFechaInicio.Size = new Size(295, 27);
             dtpFechaInicio.TabIndex = 9;
@@ -354,7 +280,7 @@
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(39, 147);
+            label5.Location = new Point(39, 161);
             label5.Name = "label5";
             label5.Size = new Size(115, 20);
             label5.TabIndex = 4;
@@ -363,7 +289,7 @@
             // dtpFechaFin
             // 
             dtpFechaFin.Anchor = AnchorStyles.Left;
-            dtpFechaFin.Location = new Point(160, 189);
+            dtpFechaFin.Location = new Point(160, 207);
             dtpFechaFin.Name = "dtpFechaFin";
             dtpFechaFin.Size = new Size(295, 27);
             dtpFechaFin.TabIndex = 8;
@@ -372,7 +298,7 @@
             // 
             txtPresupuesto.Anchor = AnchorStyles.Left;
             txtPresupuesto.BorderStyle = BorderStyle.FixedSingle;
-            txtPresupuesto.Location = new Point(160, 234);
+            txtPresupuesto.Location = new Point(160, 256);
             txtPresupuesto.Name = "txtPresupuesto";
             txtPresupuesto.Size = new Size(179, 27);
             txtPresupuesto.TabIndex = 7;
@@ -382,7 +308,7 @@
             lblPresupuesto.Anchor = AnchorStyles.Right;
             lblPresupuesto.AutoSize = true;
             lblPresupuesto.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPresupuesto.Location = new Point(57, 237);
+            lblPresupuesto.Location = new Point(57, 259);
             lblPresupuesto.Name = "lblPresupuesto";
             lblPresupuesto.Size = new Size(97, 20);
             lblPresupuesto.TabIndex = 1;
@@ -394,7 +320,7 @@
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(23, 282);
+            label1.Location = new Point(23, 308);
             label1.Name = "label1";
             label1.Size = new Size(131, 20);
             label1.TabIndex = 0;
@@ -404,7 +330,7 @@
             // 
             cbEstado.Anchor = AnchorStyles.Left;
             cbEstado.FormattingEnabled = true;
-            cbEstado.Location = new Point(160, 278);
+            cbEstado.Location = new Point(160, 304);
             cbEstado.Name = "cbEstado";
             cbEstado.Size = new Size(179, 28);
             cbEstado.TabIndex = 6;
@@ -413,7 +339,7 @@
             // 
             cbEstadoProyecto.Anchor = AnchorStyles.Left;
             cbEstadoProyecto.FormattingEnabled = true;
-            cbEstadoProyecto.Location = new Point(160, 327);
+            cbEstadoProyecto.Location = new Point(160, 354);
             cbEstadoProyecto.Name = "cbEstadoProyecto";
             cbEstadoProyecto.Size = new Size(179, 28);
             cbEstadoProyecto.TabIndex = 10;
@@ -425,7 +351,7 @@
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 52.4945755F));
             tableLayoutPanel6.Controls.Add(btnCancelar, 1, 0);
             tableLayoutPanel6.Controls.Add(btnGuardar, 0, 0);
-            tableLayoutPanel6.Location = new Point(17, 396);
+            tableLayoutPanel6.Location = new Point(17, 424);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -470,9 +396,7 @@
             ClientSize = new Size(578, 659);
             Controls.Add(tlpFondo);
             Controls.Add(statusStrip1);
-            Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            MainMenuStrip = menuStrip1;
             MinimumSize = new Size(600, 710);
             Name = "FormGestionarProyecto";
             ShowIcon = false;
@@ -481,8 +405,6 @@
             Load += FormGestionarProyecto_Load;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             tlpFondo.ResumeLayout(false);
             tlpTitulo.ResumeLayout(false);
             tlpTitulo.PerformLayout();
@@ -497,16 +419,7 @@
         #endregion
 
         private StatusStrip statusStrip1;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem archivoToolStripMenuItem;
-        private ToolStripMenuItem cerrarSesiónToolStripMenuItem;
-        private ToolStripMenuItem salirToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
-        private ToolStripMenuItem manualDeInformaciónToolStripMenuItem;
-        private ToolStripMenuItem acercaDeToolStripMenuItem;
-        private ToolStripMenuItem informaciónDeSistemaToolStripMenuItem;
         private ToolStripStatusLabel tsFecha;
-        private ToolStripStatusLabel tsEstado;
         private TableLayoutPanel tlpFondo;
         private TableLayoutPanel tlpTitulo;
         private Label lblTitulo;

@@ -31,8 +31,6 @@ namespace Negocio
                     tarea.Id = (int)datos.Lector["Id"];
                     tarea.Nombre = (string)datos.Lector["Nombre"];
                     tarea.Descripcion = (string)datos.Lector["Descripcion"];
-                    //tarea.FechaInicio = (DateTime)datos.Lector["FechaInicio"];
-                    //tarea.FechaFin = (DateTime)datos.Lector["FechaFin"];
                     tarea.FechaInicio = datos.Lector["FechaInicio"] == DBNull.Value ? (DateTime?)null : (DateTime)datos.Lector["FechaInicio"];
                     tarea.FechaFin = datos.Lector["FechaFin"] == DBNull.Value ? (DateTime?)null : (DateTime)datos.Lector["FechaFin"];
 
@@ -111,6 +109,26 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public int ObtenerIdTarea(string nombreTarea)
+        {
+            var datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("ObtenerIdTarea");
+                datos.setearParametro("@NombreTarea", nombreTarea);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                    return (int)datos.Lector["Id"];
+
+                return -1; // No encontrada
             }
             finally
             {
@@ -212,6 +230,127 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        //·······································································································//
+        //·······································································································//
+
+        // ASIGNACION EMPLEADO - TAREA
+
+        public List<Tareas> ListarTareasAsignadasPorEmpleadoYProyecto(int idEmpleado, int idProyecto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Tareas> lista = new List<Tareas>();
+
+            try
+            {
+                datos.setearProcedimiento("ListarTareasAsignadasPorEmpleadoYProyecto");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Tareas t = new Tareas();
+                    t.IdTareaProyecto = (int)datos.Lector["IdTareaProyecto"];
+                    t.Nombre = (string)datos.Lector["Nombre"];
+                    t.Descripcion = datos.Lector["Descripcion"] as string;
+                    t.FechaAsignacion = datos.Lector["FechaAsignacion"] != DBNull.Value ? (DateTime)datos.Lector["FechaAsignacion"] : (DateTime?)null;
+                    lista.Add(t);
+                }
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Tareas> ListarTareasDisponiblesParaAsignarPorEmpleadoYProyecto(int idEmpleado, int idProyecto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Tareas> lista = new List<Tareas>();
+
+            try
+            {
+                datos.setearProcedimiento("ListarTareasDisponiblesParaAsignarPorEmpleadoYProyecto");
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Tareas t = new Tareas();
+                    t.IdTareaProyecto = (int)datos.Lector["IdTareaProyecto"];
+                    t.Nombre = (string)datos.Lector["Nombre"];
+                    t.Descripcion = datos.Lector["Descripcion"] as string;
+                    lista.Add(t);
+                }
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        //public void AsignarTareaAEmpleadoEnProyecto(int idTareaProyecto, int idEmpleado, DateTime fechaAsignacion)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    try
+        //    {
+        //        datos.setearProcedimiento("AsignarTareaAEmpleadoEnProyecto");
+        //        datos.setearParametro("@IdTareaProyecto", idTareaProyecto);
+        //        datos.setearParametro("@IdEmpleado", idEmpleado);
+        //        datos.setearParametro("@FechaAsignacion", fechaAsignacion);
+        //        datos.ejecutarAccion();
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
+
+        public void AsignarTareaAEmpleadoEnProyecto(int idTareaProyecto, int idEmpleado, int idProyecto, DateTime fechaAsignacion)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("AsignarTareaAEmpleadoEnProyecto");
+                datos.setearParametro("@IdTareaProyecto", idTareaProyecto);
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.setearParametro("@FechaAsignacion", fechaAsignacion);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+        public void DesasignarTareaDeEmpleadoEnProyecto(int idTareaProyecto, int idEmpleado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("DesasignarTareaDeEmpleadoEnProyecto");
+                datos.setearParametro("@IdTareaProyecto", idTareaProyecto);
+                datos.setearParametro("@IdEmpleado", idEmpleado);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+        //·······································································································//
+        //·······································································································//
+
+        // ASIGNACION PROYECTO - TAREA
 
         public void AsignarTareaAProyecto(int idTarea, int idProyecto)
         {
@@ -233,50 +372,6 @@ namespace Negocio
             }
         }
 
-        public void AsignarTareaAEmpleadoEnProyecto(int idTareaProyecto, int idEmpleado, int idProyecto, DateTime fechaAsignacion)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearProcedimiento("AsignarTareaAEmpleadoEnProyecto");
-                datos.setearParametro("@IdTareaProyecto", idTareaProyecto); 
-                datos.setearParametro("@IdEmpleado", idEmpleado);
-                datos.setearParametro("@IdProyecto", idProyecto);
-                datos.setearParametro("@FechaAsignacion", fechaAsignacion);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public bool VerificarAsignacionTareaEmpleado(int idTarea, int idEmpleado)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearProcedimiento("VerificarAsignacionTareaEmpleado");
-                datos.setearParametro("@IdTarea", idTarea);
-                datos.setearParametro("@IdEmpleado", idEmpleado);
-                datos.ejecutarLectura();
-
-                return datos.Lector.Read(); 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
         public void DesignarTareaAProyecto(int idTarea, int idProyecto)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -285,26 +380,6 @@ namespace Negocio
                 datos.setearProcedimiento("DesasignarTareaDeProyecto");
                 datos.setearParametro("@IdTarea", idTarea);
                 datos.setearParametro("@IdProyecto", idProyecto);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public void DesasignarTareaDeEmpleado(int idEmpleado, int idTareaProyecto) 
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearProcedimiento("DesasignarTareaDeEmpleadoEnProyecto");
-                datos.setearParametro("@IdTareaProyecto", idTareaProyecto);
-                datos.setearParametro("@IdEmpleado", idEmpleado);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

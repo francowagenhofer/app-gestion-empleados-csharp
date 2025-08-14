@@ -93,6 +93,10 @@ namespace AppEscritorio_GestionDeEmpleados
             dgvProyectos.DataSource = null;
             dgvProyectos.DataSource = listaFiltrada.ToList();
 
+            if (dgvProyectos.Rows.Count > 0)
+                dgvProyectos.Rows[0].Selected = true;
+
+
             modificarColumnas();
         }
     
@@ -143,10 +147,9 @@ namespace AppEscritorio_GestionDeEmpleados
 
         private Proyectos ObtenerProyectoSeleccionado()
         {
-            if (dgvProyectos.CurrentRow != null)
+            if (dgvProyectos.CurrentRow != null && dgvProyectos.CurrentRow.DataBoundItem != null)
                 return dgvProyectos.CurrentRow.DataBoundItem as Proyectos;
-            else
-                return null;
+            return null;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -210,13 +213,25 @@ namespace AppEscritorio_GestionDeEmpleados
             }
         }
 
+        private void btnAsignaciones_Click(object sender, EventArgs e)
+        {
+            Proyectos seleccionado = ObtenerProyectoSeleccionado();
+            if (seleccionado == null)
+            {
+                MessageBox.Show("Seleccione un proyecto para gestionar asignaciones.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            FormAsignacionProyecto form = new FormAsignacionProyecto(seleccionado.Id);
+            form.ShowDialog();
+        }
+
+
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnAsignaciones_Click(object sender, EventArgs e)
-        {
-        }
     }
 }
