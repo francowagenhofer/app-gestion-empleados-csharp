@@ -9,13 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Negocio", "Negocio\Negocio.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppConsola-GestiónDeEmpleados", "AppConsola-GestionDeEmpleados\AppConsola-GestiónDeEmpleados.csproj", "{8FC826CD-9B9E-46D4-BE9A-35959C71FC44}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acceso-datos", "Acceso-datos", "{A48B32DA-50E7-4EF5-AE4E-7F7B72117EB4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GestiónPymeDB", "GestiónPymeDB", "{A48B32DA-50E7-4EF5-AE4E-7F7B72117EB4}"
 	ProjectSection(SolutionItems) = preProject
-		AccesoDatos\AccesoDatos.cs = AccesoDatos\AccesoDatos.cs
-		AccesoDatos\Consultas.sql = AccesoDatos\Consultas.sql
 		AccesoDatos\Funciones.sql = AccesoDatos\Funciones.sql
-		AccesoDatos\Script-BaseDeDatos.sql = AccesoDatos\Script-BaseDeDatos.sql
-		AccesoDatos\StoredProdcedure.sql = AccesoDatos\StoredProdcedure.sql
+		AccesoDatos\Create_DB.sql = AccesoDatos\Create_DB.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppEscritorio_GestionDeEmpleados", "AppEscritorio_GestionDeEmpleados\AppEscritorio_GestionDeEmpleados.csproj", "{7B1F87BF-DD34-497C-A00A-CDB5ABA8A3BD}"

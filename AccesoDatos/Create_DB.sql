@@ -96,7 +96,6 @@ CREATE TABLE TareasProyectos (
   CONSTRAINT UQ_TareaProyecto UNIQUE (IdTarea, IdProyecto)
 );
 
-
 CREATE TABLE AsignacionTareas (
   Id INT IDENTITY(1,1) PRIMARY KEY,
   IdTareaProyecto INT NOT NULL, 
@@ -106,7 +105,6 @@ CREATE TABLE AsignacionTareas (
   CONSTRAINT FK_AsignacionTareas_Empleados FOREIGN KEY (IdEmpleado) REFERENCES Empleados(Id),
   CONSTRAINT UQ_EmpleadoTareaProyecto UNIQUE (IdTareaProyecto, IdEmpleado)
 );
-
 
 
 CREATE TABLE Roles (
@@ -168,8 +166,6 @@ CREATE TABLE ReportesEmpleados (
   CONSTRAINT FK_ReportesEmpleados_Empleados FOREIGN KEY (IdEmpleado) REFERENCES Empleados(Id)
 );
 
-
------- ### ------- ### ------ #### -------------- ### ------- ### ------ #### -------------- ### ------- ### ------ #### --------
 
 CREATE TABLE Usuarios (
   Id INT IDENTITY(1,1) PRIMARY KEY,
