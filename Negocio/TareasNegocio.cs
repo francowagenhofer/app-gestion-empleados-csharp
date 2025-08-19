@@ -230,7 +230,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-        //·······································································································//
+
         //·······································································································//
 
         // ASIGNACION EMPLEADO - TAREA
@@ -292,23 +292,6 @@ namespace Negocio
             }
         }
 
-        //public void AsignarTareaAEmpleadoEnProyecto(int idTareaProyecto, int idEmpleado, DateTime fechaAsignacion)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
-        //    try
-        //    {
-        //        datos.setearProcedimiento("AsignarTareaAEmpleadoEnProyecto");
-        //        datos.setearParametro("@IdTareaProyecto", idTareaProyecto);
-        //        datos.setearParametro("@IdEmpleado", idEmpleado);
-        //        datos.setearParametro("@FechaAsignacion", fechaAsignacion);
-        //        datos.ejecutarAccion();
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarConexion();
-        //    }
-        //}
-
         public void AsignarTareaAEmpleadoEnProyecto(int idTareaProyecto, int idEmpleado, int idProyecto, DateTime fechaAsignacion)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -347,7 +330,6 @@ namespace Negocio
 
 
 
-        //·······································································································//
         //·······································································································//
 
         // ASIGNACION PROYECTO - TAREA
@@ -429,6 +411,45 @@ namespace Negocio
             }
         }
 
+        public List<Tareas> ListarTareasDisponiblesParaAsignarAProyecto(int idProyecto)
+        {
+            List<Tareas> tareas = new List<Tareas>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarTareasDisponiblesParaAsignarAProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Tareas tarea = new Tareas();
+                    tarea.Id = (int)datos.Lector["Id"];
+                    tarea.Nombre = (string)datos.Lector["Nombre"];
+                    tarea.Descripcion = (string)datos.Lector["Descripcion"];
+                    tarea.FechaInicio = (DateTime)datos.Lector["FechaInicio"];
+                    tarea.FechaFin = (DateTime)datos.Lector["FechaFin"];
+                    tarea.Estado = (string)datos.Lector["Estado"];
+                    tareas.Add(tarea);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return tareas;
+        }
+
+
+        //·······································································································//
+        //·······································································································//
+        //·······································································································//
         public List<Empleado> ListarEmpleadosAsignadosATarea(int idTarea, int idProyecto)
         {
             AccesoDatos datos = new AccesoDatos();

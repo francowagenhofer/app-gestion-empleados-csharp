@@ -374,9 +374,9 @@
             lblEmpleadoProyecto.ForeColor = Color.Navy;
             lblEmpleadoProyecto.Location = new Point(465, 22);
             lblEmpleadoProyecto.Name = "lblEmpleadoProyecto";
-            lblEmpleadoProyecto.Size = new Size(77, 31);
+            lblEmpleadoProyecto.Size = new Size(118, 31);
             lblEmpleadoProyecto.TabIndex = 1;
-            lblEmpleadoProyecto.Text = "label5";
+            lblEmpleadoProyecto.Text = "Empleado";
             lblEmpleadoProyecto.UseWaitCursor = true;
             // 
             // lblTitulo
@@ -619,9 +619,9 @@
             lblEmpleadoRol.ForeColor = Color.Navy;
             lblEmpleadoRol.Location = new Point(465, 19);
             lblEmpleadoRol.Name = "lblEmpleadoRol";
-            lblEmpleadoRol.Size = new Size(77, 31);
+            lblEmpleadoRol.Size = new Size(118, 31);
             lblEmpleadoRol.TabIndex = 2;
-            lblEmpleadoRol.Text = "label5";
+            lblEmpleadoRol.Text = "Empleado";
             lblEmpleadoRol.UseWaitCursor = true;
             // 
             // label2
@@ -862,9 +862,9 @@
             lblEmpleadoTarea.ForeColor = Color.Navy;
             lblEmpleadoTarea.Location = new Point(465, 22);
             lblEmpleadoTarea.Name = "lblEmpleadoTarea";
-            lblEmpleadoTarea.Size = new Size(77, 31);
+            lblEmpleadoTarea.Size = new Size(118, 31);
             lblEmpleadoTarea.TabIndex = 3;
-            lblEmpleadoTarea.Text = "label5";
+            lblEmpleadoTarea.Text = "Empleado";
             lblEmpleadoTarea.UseWaitCursor = true;
             // 
             // label4
@@ -1095,9 +1095,9 @@
             lblEmpleadoBono.ForeColor = Color.Navy;
             lblEmpleadoBono.Location = new Point(465, 22);
             lblEmpleadoBono.Name = "lblEmpleadoBono";
-            lblEmpleadoBono.Size = new Size(77, 31);
+            lblEmpleadoBono.Size = new Size(118, 31);
             lblEmpleadoBono.TabIndex = 4;
-            lblEmpleadoBono.Text = "label5";
+            lblEmpleadoBono.Text = "Empleado";
             lblEmpleadoBono.UseWaitCursor = true;
             // 
             // FormAsignacionEmpleado

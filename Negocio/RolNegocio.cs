@@ -168,6 +168,8 @@ namespace Negocio
             }
         }
 
+
+        // Metodos de Roles para las asignaciones en Empleados
         public void AsignarRolAEmpleadoEnProyecto(int idEmpleado, int idRol, int idProyecto)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -212,38 +214,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-
-        //public List<Rol> ListarRolesDeEmpleadosEnProyecto(int idProyecto)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
-        //    List<Rol> roles = new List<Rol>();
-        //    try
-        //    {
-        //        datos.setearProcedimiento("ListarRolesDeEmpleadosEnProyecto");
-        //        datos.setearParametro("@IdProyecto", idProyecto);
-        //        datos.ejecutarLectura();
-
-        //        while (datos.Lector.Read())
-        //        {
-        //            Rol rol = new Rol();
-        //            rol.Id = (int)datos.Lector["IdRol"];
-        //            rol.Nombre = (string)datos.Lector["Nombre"];
-        //            rol.Descripcion = (string)datos.Lector["Descripcion"];
-        //            roles.Add(rol);
-        //        }
-
-        //        return roles;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarConexion();
-        //    }
-        //}
 
         public List<Rol> ListarRolesAsignadosPorEmpleadoYProyecto(int idEmpleado, int idProyecto)
         {
@@ -302,6 +272,100 @@ namespace Negocio
 
             return lista;
         }
+
+        // Metodos de Roles para las asignaciones en Proyectos
+        public List<Rol> ListarRolesAsignadosAProyecto(int idProyecto)
+        {
+            List<Rol> lista = new List<Rol>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarRolesAsignadosAProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    lista.Add(new Rol
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Descripcion = datos.Lector["Descripcion"]?.ToString()
+                    });
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
+        }
+
+        public List<Rol> ListarRolesDisponiblesParaAsignarAProyecto(int idProyecto)
+        {
+            List<Rol> lista = new List<Rol>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("ListarRolesDisponiblesParaAsignarAProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    lista.Add(new Rol
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Descripcion = datos.Lector["Descripcion"]?.ToString()
+                    });
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
+        }
+
+        public void AsignarRolAProyecto(int idProyecto, int idRol)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("AsignarRolAProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.setearParametro("@IdRol", idRol);
+
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void DesasignarRolDeProyecto(int idProyecto, int idRol)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("DesasignarRolDeProyecto");
+                datos.setearParametro("@IdProyecto", idProyecto);
+                datos.setearParametro("@IdRol", idRol);
+
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
     }
 }

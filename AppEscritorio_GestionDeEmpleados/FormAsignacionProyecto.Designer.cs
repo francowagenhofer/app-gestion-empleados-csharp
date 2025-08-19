@@ -329,9 +329,9 @@
             lblEmpleadoTarea.ForeColor = Color.Navy;
             lblEmpleadoTarea.Location = new Point(465, 22);
             lblEmpleadoTarea.Name = "lblEmpleadoTarea";
-            lblEmpleadoTarea.Size = new Size(77, 31);
+            lblEmpleadoTarea.Size = new Size(107, 31);
             lblEmpleadoTarea.TabIndex = 3;
-            lblEmpleadoTarea.Text = "label5";
+            lblEmpleadoTarea.Text = "Proyecto";
             lblEmpleadoTarea.UseWaitCursor = true;
             // 
             // label4
@@ -549,9 +549,9 @@
             lblEmpleadoRol.ForeColor = Color.Navy;
             lblEmpleadoRol.Location = new Point(465, 19);
             lblEmpleadoRol.Name = "lblEmpleadoRol";
-            lblEmpleadoRol.Size = new Size(77, 31);
+            lblEmpleadoRol.Size = new Size(107, 31);
             lblEmpleadoRol.TabIndex = 2;
-            lblEmpleadoRol.Text = "label5";
+            lblEmpleadoRol.Text = "Proyecto";
             lblEmpleadoRol.UseWaitCursor = true;
             // 
             // label2
@@ -768,9 +768,9 @@
             lblEmpleadoProyecto.ForeColor = Color.Navy;
             lblEmpleadoProyecto.Location = new Point(465, 22);
             lblEmpleadoProyecto.Name = "lblEmpleadoProyecto";
-            lblEmpleadoProyecto.Size = new Size(77, 31);
+            lblEmpleadoProyecto.Size = new Size(107, 31);
             lblEmpleadoProyecto.TabIndex = 1;
-            lblEmpleadoProyecto.Text = "label5";
+            lblEmpleadoProyecto.Text = "Proyecto";
             lblEmpleadoProyecto.UseWaitCursor = true;
             // 
             // lblTitulo

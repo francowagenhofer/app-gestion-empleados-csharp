@@ -146,17 +146,14 @@ namespace Negocio
                     aux.IdProyecto = (int)datos.Lector["IdProyecto"];
                     aux.NombreProyecto = (string)datos.Lector["NombreProyecto"];
 
-                    // Verificación para columnas de tipo decimal
                     aux.Presupuesto = datos.Lector["Presupuesto"] != DBNull.Value ? (decimal)datos.Lector["Presupuesto"] : 0m;
                     aux.TiempoEstimado = datos.Lector["TiempoEstimado"] != DBNull.Value ? (decimal)datos.Lector["TiempoEstimado"] : 0m;
 
-                    // Verificación para columnas de tipo string
                     aux.EstadoProyecto = datos.Lector["EstadoProyecto"] != DBNull.Value ? (string)datos.Lector["EstadoProyecto"] : "";
                     aux.AsignacionesEmpleados = datos.Lector["AsignacionesEmpleados"] != DBNull.Value ? (string)datos.Lector["AsignacionesEmpleados"] : "";
                     aux.TareasAsignadas = datos.Lector["TareasAsignadas"] != DBNull.Value ? (string)datos.Lector["TareasAsignadas"] : "";
                     aux.RolesAsignados = datos.Lector["RolesAsignados"] != DBNull.Value ? (string)datos.Lector["RolesAsignados"] : "";
 
-                    // Verificación para la fecha
                     aux.FechaGeneracion = datos.Lector["FechaGeneracion"] != DBNull.Value ? (DateTime)datos.Lector["FechaGeneracion"] : DateTime.MinValue;
 
                     lista.Add(aux);
@@ -166,7 +163,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex; // Podrías considerar registrar el error en lugar de lanzar directamente
+                throw ex; 
             }
             finally
             {
@@ -181,15 +178,6 @@ namespace Negocio
             {
                 datos.setearProcedimiento("GenerarReporteProyecto");
                 datos.setearParametro("@IdProyecto", nuevoReporte.IdProyecto);
-                //datos.setearParametro("@NombreProyecto", nuevoReporte.NombreProyecto);
-                //datos.setearParametro("@Presupuesto", nuevoReporte.Presupuesto);
-                //datos.setearParametro("@EstadoProyecto", nuevoReporte.EstadoProyecto);
-                //datos.setearParametro("@AsignacionesEmpleados", nuevoReporte.AsignacionesEmpleados);
-                //datos.setearParametro("@TareasAsignadas", nuevoReporte.TareasAsignadas);
-                //datos.setearParametro("@RolesAsignados", nuevoReporte.RolesAsignados);
-                //datos.setearParametro("@TiempoEstimado", nuevoReporte.TiempoEstimado);
-                //datos.setearParametro("@FechaGeneracion", nuevoReporte.FechaGeneracion);
-
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

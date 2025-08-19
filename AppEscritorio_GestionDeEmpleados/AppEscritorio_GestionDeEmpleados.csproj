@@ -17,6 +17,9 @@
     <Compile Update="FormAsignacionProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormDetalleReporteProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormGestionarProyecto.cs">
       <SubType>Form</SubType>
     </Compile>

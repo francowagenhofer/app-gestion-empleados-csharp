@@ -24,8 +24,8 @@ namespace AppEscritorio_GestionDeEmpleados
         private RolNegocio rolNegocio = new RolNegocio();
         private TareasNegocio tareaNegocio = new TareasNegocio();
         private BonosNegocio bonoNegocio = new BonosNegocio();
-
         private EmpleadoNegocio negocio = new EmpleadoNegocio();
+
         public FormAsignacionEmpleado(int idEmpleado)
         {
             InitializeComponent();
@@ -260,7 +260,7 @@ namespace AppEscritorio_GestionDeEmpleados
         }
         public static void ConfigurarColumnasTareasDisponibles(DataGridView dgv)
         {
-            foreach (DataGridViewColumn col in dgv.Columns) col.Visible = false; // Oculta todas
+            foreach (DataGridViewColumn col in dgv.Columns) col.Visible = false;
             if (dgv.Columns.Contains("Nombre"))
             {
                 dgv.Columns["Nombre"].Visible = true;
@@ -269,11 +269,8 @@ namespace AppEscritorio_GestionDeEmpleados
             }
         }
 
-
         private void btnDesasignarTarea_Click(object sender, EventArgs e)
         {
-
-
             if (dgvTareasAsignadas.CurrentRow?.DataBoundItem is Tareas tarea && tarea.IdTareaProyecto > 0)
             {
                 tareaNegocio.DesasignarTareaDeEmpleadoEnProyecto(tarea.IdTareaProyecto, _idEmpleado);
@@ -289,7 +286,7 @@ namespace AppEscritorio_GestionDeEmpleados
                 tareaNegocio.AsignarTareaAEmpleadoEnProyecto(
                     tarea.IdTareaProyecto,
                     _idEmpleado,
-                    idProyectoTareasSeleccionado, // <- aquí se pasa el proyecto
+                    idProyectoTareasSeleccionado,
                     DateTime.Now
                 );
                 cbProyectosTareas_SelectedIndexChanged(null, null);
@@ -356,6 +353,5 @@ namespace AppEscritorio_GestionDeEmpleados
         {
             Close();
         }
-
     }
 }

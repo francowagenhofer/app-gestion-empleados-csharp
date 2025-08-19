@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace Negocio
 {
@@ -223,6 +224,9 @@ namespace Negocio
                     empleado.Id = (int)datos.Lector["Id"];
                     empleado.Nombre = (string)datos.Lector["Nombre"];
                     empleado.Apellido = (string)datos.Lector["Apellido"];
+
+                    empleado.IsActive = (bool)datos.Lector["IsActive"];
+                    empleado.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"]: null;
                     empleadosAsignados.Add(empleado);
                 }
             }
@@ -255,6 +259,9 @@ namespace Negocio
                     empleado.Id = (int)datos.Lector["Id"];
                     empleado.Nombre = (string)datos.Lector["Nombre"];
                     empleado.Apellido = (string)datos.Lector["Apellido"];
+
+                    empleado.IsActive = (bool)datos.Lector["IsActive"];
+                    empleado.NombreCategoria = datos.Lector["NombreCategoria"] != DBNull.Value ? (string)datos.Lector["NombreCategoria"]: null;
                     empleadosDisponibles.Add(empleado);
                 }
             }
