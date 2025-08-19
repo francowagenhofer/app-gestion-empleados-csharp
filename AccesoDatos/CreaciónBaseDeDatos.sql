@@ -78,7 +78,6 @@ CREATE TABLE AsignacionProyectos (
   CONSTRAINT FK_AsignacionProyectos_Proyectos FOREIGN KEY (IdProyecto) REFERENCES Proyectos(Id)
 );
 
-
 CREATE TABLE Tareas (
   Id INT IDENTITY(1,1) PRIMARY KEY,
   Nombre VARCHAR(100) NULL,

@@ -107,16 +107,17 @@ namespace AppEscritorio_GestionDeEmpleados
             dgvTareas.DataSource = listaFiltrada;
 
             dgvTareas.Columns["Id"].FillWeight = 5;
-            dgvTareas.Columns["Nombre"].FillWeight = 10;
-            dgvTareas.Columns["Descripcion"].FillWeight = 40;
+            dgvTareas.Columns["Nombre"].FillWeight = 20;
+            dgvTareas.Columns["Descripcion"].FillWeight = 30;
             dgvTareas.Columns["FechaInicio"].FillWeight = 15;
             dgvTareas.Columns["FechaFin"].FillWeight = 15;
             dgvTareas.Columns["Estado"].FillWeight = 15;
 
             dgvTareas.Columns["Id"].Visible = true;
+            dgvTareas.Columns["IdTareaProyecto"].Visible = false;
+            dgvTareas.Columns["FechaAsignacion"].Visible = false;
 
             dgvTareas.Columns["Nombre"].HeaderText = "Tarea";
-
         }
 
         private Tareas ObtenerTareaSeleccionada()
