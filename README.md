@@ -1,6 +1,6 @@
 # 💼 Sistema de Gestión de Empleados - App Consola + Escritorio (C# + SQL Server)
 
-![Gestión Pyme](Imagenes/logo.png)
+![Gestión Pyme]
 
 Aplicación para la gestión de **empleados, proyectos, tareas, roles, salarios y reportes**, desarrollada en **C# con .NET**.  
 Incluye **interfaz de consola** y **opcional interfaz de escritorio (WinForms)**, conectada a **SQL Server**.
@@ -53,14 +53,14 @@ Los **procedimientos almacenados** no están implementados.
 
 ---
 
-## ▶️ Ejecución rápida
+## ▶️ Ejecución
 
 ### Consola
 1. Abrir la solución en Visual Studio.  
 2. Establecer `AppConsola-GestionDeEmpleados` como proyecto de inicio.  
-3. Compilar y ejecutar (F5).
+3. Compilar y ejecutar.
 
-### Escritorio (opcional)
+### Escritori
 1. Abrir la solución en Visual Studio.  
 2. Establecer `AppEscritorio_GestionDeEmpleados` como proyecto de inicio.  
 3. Compilar y ejecutar.
