@@ -1,7 +1,7 @@
 # 💼 Sistema de Gestión de Empleados - App Consola + Escritorio (C# + SQL Server)
 
 Aplicación para la gestión de **empleados, proyectos, tareas, roles, salarios y reportes**, desarrollada en **C# con .NET**.  
-Incluye **interfaz de consola** y **opcional interfaz de escritorio (WinForms)**, conectada a **SQL Server**.
+Incluye **interfaz de escritorio (WinForms)** y **opcional interfaz de consola**, conectada a **SQL Server**.
 
 ---
 
