@@ -30,12 +30,14 @@ Incluye **interfaz de escritorio (WinForms)** y **opcional interfaz de consola**
 - Utiliza **SQL Server Express**.  
 - **Cadena de conexión** (en `AccesoDatos.cs`):
 
-`public AccesoDatos()
+``
+public AccesoDatos()
 {
     conexion = new SqlConnection("server=.\\SQLEXPRESS; database=GestionEmpleadosDB; integrated security=true");
     comando = new SqlCommand();
 }
-`
+``
+
 Incluye **script de creación de base de datos** y datos iniciales (`.sql`).  
 
 Los **procedimientos almacenados** no están implementados.  
