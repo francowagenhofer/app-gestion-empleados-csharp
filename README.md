@@ -60,7 +60,7 @@ Los **procedimientos almacenados** no están implementados.
 2. Establecer `AppConsola-GestionDeEmpleados` como proyecto de inicio.  
 3. Compilar y ejecutar.
 
-### Escritori
+### Escritorio
 1. Abrir la solución en Visual Studio.  
 2. Establecer `AppEscritorio_GestionDeEmpleados` como proyecto de inicio.  
 3. Compilar y ejecutar.
