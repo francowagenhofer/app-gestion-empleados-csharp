@@ -1,7 +1,5 @@
 # 💼 Sistema de Gestión de Empleados - App Consola + Escritorio (C# + SQL Server)
 
-![Gestión Pyme]
-
 Aplicación para la gestión de **empleados, proyectos, tareas, roles, salarios y reportes**, desarrollada en **C# con .NET**.  
 Incluye **interfaz de consola** y **opcional interfaz de escritorio (WinForms)**, conectada a **SQL Server**.
 
